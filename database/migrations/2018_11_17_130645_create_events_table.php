@@ -20,13 +20,13 @@ class CreateEventsTable extends Migration
             $table->string('second_name');
             $table->unsignedInteger('project_id');
             $table->unsignedInteger('location_id');
-            $table->unsignedInteger('seat_map_id');
+            $table->unsignedInteger('seat_map_id')->nullable();
             $table->unsignedInteger('price_list_id');
             $table->timestamps();
 
             $table->foreign('project_id')->references('id')->on('projects');
             $table->foreign('location_id')->references('id')->on('locations');
-            $table->foreign('seat_map_id')->references('id')->on('seat_maps');
+            $table->foreign('seat_map_id')->references('id')->on('seat_maps')->onDelete('SET NULL');
             $table->foreign('price_list_id')->references('id')->on('price_lists');
         });
     }
