@@ -11,6 +11,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UsersTableSeeder::class);
+        // Load all existing seatmaps into database
+        $this->call(SeatMapSeeder::class);
     }
 }
