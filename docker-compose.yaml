@@ -18,6 +18,8 @@ services:
       - MYSQL_USER=homestead
       - MYSQL_PASSWORD=secret
       - MYSQL_ROOT_PASSWORD=secret
+    volumes: 
+      - mysql_data:/var/lib/mysql
 
   myadmin:
     image: phpmyadmin/phpmyadmin:latest
@@ -26,3 +28,5 @@ services:
     external_links:
       - mysql:db
 
+volumes: 
+  mysql_data:
