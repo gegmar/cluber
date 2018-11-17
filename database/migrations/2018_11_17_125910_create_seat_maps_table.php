@@ -15,8 +15,7 @@ class CreateSeatMapsTable extends Migration
     {
         Schema::create('seat_maps', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('rows');
-            $table->integer('columns');
+            $table->integer('seats');
             $table->string('name');
             $table->text('description');
             $table->timestamps();
