@@ -9,7 +9,7 @@ $factory->define(App\Event::class, function (Faker $faker) {
     return [
         'start_date' => $startDate,
         'end_date' => $endDate,
-        'second_name' => $faker->sentence,
+        'second_name' => $faker->word,
         'project_id' => factory(App\Project::class)->make()->id,
         'location_id' => factory(App\Location::class)->make()->id,
         'seat_map_id' => factory(App\SeatMap::class)->make()->id,

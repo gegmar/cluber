@@ -19,7 +19,7 @@ class StartController extends Controller
     {
         $projects = Project::with(['events' => function ($query) {
             $query->where('start_date', '>=', new \DateTime());
-        }])->get();
+        }, 'events.location'])->get();
 
         $currentProjects = $projects->filter(function ($project) {
             return $project->events->count() > 0;
@@ -27,4 +27,6 @@ class StartController extends Controller
 
         return view('start', ['projects' => $currentProjects]);
     }
+
+
 }
