@@ -12,7 +12,7 @@
                     <div class="info d-flex align-items-center">
                         <div class="content">
                             <div class="logo">
-                                <h1>Cluber</h1>
+                                <h1>{{ config('app.name', 'Laravel') }}</h1>
                             </div>
                             <p>Free platform for theatre clubs</p>
                         </div>
