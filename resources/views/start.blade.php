@@ -38,7 +38,7 @@
                                     <h6 class="card-subtitle mb-2 text-muted">{{ $event->location->name }}</h6>
                                     <p class="card-text">{{ $event->start_date}}</p>
                                     <a href="{{ route('ts.seatmap', ['event' => $event->id]) }}" class="btn btn-primary">{{
-                                        __('Buy_Tickets') }}</a>
+                                        __('ticketshop.Buy_Tickets') }}</a>
                                 </div>
                             </div>
                         </div>

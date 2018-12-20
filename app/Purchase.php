@@ -19,7 +19,7 @@ class Purchase extends Model
     {
         return $this->belongsTo('App\User', 'id', 'customer_id');
     }
-    
+
     public function vendor()
     {
         return $this->belongsTo('App\User', 'id', 'vendor_id');

@@ -31,7 +31,7 @@ services:
   smtp4dev:
     image: rnwood/smtp4dev:linux-amd64-v3
     ports:
-      - 3000:3000
+      - 8081:80
       - "2525:25"
 
 #volumes: 
