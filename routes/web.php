@@ -22,3 +22,17 @@ Route::get('/', 'StartController@index')->name('start');
 Route::namespace('TicketShop')->prefix('ts')->name('ts.')->group(function () {
     Route::get('/seatmap/{event}', 'SeatMapController@selectSeats')->name('seatmap');
 });
+
+Route::prefix('/layout')->group(function () {
+    Route::get('/', function () {
+        return view('layouts.start');
+    });
+
+    Route::get('/login', function () {
+        return view('layouts.login');
+    });
+
+    Route::get('/register', function () {
+        return view('layouts.register');
+    });
+});
