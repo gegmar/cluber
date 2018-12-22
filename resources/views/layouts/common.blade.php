@@ -10,6 +10,7 @@
         @component('components.nav')
         @endcomponent
         <div class="content-inner">
+            <div id="navbar-link" data-link="@yield('nav-link')"></div>
             <!-- Page Header-->
             <header class="page-header">
                 <div class="container-fluid">

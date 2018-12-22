@@ -146,7 +146,8 @@ $(document).ready(function () {
     // ------------------------------------------------------ //
     // Mark current page link as active
     // ------------------------------------------------------ //
-    var curLink = $('nav.side-navbar').find('[href="' + window.location.href + '"]');
+    var givenLink = $('#navbar-link').data('link');
+    var curLink = $('nav.side-navbar').find('[href="' + givenLink + '"]');
     curLink.parents( $('nav.side-navbar'), 'li').addClass('active');
     curLink.parents( $('nav.side-navbar'), 'li > a[datatoggle="collapse"]').attr('aria-expanded', 'true');
     curLink.parents( $('nav.side-navbar'), 'ul.collapse').removeClass('collapse');
