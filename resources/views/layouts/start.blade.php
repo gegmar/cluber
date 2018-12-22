@@ -1,8 +1,8 @@
 @extends('layouts.common')
 
-@section('title', 'Startpage')
+@section('title', 'Ticketshop')
 
-@section('page-title', 'START')
+@section('page-title', 'Tickets')
 
 @section('content')
 

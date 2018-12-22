@@ -144,33 +144,11 @@ $(document).ready(function () {
     });
 
     // ------------------------------------------------------ //
-    // For demo purposes, can be deleted
+    // Mark current page link as active
     // ------------------------------------------------------ //
-
-    var stylesheet = $('link#theme-stylesheet');
-    $("<link id='new-stylesheet' rel='stylesheet'>").insertAfter(stylesheet);
-    var alternateColour = $('link#new-stylesheet');
-
-    if ($.cookie("theme_csspath")) {
-        alternateColour.attr("href", $.cookie("theme_csspath"));
-    }
-
-    $("#colour").change(function () {
-
-        if ($(this).val() !== '') {
-
-            var theme_csspath = 'css/style.' + $(this).val() + '.css';
-
-            alternateColour.attr("href", theme_csspath);
-
-            $.cookie("theme_csspath", theme_csspath, {
-                expires: 365,
-                path: document.URL.substr(0, document.URL.lastIndexOf('/'))
-            });
-
-        }
-
-        return false;
-    });
+    var curLink = $('nav.side-navbar').find('[href="' + window.location.href + '"]');
+    curLink.parents( $('nav.side-navbar'), 'li').addClass('active');
+    curLink.parents( $('nav.side-navbar'), 'li > a[datatoggle="collapse"]').attr('aria-expanded', 'true');
+    curLink.parents( $('nav.side-navbar'), 'ul.collapse').removeClass('collapse');
 
 });

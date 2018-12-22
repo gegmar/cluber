@@ -24,9 +24,41 @@ Route::namespace('TicketShop')->prefix('ts')->name('ts.')->group(function () {
 });
 
 Route::prefix('/layout')->group(function () {
+    
+    // CustomerArea
+
     Route::get('/', function () {
         return view('layouts.start');
-    });
+    })->name('laystart');
+
+    Route::get('/seatmap', function () {
+        return view('layouts.start');
+    })->name('layseatmap');
+
+    Route::get('/customerdata', function () {
+        return view('layouts.start');
+    })->name('laycdata');
+
+    Route::get('/purchoverview', function () {
+        return view('layouts.start');
+    })->name('laypurov');
+
+    Route::get('/purchsuccess', function () {
+        return view('layouts.start');
+    })->name('laypursucc');
+
+    // BackOffice
+
+    Route::get('/selltickets', function () {
+        return view('layouts.start');
+    })->name('layselltick');
+
+    Route::get('/soldtickets', function () {
+        return view('layouts.start');
+    })->name('laysoldtick');
+
+
+    // Login/Logout
 
     Route::get('/login', function () {
         return view('layouts.login');
