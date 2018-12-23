@@ -32,7 +32,7 @@ Route::prefix('/layout')->group(function () {
     })->name('laystart');
 
     Route::get('/seatmap', function () {
-        return view('layouts.start');
+        return view('layouts.seatmap');
     })->name('layseatmap');
 
     Route::get('/customerdata', function () {

@@ -7,6 +7,12 @@
 @section('nav-link', route('laystart'))
 
 @section('content')
+<!---  Breadcrumb -->
+<div class="breadcrumb-holder container-fluid">
+    <ul class="breadcrumb">
+        <li class="breadcrumb-item">Events</li>
+    </ul>
+</div>
 <section>
     <div class="container-fluid">
         <div class="row">

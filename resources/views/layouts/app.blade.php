@@ -16,6 +16,8 @@
     <link rel="stylesheet" href="/vendor/font-awesome/css/font-awesome.min.css">
     <!-- Fontastic Custom icon font-->
     <link rel="stylesheet" href="/css/fontastic.css">
+    <!-- Seat-Charts css -->
+    <link rel="stylesheet" href="/vendor/jquery.seat-charts/css/jquery.seat-charts.css">
     <!-- Google fonts - Poppins -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,700">
     <!-- theme stylesheet-->
@@ -46,9 +48,12 @@
     </script>
     <script src="/vendor/jquery-validation/jquery.validate.min.js">
     </script>
+    <script src="/vendor/jquery.seat-charts/js/jquery.seat-charts.min.js">
+    </script>
     <!-- Main File-->
     <script src="/js/front.js">
     </script>
+    @yield('custom-js')
 </body>
 
 </html>
