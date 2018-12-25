@@ -21,7 +21,7 @@
                     <div class="card-header">Verteidigung von Molln</div>
                     <div class="card-body">
                         <h4 class="card-title">3. Aufführung</h4>
-                        <p class="card-text">Friday, 21.12.2018</p><a href="{{ route('layseatmap') }}" class="btn btn-primary">Buy
+                        <p class="card-text">Friday, 21.12.2018</p><a href="{{ route('layseats') }}" class="btn btn-primary">Buy
                             Tickets</a>
                     </div>
                     <div class="card-footer text-muted">Still tickets available</div>
@@ -57,7 +57,7 @@
                     <div class="card-header">Verteidigung von Molln</div>
                     <div class="card-body">
                         <h4 class="card-title">3. Aufführung</h4>
-                        <p class="card-text">Friday, 21.12.2018</p><a href="{{ route('layseatmap') }}" class="btn btn-primary">Buy
+                        <p class="card-text">Friday, 21.12.2018</p><a href="{{ route('layseats') }}" class="btn btn-primary">Buy
                             Tickets</a>
                     </div>
                     <div class="card-footer text-muted">Still tickets available</div>
@@ -93,7 +93,7 @@
                     <div class="card-header">Verteidigung von Molln</div>
                     <div class="card-body">
                         <h4 class="card-title">3. Aufführung</h4>
-                        <p class="card-text">Friday, 21.12.2018</p><a href="{{ route('layseatmap') }}" class="btn btn-primary">Buy
+                        <p class="card-text">Friday, 21.12.2018</p><a href="{{ route('layseats') }}" class="btn btn-primary">Buy
                             Tickets</a>
                     </div>
                     <div class="card-footer text-muted">Still tickets available</div>

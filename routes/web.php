@@ -35,6 +35,10 @@ Route::prefix('/layout')->group(function () {
         return view('layouts.seatmap');
     })->name('layseatmap');
 
+    Route::get('/seats', function () {
+        return view('layouts.seats');
+    })->name('layseats');
+
     Route::get('/customerdata', function () {
         return view('layouts.start');
     })->name('laycdata');
