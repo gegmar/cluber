@@ -35,6 +35,9 @@
                             <input type="text" name="reduced-tickets" class="form-control">
                         </div>
                     </div>
+                    <div class="form-group row justify-content-center">
+                        <button type="submit" class="col-sm-2 btn btn-primary">Continue</button>
+                    </div>
                 </form>
             </div>
         </div>

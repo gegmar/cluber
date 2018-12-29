@@ -40,15 +40,15 @@ Route::prefix('/layout')->group(function () {
     })->name('layseats');
 
     Route::get('/customerdata', function () {
-        return view('layouts.start');
+        return view('layouts.customer-data');
     })->name('laycdata');
 
     Route::get('/purchoverview', function () {
-        return view('layouts.start');
+        return view('layouts.purchase-overview');
     })->name('laypurov');
 
     Route::get('/purchsuccess', function () {
-        return view('layouts.start');
+        return view('layouts.purchase-success');
     })->name('laypursucc');
 
     // BackOffice
