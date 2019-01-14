@@ -10,6 +10,7 @@ $factory->define(SeatMap::class, function (Faker $faker) {
     return [
         'seats' => $faker->numberBetween(20, 5000),
         'name' => $faker->word,
-        'description' => $faker->sentence()
+        'description' => $faker->sentence(),
+        'layout' => null
     ];
 });

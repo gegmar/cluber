@@ -18,6 +18,7 @@ class CreateSeatMapsTable extends Migration
             $table->integer('seats');
             $table->string('name');
             $table->text('description');
+            $table->text('layout')->nullable();
             $table->timestamps();
         });
     }

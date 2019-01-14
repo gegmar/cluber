@@ -14,61 +14,19 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/', 'StartController@index')->name('start');
+Route::get('/', 'TicketShop\EventsController@index')->name('start');
 
 /**
  * Public ticket shop routes
  */
 Route::namespace('TicketShop')->prefix('ts')->name('ts.')->group(function () {
-    Route::get('/seatmap/{event}', 'SeatMapController@selectSeats')->name('seatmap');
-});
 
-Route::prefix('/layout')->group(function () {
-    
-    // CustomerArea
+    Route::get('/', 'EventsController@index')->name('events');
 
-    Route::get('/', function () {
-        return view('layouts.start');
-    })->name('laystart');
+    Route::get('/{event}/seatmap', 'SeatMapController@getSeats')->name('seatmap');
+    Route::post('/{event}/seatmap', 'SeatMapController@setSeats')->name('setSeatMap');
 
-    Route::get('/seatmap', function () {
-        return view('layouts.seatmap');
-    })->name('layseatmap');
+    Route::get('/my-data', 'CustomerDataController@getData')->name('customerData');
+    Route::post('/my-data', 'CustomerDataController@setData')->name('setCustomerData');
 
-    Route::get('/seats', function () {
-        return view('layouts.seats');
-    })->name('layseats');
-
-    Route::get('/customerdata', function () {
-        return view('layouts.customer-data');
-    })->name('laycdata');
-
-    Route::get('/purchoverview', function () {
-        return view('layouts.purchase-overview');
-    })->name('laypurov');
-
-    Route::get('/purchsuccess', function () {
-        return view('layouts.purchase-success');
-    })->name('laypursucc');
-
-    // BackOffice
-
-    Route::get('/selltickets', function () {
-        return view('layouts.start');
-    })->name('layselltick');
-
-    Route::get('/soldtickets', function () {
-        return view('layouts.start');
-    })->name('laysoldtick');
-
-
-    // Login/Logout
-
-    Route::get('/login', function () {
-        return view('layouts.login');
-    });
-
-    Route::get('/register', function () {
-        return view('layouts.register');
-    });
 });

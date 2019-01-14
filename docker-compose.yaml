@@ -28,11 +28,13 @@ services:
     external_links:
       - mysql:db
 
-  smtp4dev:
-    image: rnwood/smtp4dev:linux-amd64-v3
-    ports:
-      - 8081:80
-      - "2525:25"
+  # Currently not working as expected. Watch https://github.com/rnwood/smtp4dev for updates
+  # Use instead 
+  #smtp4dev:
+  #  image: rnwood/smtp4dev:linux-amd64-v3
+  #  ports:
+  #    - 8081:80
+  #    - "2525:25"
 
 #volumes: 
   # mysql_data:

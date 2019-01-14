@@ -5,7 +5,7 @@ use Illuminate\Database\Seeder;
 class DatabaseSeeder extends Seeder
 {
     /**
-     * Seed the application's database.
+     * Seed the application's database with required seeds only
      *
      * @return void
      */
@@ -13,5 +13,7 @@ class DatabaseSeeder extends Seeder
     {
         // Load all existing seatmaps into database
         $this->call(SeatMapSeeder::class);
+        $this->call(RolesAndPermissionsSeeder::class);
+        $this->call(UserSeeder::class);
     }
 }

@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\TicketShop;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Project;
 use App\Event;
 
-class StartController extends Controller
+class EventsController extends Controller
 {
     /**
      * Show the starting page of the ticket shop.
@@ -25,8 +26,6 @@ class StartController extends Controller
             return $project->events->count() > 0;
         })->all();
 
-        return view('start', ['projects' => $currentProjects]);
+        return view('ticketshop.events', ['projects' => $currentProjects]);
     }
-
-
 }

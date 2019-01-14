@@ -5,23 +5,41 @@ namespace App\Http\Controllers\TicketShop;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Event;
-use App\Purchase;
-use App\Ticket;
+use App\Http\Requests\SelectTickets;
 
 class SeatMapController extends Controller
 {
     /**
      * Receives id of event for which the user wants to buy tickets
      */
-    public function selectSeats(Event $event)
+    public function getSeats(Request $request, Event $event)
     {
-        $tickets = $event->purchases()->tickets()->get();
-        return view('ticketshop.seatmap', ['event' => $event]);
+        $seatMapView = 'ticketshop.seatmaps.seatmap-js';
+        if ($event->seatMap->layout === null) {
+            $seatMapView = 'ticketshop.seatmaps.no-seats';
+        }
+
+        $tickets = $request->session()->get('tickets');
+
+        return view($seatMapView, ['event' => $event, 'tickets' => $tickets]);
     }
 
-
-    public function seatsSelected(Event $event, Request $request)
+    /**
+     * Receives number of tickets per category and optionally
+     * the seat ids of the selected seats
+     */
+    public function setSeats(SelectTickets $request, Event $event)
     {
-        return redirect('');
+        if ($event->seatMap->layout !== null) {
+            // handle seat ids
+            // TODO for later
+        }
+
+        $validated = $request->validated();
+        session(['tickets' => $validated['tickets']]);
+
+
+        return redirect()->route('ts.customerData');
     }
+
 }

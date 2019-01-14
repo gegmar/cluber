@@ -50,8 +50,28 @@
     </script>
     <script src="/vendor/jquery.seat-charts/js/jquery.seat-charts.min.js">
     </script>
+    <script src="/vendor/messenger-hubspot/build/js/messenger.min.js"> </script>
+    <script src="/vendor/messenger-hubspot/build/js/messenger-theme-flat.js"> </script>
     <!-- Main File-->
     <script src="/js/front.js">
+    </script>
+    <script type="text/javascript">
+        Messenger.options = {
+            extraClasses: 'messenger-fixed messenger-on-top  messenger-on-right',
+            theme: 'flat',
+            messageDefaults: {
+                showCloseButton: true
+            }
+        }
+
+        @foreach($errors as $error)
+        console.log('{{$error}}')
+        Messenger().post({
+            message: '{{ $error }}',
+            type: 'error',
+            showCloseButton: true
+        });
+        @endforeach
     </script>
     @yield('custom-js')
 </body>

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use phpseclib\Crypt\Random;
 
 class IntegrationTestSeeder extends Seeder
 {
@@ -11,41 +12,70 @@ class IntegrationTestSeeder extends Seeder
      */
     public function run()
     {
-        $vendorRole = App\Role::create(['name' => 'vendor']);
-        $adminRole = App\Role::create(['name' => 'admin']);
-
         $location = factory(App\Location::class)->create();
         $priceList = factory(App\PriceList::class)->create();
-        // SeatMap with a fixed chart
+        // SeatMap without a chart
         $kdfSeatMap = App\SeatMap::create([
             'seats' => 70,
-            'name' => 'theater_in_der_werkstatt_kdf',
-            'description' => 'Standardtribüne im Theater in der Werkstatt (Kirchdorf)'
+            'name' => 'Theater in der Werkstatt (Standard)',
+            'description' => 'Standardtribüne im Theater in der Werkstatt (Kirchdorf)',
+            'layout' => null
         ]);
-        // SeatMap without a chart -> sells amounts of tickets instead of fixed seats
-        $pseudoSeatMap = factory(App\SeatMap::class)->create();
 
-        // Generate two projects with a different event count
-        factory(App\Project::class)->create()->each(function ($project) use ($location, $priceList, $kdfSeatMap) {
-            $project->events()->saveMany(factory(App\Event::class, 6)->create([
-                'project_id' => $project->id,
-                'location_id' => $location->id,
-                'price_list_id' => $priceList->id,
-                'seat_map_id' => $kdfSeatMap->id
-            ]));
-        });
+        $randomSeatMap = factory(App\SeatMap::class)->create([
+            'seats' => 4000
+        ]);
 
-        factory(App\Project::class)->create()->each(function ($project) use ($location, $priceList, $pseudoSeatMap) {
-            $project->events()->saveMany(factory(App\Event::class, 5)->create([
-                'project_id' => $project->id,
-                'location_id' => $location->id,
-                'price_list_id' => $priceList->id,
-                'seat_map_id' => $pseudoSeatMap->id
-            ]));
-        });
+        // Generate two projects with a different event count and different seatmaps
+        $project1 = factory(App\Project::class)->create();
+        $project1->events()->saveMany(factory(App\Event::class, 6)->create([
+            'project_id' => $project1->id,
+            'location_id' => $location->id,
+            'price_list_id' => $priceList->id,
+            'seat_map_id' => $kdfSeatMap->id
+        ]));
 
+        $project2 = factory(App\Project::class)->create();
+        $project2->events()->saveMany(factory(App\Event::class, 5)->create([
+            'project_id' => $project2->id,
+            'location_id' => $location->id,
+            'price_list_id' => $priceList->id,
+            'seat_map_id' => $randomSeatMap->id
+        ]));
+
+        // Fill the events with a few tickets/purchases
         $allEvents = App\Event::all();
+        $states = [
+            'paid',
+            'in_payment',
+        ];
+        $vendors = factory(App\User::class, 3)->create();
 
-        // NEXT
+        foreach ($allEvents as $event) {
+            factory(App\Purchase::class, random_int(1, 10))->create([
+                'state' => $states[random_int(0, 1)],
+                'vendor_id' => $vendors[random_int(0, 2)]->id,
+                'customer_id' => factory(App\User::class)->create()->id,
+            ])->each(function ($purchase) use ($event) {
+                factory(App\Ticket::class, random_int(1, 8))->create([
+                    'purchase_id' => $purchase->id,
+                    'event_id' => $event->id
+                ]);
+            });
+        }
+
+        // fill first event to check if sold-out-feature works
+        $lastEvent = App\Event::first();
+        $remainingTicketCount = $lastEvent->seatMap->seats - $lastEvent->tickets->count();
+        $fillingPurchase = factory(App\Purchase::class)->create([
+            'state' => 'paid',
+            'vendor_id' => $vendors[0]->id,
+            'customer_id' => factory(App\User::class)->create()->id,
+        ]);
+
+        $lastEvent->tickets()->saveMany(factory(App\Ticket::class, $remainingTicketCount)->create([
+            'purchase_id' => $fillingPurchase->id,
+            'event_id' => $lastEvent->id
+        ]));
     }
 }
