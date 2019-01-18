@@ -17,6 +17,13 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/', 'TicketShop\EventsController@index')->name('start');
 
 /**
+ * Footer-Routes
+ */
+Route::get('/privacy', 'PublicPagesController@privacyStatement')->name('privacy');
+Route::get('/terms', 'PublicPagesController@termsAndConditions')->name('terms');
+Route::get('/impress', 'PublicPagesController@impress')->name('impress');
+
+/**
  * Public ticket shop routes
  */
 Route::namespace('TicketShop')->prefix('ts')->name('ts.')->group(function () {
@@ -28,5 +35,8 @@ Route::namespace('TicketShop')->prefix('ts')->name('ts.')->group(function () {
 
     Route::get('/my-data', 'CustomerDataController@getData')->name('customerData');
     Route::post('/my-data', 'CustomerDataController@setData')->name('setCustomerData');
+
+    Route::get('/overview', 'CheckoutController@getOverview')->name('overview');
+    Route::post('/pay', 'CheckoutController@getPaymentUrl')->name('pay');
 
 });

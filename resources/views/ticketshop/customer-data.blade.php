@@ -4,14 +4,14 @@
 
 @section('page-title', 'Tickets')
 
-@section('nav-link', route('laystart'))
+@section('nav-link', route('ts.events'))
 
 @section('content')
 <!---  Breadcrumb -->
 <div class="breadcrumb-holder container-fluid">
     <ul class="breadcrumb">
-        <li class="breadcrumb-item"><a href="{{ route('laystart') }}">Events</a></li>
-        <li class="breadcrumb-item"><a href="{{ route('layseats') }}">Select Seats</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('ts.events') }}">Events</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('ts.seatmap', ['event' => session('event')->id]) }}">Select Seats</a></li>
         <li class="breadcrumb-item active">Customer Data</li>
     </ul>
 </div>
@@ -24,31 +24,38 @@
             <div class="card-body">
                 <p>Please add your information to our purchase in order to receive your tickets later via e-mail and
                     mark them as your own. Also you can agree to get our newsletter.</p>
-                <form class="form-validate" action="{{ route('laypurov') }}">
+                <form class="form-validate" action="{{ route('ts.setCustomerData') }}" method="POST">
+                    @csrf
                     <div class="form-group">
                         <label>Name</label>
-                        <input name="name" type="text" required data-msg="Please enter your name" class="form-control">
+                        <input name="name" type="text" required data-msg="Please enter your name" class="form-control"
+                            value="@if( property_exists( $data, 'name' ) ){{ $data->name }}@endif">
                     </div>
                     <div class="form-group">
                         <label>Email</label>
-                        <input name="email" type="email" required data-msg="Please enter a valid email" class="form-control">
+                        <input name="email" type="email" required data-msg="Please enter a valid email" class="form-control"
+                            value="@if( property_exists( $data, 'email' ) ){{ $data->email }}@endif">
                     </div>
                     <div class="form-group">
                         <label>Email (repeated)</label>
-                        <input name="email-repeat" type="email" required data-msg="Please enter a valid email" class="form-control">
+                        <input name="email_confirmation" type="email" required data-msg="Please retype your email"
+                            class="form-control" value="@if( property_exists( $data, 'email' ) ){{ $data->email }}@endif">
                     </div>
                     <div class="form-group">
                         <div>
-                            <input id="check-terms" type="checkbox" value="" required="required">
+                            <input id="check-terms" type="checkbox" name="terms" value="true" required="required"
+                                @if(property_exists( $data, 'terms' )) checked @endif>
                             <label for="check-terms">I agree to the Terms and Conditions of this online shop.</label>
                         </div>
                         <div>
-                            <input id="check-privacy" type="checkbox" value="" required="required">
+                            <input id="check-privacy" type="checkbox" name="privacy" value="true" required="required"
+                                @if(property_exists( $data, 'privacy' )) checked @endif>
                             <label for="check-privacy">I agree that my data is processed as it is stated in the privacy
                                 section.</label>
                         </div>
                         <div>
-                            <input id="check-newsletter" type="checkbox" value="">
+                            <input id="check-newsletter" type="checkbox" name="newsletter" value="true"
+                                @if(property_exists( $data, 'newsletter' )) checked @endif>
                             <label for="check-newsletter">I would like to receive the newsletter.</label>
                         </div>
                     </div>
@@ -64,8 +71,8 @@
 
 @section('custom-js')
 <script type="text/javascript">
-    $(document).ready(function() {
+$(document).ready(function() {
 
-    });
+});
 </script>
 @endsection

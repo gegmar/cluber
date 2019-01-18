@@ -7,5 +7,13 @@ use App\Http\Controllers\Controller;
 
 class CheckOutController extends Controller
 {
-    //
+    public function getOverview()
+    {
+        return view('errors.tbd');
+    }
+
+    public function getPaymentUrl()
+    {
+        return view('errors.tbd');
+    }
 }

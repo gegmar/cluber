@@ -14,9 +14,9 @@
         <li class="breadcrumb-item active">Select Seats</li>
     </ul>
 </div>
-<?php
+@php
 $prices = json_decode($event->priceList->prices);
-?>
+@endphp
 <section>
     <div class="container-fluid">
         <div class="card">
@@ -32,7 +32,7 @@ $prices = json_decode($event->priceList->prices);
                         <label class="col-sm-3 form-control-label">{{ $label }} ({{ $price }} <i class="fa fa-eur"></i>)</label>
                         <div class="col-sm-9">
                             <input type="text" name="tickets[{{ $label }}]" class="tickets form-control" data-price="{{ $price }}"
-                                value="{{ $tickets[$label] }}">
+                                value="@if( $tickets !== null){{ $tickets[$label] }}@endif">
                         </div>
                     </div>
                     @endforeach
@@ -50,45 +50,45 @@ $prices = json_decode($event->priceList->prices);
 <script src="/vendor/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js">
 </script>
 <script type="text/javascript">
-    $(document).ready(function() {
-        $(".tickets").TouchSpin({
-            buttondown_class: 'btn btn-secondary',
-            buttonup_class: 'btn btn-secondary',
-            min: 0,
-            max: 8,
-            step: 1,
-            decimals: 0,
-        });
+$(document).ready(function() {
+    $(".tickets").TouchSpin({
+        buttondown_class: 'btn btn-secondary',
+        buttonup_class: 'btn btn-secondary',
+        min: 0,
+        max: 8,
+        step: 1,
+        decimals: 0,
+    });
 
-        function calculatePrice() {
-            var price = 0;
-            $('.tickets').each(function() {
-                price += $(this).val() * $(this).data('price');
-            });
-            $('#price').html(price);
+    function calculatePrice() {
+        var price = 0;
+        $('.tickets').each(function() {
+            price += $(this).val() * $(this).data('price');
+        });
+        $('#price').html(price);
+    }
+
+    var prev_val;
+    $(".tickets").focus(function() {
+        prev_val = $(this).val();
+    }).change(function() {
+        $(this).blur();
+        var sum = 0;
+        $('.tickets').each(function() {
+            sum += Number($(this).val());
+        });
+        if (sum > 8) {
+            console.log(sum + "is too large")
+            $(this).val(prev_val);
+            return false;
         }
 
-        var prev_val;
-        $(".tickets").focus(function() {
-            prev_val = $(this).val();
-        }).change(function() {
-            $(this).blur();
-            var sum = 0;
-            $('.tickets').each(function() {
-                sum += Number($(this).val());
-            });
-            if (sum > 8) {
-                console.log(sum + "is too large")
-                $(this).val(prev_val);
-                return false;
-            }
-
-            calculatePrice();
-
-            return true;
-        });
-
         calculatePrice();
+
+        return true;
     });
+
+    calculatePrice();
+});
 </script>
 @endsection

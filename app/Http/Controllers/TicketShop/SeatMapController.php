@@ -19,7 +19,11 @@ class SeatMapController extends Controller
             $seatMapView = 'ticketshop.seatmaps.no-seats';
         }
 
-        $tickets = $request->session()->get('tickets');
+        // Only set already chosen tickets, if they have been selected for the same event
+        $tickets = null;
+        if (session()->has('event') && $event->id === session('event')->id) {
+            $tickets = $request->session()->get('tickets');
+        }
 
         return view($seatMapView, ['event' => $event, 'tickets' => $tickets]);
     }
@@ -37,6 +41,7 @@ class SeatMapController extends Controller
 
         $validated = $request->validated();
         session(['tickets' => $validated['tickets']]);
+        session(['event' => $event]);
 
 
         return redirect()->route('ts.customerData');
