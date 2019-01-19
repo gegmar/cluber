@@ -40,10 +40,24 @@ Route::namespace('TicketShop')->prefix('ts')->name('ts.')->group(function () {
     Route::post('/pay', 'CheckoutController@startPayment')->name('pay');
 
     // PaymentProvider URLs
-    Route::prefix('payment')->group(function () {
-        Route::get('{purchase}/successful', 'CheckoutController@paymentSuccessful')->name('payment-successful');
-        Route::get('{purchase}/aborted', 'CheckoutController@paymentAborted')->name('payment-aborted');
-        Route::get('{purchase}/timedout', 'CheckoutController@paymentTimedOut')->name('payment-timedout');
+    Route::prefix('payment')->name('payment.')->group(function () {
+        Route::get('{purchase}/successful/{secret}', 'CheckoutController@paymentSuccessful')->name('successful');
+        Route::get('{purchase}/aborted', 'CheckoutController@paymentAborted')->name('aborted');
+        Route::get('{purchase}/timedout', 'CheckoutController@paymentTimedOut')->name('timedout');
+
+        Route::name('notify.')->group(function () {
+            Route::get('{purchase}/{secret}/loss', 'CheckoutController@notifyLoss')->name('loss');
+            Route::get('{purchase}/{secret}/pending', 'CheckoutController@notifyPending')->name('pending');
+            Route::get('{purchase}/{secret}/received', 'CheckoutController@notifyReceived')->name('received');
+            Route::get('{purchase}/{secret}/refunded', 'CheckoutController@notifyRefunded')->name('refunded');
+        });
+
     });
 
+});
+
+// All routes regarding fetching tickets for purchases
+Route::prefix('ticket')->name('ticket')->group(function () {
+    Route::get('{purchase}/all', 'TicketController@showPurchase')->name('purchase');
+    Route::get('{purchase}/download', 'TicketController@download')->name('download');
 });

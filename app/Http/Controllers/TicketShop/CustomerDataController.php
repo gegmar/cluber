@@ -17,10 +17,10 @@ class CustomerDataController extends Controller
         // Check if all required previous inputs are present
         // Else sent user back to where he has to start/comence
         if (!session()->has('event')) {
-            return redirect()->route('events');
+            return redirect()->route('ts.events');
         }
         if (!session()->has('tickets')) {
-            return redirect()->route('seatmap', ['event' => session('event')->id]);
+            return redirect()->route('ts.seatmap', ['event' => session('event')->id]);
         }
 
         $data = [];

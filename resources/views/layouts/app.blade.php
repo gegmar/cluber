@@ -63,9 +63,15 @@
                 showCloseButton: true
             }
         }
+        @if (session('status'))
+            Messenger().post({
+                message: "{{ session('status') }}",
+                type: 'error',
+                showCloseButton: true
+            });
+        @endif
 
-        @foreach($errors as $error)
-        console.log('{{$error}}')
+        @foreach($errors->all() as $error)
         Messenger().post({
             message: '{{ $error }}',
             type: 'error',

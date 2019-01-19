@@ -120,9 +120,9 @@
                     <form action="{{ route('ts.pay') }}" method="post">
                         @csrf
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item"><input type="radio" name="paymethod" value="paypal" /> <img src="/img/logos/paypal.jpg"
+                            <li class="list-group-item"><input type="radio" name="paymethod" value="PayPal" /> <img src="/img/logos/paypal.jpg"
                                     alt="PayPal" height="30px"></li>
-                            <li class="list-group-item"><input type="radio" name="paymethod" value="klarna" /> <img src="/img/logos/klarna.png"
+                            <li class="list-group-item"><input type="radio" name="paymethod" value="Klarna" /> <img src="/img/logos/klarna.png"
                                     alt="Klarna" height="30px"></li>
                             <li class="list-group-item"><button class="btn btn-primary">Buy</button></li>
                         </ul>

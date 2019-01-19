@@ -12,6 +12,9 @@ class IntegrationTestSeeder extends Seeder
      */
     public function run()
     {
+        // Load all existing seatmaps into database
+        $this->call(RolesAndPermissionsSeeder::class);
+        $this->call(UserSeeder::class);
         $numberOfCategories = random_int(2, 6);
         $location = factory(App\Location::class)->create();
         $priceList = factory(App\PriceList::class)->create();

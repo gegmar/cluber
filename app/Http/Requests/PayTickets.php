@@ -9,11 +9,11 @@ class PayTickets extends FormRequest
     /**
      * Determine if the user is authorized to make this request.
      *
-     * @return bool
+     * @return bool true always because it is a public accesible function
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,7 @@ class PayTickets extends FormRequest
     public function rules()
     {
         return [
-            //
+            'paymethod' => 'in:PayPal,Klarna'
         ];
     }
 }

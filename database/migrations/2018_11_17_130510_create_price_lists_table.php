@@ -42,7 +42,7 @@ class CreatePriceListsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('price_categories_price_lists');
+        Schema::drop('price_category_price_list');
         Schema::drop('price_categories');
         Schema::dropIfExists('price_lists');
     }

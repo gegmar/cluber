@@ -17,7 +17,7 @@ class UserSeeder extends Seeder
          * This is required to later link purchases to resellers.
          */
 
-        App\User::create([
+        $paypal = App\User::create([
             'name' => 'PayPal',
             'email' => 'paypal@system.local',
             'email_verified_at' => null,
@@ -25,11 +25,16 @@ class UserSeeder extends Seeder
             'password' => '',
         ]);
 
-        App\User::create([
+        $klarna = App\User::create([
             'name' => 'Klarna',
             'email' => 'klarna@system.local',
             'email_verified_at' => null,
             'password' => '',
         ]);
+
+        $paymentProvider = App\Role::where('name', 'PaymentProvider')->first();
+
+        $paypal->roles()->attach($paymentProvider);
+        $klarna->roles()->attach($paymentProvider);
     }
 }

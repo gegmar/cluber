@@ -31,7 +31,12 @@ class User extends Authenticatable
 
     public function roles()
     {
-        return $this->belongsToMany('App\Roles');
+        return $this->belongsToMany('App\Role');
+    }
+
+    public function permissions()
+    {
+        return $this->hasManyThrough('App\Permission', 'App\Role');
     }
 
     public function purchases()
@@ -42,5 +47,10 @@ class User extends Authenticatable
     public function purchasesAsVendor()
     {
         return $this->hasMany('App\Purchase', 'vendor_id');
+    }
+
+    public function hasPermission($permission)
+    {
+        return $this->permissions->contains($permission);
     }
 }

@@ -5,5 +5,5 @@ namespace App\PaymentProvider;
 
 class PayPal
 {
-    //
+
 }
