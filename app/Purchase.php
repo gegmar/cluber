@@ -18,29 +18,6 @@ class Purchase extends Model
         'state' => 'in_payment'
     ];
 
-    public function total()
-    {
-        $tickets = $this->tickets;
-        return $tickets->sum(function ($ticket) {
-            return $ticket->price();
-        });
-    }
-
-    public function tickets()
-    {
-        return $this->hasMany('App\Ticket');
-    }
-
-    public function customer()
-    {
-        return $this->belongsTo('App\User', 'id', 'customer_id');
-    }
-
-    public function vendor()
-    {
-        return $this->belongsTo('App\User', 'id', 'vendor_id');
-    }
-
     /**
      * Get the route key for the model.
      *
@@ -60,4 +37,50 @@ class Purchase extends Model
         $this->random_id = str_random(32);
         $this->payment_secret = str_random(32);
     }
+
+    public function total()
+    {
+        $tickets = $this->tickets;
+        return $tickets->sum(function ($ticket) {
+            return $ticket->price();
+        });
+    }
+
+    public function events()
+    {
+        $events = [];
+        $this->tickets->each(function ($ticket) use (&$events) {
+            $events[$ticket->event->id] = $ticket->event;
+        });
+        return collect($events);
+    }
+
+    public function ticketList()
+    {
+        $list = [];
+        $this->tickets->each(function ($ticket) use (&$list) {
+            if (array_key_exists($ticket->priceCategory->name, $list)) {
+                $list[$ticket->priceCategory->name]['count']++;
+            } else {
+                $list[$ticket->priceCategory->name] = ['count' => 0, 'category' => $ticket->priceCategory];
+            }
+        });
+        return collect($list);
+    }
+
+    public function tickets()
+    {
+        return $this->hasMany('App\Ticket');
+    }
+
+    public function customer()
+    {
+        return $this->belongsTo('App\User', 'customer_id', 'id');
+    }
+
+    public function vendor()
+    {
+        return $this->belongsTo('App\User', 'vendor_id', 'id');
+    }
+
 }

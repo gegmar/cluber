@@ -6,7 +6,10 @@
     <!-- Sidebar Navidation Menus--><span class="heading">Customer</span>
     <ul class="list-unstyled">
         <li><a href="{{ route('ts.events') }}"> <i class="fa fa-ticket"></i>Tickets </a></li>
-    </ul><span class="heading">Backoffice</span>
+    </ul>
+    @auth
+    <!-- Backoffice links -->
+    <span class="heading">Backoffice</span>
     <ul class="list-unstyled">
         <li><a href="#retailDropdown" aria-expanded="false" data-toggle="collapse"> <i class="fa fa-shopping-cart"></i>Retail
             </a>
@@ -22,7 +25,10 @@
                 <li><a href="#"><i class="fa fa-th"></i>Block Seats</a></li>
             </ul>
         </li>
-    </ul><span class="heading">Admin</span>
+    </ul>
+
+    <!-- Admin links -->
+    <span class="heading">Admin</span>
     <ul class="list-unstyled">
         <li><a href="#adminDropdown" aria-expanded="false" data-toggle="collapse"> <i class="fa fa-cogs"></i>Administration
             </a>
@@ -35,4 +41,5 @@
             </ul>
         </li>
     </ul>
+    @endauth
 </nav>

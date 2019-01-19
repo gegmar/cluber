@@ -5,6 +5,7 @@ namespace App\PaymentProvider;
 use Sofort\SofortLib\Sofortueberweisung;
 use App\Purchase;
 use App\Exceptions\PaymentProviderException;
+use Illuminate\Support\Facades\Log;
 
 class Klarna
 {
@@ -28,7 +29,11 @@ class Klarna
         ]));
         $sofort->setAbortUrl(route('ts.payment.aborted', ['purchase' => $purchase->random_id]));
         $sofort->setTimeoutUrl(route('ts.payment.timedout', ['purchase' => $purchase->random_id]));
-        $sofort->setNotificationUrl(route('ts.payment.notify.loss', [
+        // 
+        // NotificationUrls only work on public urls
+        // Use split-dns for testing
+        //
+        /*$sofort->setNotificationUrl(route('ts.payment.notify.loss', [
             'purchase' => $purchase->random_id,
             'secret' => $purchase->payment_secret
         ]), 'loss');
@@ -43,7 +48,7 @@ class Klarna
         $sofort->setNotificationUrl(route('ts.payment.notify.refunded', [
             'purchase' => $purchase->random_id,
             'secret' => $purchase->payment_secret
-        ]), 'refunded');
+        ]), 'refunded');*/
 
         $sofort->sendRequest();
 

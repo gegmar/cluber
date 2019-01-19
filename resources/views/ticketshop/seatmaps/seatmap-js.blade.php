@@ -53,6 +53,7 @@
     var firstSeatLabel = 1;
 
     $(document).ready(function() {
+        // docs @ https://github.com/mateuszmarkowski/jQuery-Seat-Charts
         var $cart = $('#selected-seats'),
             $counter = $('#counter'),
             $total = $('#total'),

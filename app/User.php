@@ -29,14 +29,20 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    public function permissions()
+    {
+        $permissions = collect([]);
+        $this->roles->each(function ($role) use (&$permissions) {
+            $role->permissions->each(function ($permission) use (&$permissions) {
+                $permissions->push($permission);
+            });
+        });
+        return $permissions;
+    }
+
     public function roles()
     {
         return $this->belongsToMany('App\Role');
-    }
-
-    public function permissions()
-    {
-        return $this->hasManyThrough('App\Permission', 'App\Role');
     }
 
     public function purchases()
@@ -51,6 +57,6 @@ class User extends Authenticatable
 
     public function hasPermission($permission)
     {
-        return $this->permissions->contains($permission);
+        return $this->permissions()->contains($permission);
     }
 }

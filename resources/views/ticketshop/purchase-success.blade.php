@@ -16,24 +16,26 @@
 </div>
 <section class="projects">
     <div class="container-fluid">
-        <!-- Event-->
+        <!-- Events -->
+        @foreach( $purchase->events() as $event)
         <div class="project">
             <div class="row bg-white has-shadow">
                 <div class="left-col col-lg-6 d-flex align-items-center justify-content-between">
                     <div class="project-title d-flex align-items-center">
                         <div class="text">
-                            <h3 class="h4">{{ $purchase->event->project->name}}</h3><small>{{$purchase->event->second_name}}</small>
+                            <h3 class="h4">{{ $event->project->name}}</h3><small>{{$event->second_name}}</small>
                         </div>
                     </div>
-                    <div class="project-date"><span class="hidden-sm-down">{{ date_format(date_create($purchase->event->start_date), 'l, d.m.Y') }}</span></div>
+                    <div class="project-date"><span class="hidden-sm-down">{{ date_format(date_create($event->start_date), 'l, d.m.Y') }}</span></div>
                 </div>
                 <div class="right-col col-lg-6 d-flex align-items-center">
-                    <div class="time"><i class="fa fa-clock-o"></i>{{ date_format(date_create($purchase->event->start_date),
+                    <div class="time"><i class="fa fa-clock-o"></i>{{ date_format(date_create($event->start_date),
                         'H:i') }}</div>
-                    <div class="comments"><i class="fa fa-map-marker"></i> {{ $purchase->event->location->name }}</div>
+                    <div class="comments"><i class="fa fa-map-marker"></i> {{ $event->location->name }}</div>
                 </div>
             </div>
         </div>
+        @endforeach
         <!-- Customer Data and tickets -->
         <div class="row">
             <div class="col-md-4">
@@ -48,18 +50,26 @@
                                     <tr>
                                         <th>Ticket type</th>
                                         <th>Number of tickets</th>
+                                        <th>Price per ticket</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @php $totalPrice = 0; @endphp
+                                    @foreach( $purchase->ticketList() as $item )
                                     <tr>
-                                        <td>Standard</td>
-                                        <td>4</td>
+                                        <td>{{ $item['category']->name }}</td>
+                                        <td>{{ $item['count'] }}</td>
+                                        <td>{{ $item['category']->price }} <i class="fa fa-eur"></i></td>
                                     </tr>
-                                    <tr>
-                                        <td>Reduced</td>
-                                        <td>2</td>
-                                    </tr>
+                                    @endforeach
                                 </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th>Total</th>
+                                        <th>{{ $purchase->tickets->count() }}</th>
+                                        <th>{{ $purchase->total() }} <i class="fa fa-eur"></i></th>
+                                    </tr>
+                                </tfoot>
                             </table>
                         </div>
                     </div>
