@@ -12,8 +12,11 @@ class IntegrationTestSeeder extends Seeder
      */
     public function run()
     {
+        $numberOfCategories = random_int(2, 6);
         $location = factory(App\Location::class)->create();
         $priceList = factory(App\PriceList::class)->create();
+        $categories = factory(App\PriceCategory::class, $numberOfCategories)->create();
+        $priceList->categories()->attach($categories);
         // SeatMap without a chart
         $kdfSeatMap = App\SeatMap::create([
             'seats' => 70,
@@ -56,26 +59,27 @@ class IntegrationTestSeeder extends Seeder
                 'state' => $states[random_int(0, 1)],
                 'vendor_id' => $vendors[random_int(0, 2)]->id,
                 'customer_id' => factory(App\User::class)->create()->id,
-            ])->each(function ($purchase) use ($event) {
+            ])->each(function ($purchase) use ($event, $numberOfCategories, $categories) {
                 factory(App\Ticket::class, random_int(1, 8))->create([
                     'purchase_id' => $purchase->id,
-                    'event_id' => $event->id
+                    'event_id' => $event->id,
+                    'price_category_id' => $categories[random_int(0, $numberOfCategories - 1)]->id,
                 ]);
             });
         }
 
         // fill first event to check if sold-out-feature works
         $lastEvent = App\Event::first();
-        $remainingTicketCount = $lastEvent->seatMap->seats - $lastEvent->tickets->count();
         $fillingPurchase = factory(App\Purchase::class)->create([
             'state' => 'paid',
             'vendor_id' => $vendors[0]->id,
             'customer_id' => factory(App\User::class)->create()->id,
         ]);
 
-        $lastEvent->tickets()->saveMany(factory(App\Ticket::class, $remainingTicketCount)->create([
+        $lastEvent->tickets()->saveMany(factory(App\Ticket::class, $lastEvent->freeTickets())->create([
             'purchase_id' => $fillingPurchase->id,
-            'event_id' => $lastEvent->id
+            'event_id' => $lastEvent->id,
+            'price_category_id' => $categories[random_int(0, $numberOfCategories - 1)]->id,
         ]));
     }
 }

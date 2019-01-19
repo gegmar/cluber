@@ -7,10 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 class PriceList extends Model
 {
     //
-    protected $fillable = ['name', 'prices'];
+    protected $fillable = ['name'];
 
     public function events()
     {
         return $this->hasMany('App\Event');
+    }
+
+    public function categories()
+    {
+        return $this->belongsToMany('App\PriceCategory');
     }
 }

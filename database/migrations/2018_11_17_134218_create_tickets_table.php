@@ -19,10 +19,12 @@ class CreateTicketsTable extends Migration
             $table->unsignedInteger('seat_number');
             $table->unsignedInteger('purchase_id');
             $table->unsignedInteger('event_id');
+            $table->unsignedInteger('price_category_id');
             $table->timestamps();
 
             $table->foreign('purchase_id')->references('id')->on('purchases');
             $table->foreign('event_id')->references('id')->on('events');
+            $table->foreign('price_category_id')->references('id')->on('price_categories');
         });
     }
 

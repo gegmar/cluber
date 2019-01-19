@@ -4,6 +4,7 @@ namespace App\Http\Controllers\TicketShop;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Purchase;
 
 class CheckOutController extends Controller
 {
@@ -23,8 +24,24 @@ class CheckOutController extends Controller
         ]);
     }
 
-    public function getPaymentUrl()
+    public function startPayment()
     {
+
         return view('errors.tbd');
+    }
+
+    public function paymentSuccessful(Purchase $purchase)
+    {
+
+    }
+
+    public function paymentAborted()
+    {
+
+    }
+
+    public function paymentTimedOut()
+    {
+
     }
 }

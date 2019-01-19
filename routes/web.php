@@ -37,6 +37,13 @@ Route::namespace('TicketShop')->prefix('ts')->name('ts.')->group(function () {
     Route::post('/my-data', 'CustomerDataController@setData')->name('setCustomerData');
 
     Route::get('/overview', 'CheckoutController@getOverview')->name('overview');
-    Route::post('/pay', 'CheckoutController@getPaymentUrl')->name('pay');
+    Route::post('/pay', 'CheckoutController@startPayment')->name('pay');
+
+    // PaymentProvider URLs
+    Route::prefix('payment')->group(function () {
+        Route::get('{purchase}/successful', 'CheckoutController@paymentSuccessful')->name('payment-successful');
+        Route::get('{purchase}/aborted', 'CheckoutController@paymentAborted')->name('payment-aborted');
+        Route::get('{purchase}/timedout', 'CheckoutController@paymentTimedOut')->name('payment-timedout');
+    });
 
 });

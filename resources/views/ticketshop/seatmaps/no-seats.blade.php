@@ -14,9 +14,6 @@
         <li class="breadcrumb-item active">Select Seats</li>
     </ul>
 </div>
-@php
-$prices = json_decode($event->priceList->prices);
-@endphp
 <section>
     <div class="container-fluid">
         <div class="card">
@@ -27,12 +24,12 @@ $prices = json_decode($event->priceList->prices);
                 <p>Please select how many tickets you need (Price: <span id="price">0</span> <i class="fa fa-eur"></i>).</p>
                 <form class="form-horizontal" action="{{ route('ts.setSeatMap', ['event' => $event->id]) }}" method="POST">
                     @csrf
-                    @foreach( $prices as $label => $price)
+                    @foreach( $event->priceList->categories as $category)
                     <div class="form-group row">
-                        <label class="col-sm-3 form-control-label">{{ $label }} ({{ $price }} <i class="fa fa-eur"></i>)</label>
+                        <label class="col-sm-3 form-control-label">{{ $category->name }} ({{ $category->price }} <i class="fa fa-eur"></i>)</label>
                         <div class="col-sm-9">
-                            <input type="text" name="tickets[{{ $label }}]" class="tickets form-control" data-price="{{ $price }}"
-                                value="@if( $tickets !== null){{ $tickets[$label] }}@endif">
+                            <input type="text" name="tickets[{{ $category->name }}]" class="tickets form-control" data-price="{{ $category->price }}"
+                                value="@if( $tickets !== null){{ $tickets[$category->name] }}@endif">
                         </div>
                     </div>
                     @endforeach

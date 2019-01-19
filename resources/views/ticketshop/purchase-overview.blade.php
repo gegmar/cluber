@@ -56,7 +56,8 @@
                                     </tr>
                                 </thead>
                                 @php
-                                $prices = json_decode($event->priceList->prices);
+                                $prices = $event->priceList->categories;
+                                $prices = $prices->keyBy('name'); // enable us to find correct prices in the later loop
                                 @endphp
                                 <tbody>
                                     @php
@@ -67,12 +68,12 @@
                                     @if( $count > 0 )
                                     @php
                                         $sumTickets += $count;
-                                        $sumPrice += $count * $prices->$label;
+                                        $sumPrice += $count * $prices[$label]->price;
                                     @endphp
                                     <tr>
                                         <td>{{ $label }}</td>
                                         <td>{{ $count }}</td>
-                                        <td>{{ $prices->$label }} <i class="fa fa-eur"></i></td>
+                                        <td>{{ $prices[$label]->price }} <i class="fa fa-eur"></i></td>
                                     </tr>
                                     @endif
                                     @endforeach
