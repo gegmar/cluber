@@ -4,15 +4,15 @@
 
 @section('page-title', 'Tickets')
 
-@section('nav-link', route('laystart'))
+@section('nav-link', route('ts.events'))
 
 @section('content')
 <!---  Breadcrumb -->
 <div class="breadcrumb-holder container-fluid">
     <ul class="breadcrumb">
-        <li class="breadcrumb-item"><a href="{{ route('laystart') }}">Events</a></li>
-        <li class="breadcrumb-item"><a href="{{ route('layseats') }}">Select Seats</a></li>
-        <li class="breadcrumb-item"><a href="{{ route('laycdata') }}">My Data</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('ts.events') }}">Events</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('ts.seatmap', ['event' => $event->id]) }}">Select Seats</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('ts.customerData') }}">My Data</a></li>
         <li class="breadcrumb-item active">Overview</li>
     </ul>
 </div>
@@ -24,14 +24,17 @@
                 <div class="left-col col-lg-6 d-flex align-items-center justify-content-between">
                     <div class="project-title d-flex align-items-center">
                         <div class="text">
-                            <h3 class="h4">Project Title</h3><small>Event Name</small>
+                            <h3 class="h4">{{ $event->project->name }}</h3><small>{{ $event->second_name }}</small>
                         </div>
                     </div>
-                    <div class="project-date"><span class="hidden-sm-down">Friday, 21.01.2019</span></div>
+                    <div class="project-date">
+                        <span class="hidden-sm-down">{{ date_format(date_create($event->start_date), 'l, d.m.Y') }}</span>
+                    </div>
                 </div>
                 <div class="right-col col-lg-6 d-flex align-items-center">
-                    <div class="time"><i class="fa fa-clock-o"></i>12:00 PM </div>
-                    <div class="comments"><i class="fa fa-map-marker"></i> NPZ Molln</div>
+                    <div class="time"><i class="fa fa-clock-o"></i>{{ date_format(date_create($event->start_date),
+                        'H:i') }}</div>
+                    <div class="comments"><i class="fa fa-map-marker"></i> {{ $event->location->name }}</div>
                 </div>
             </div>
         </div>
@@ -49,18 +52,38 @@
                                     <tr>
                                         <th>Ticket type</th>
                                         <th>Number of tickets</th>
+                                        <th>Price per ticket</th>
                                     </tr>
                                 </thead>
+                                @php
+                                $prices = json_decode($event->priceList->prices);
+                                @endphp
                                 <tbody>
+                                    @php
+                                        $sumTickets = 0;
+                                        $sumPrice = 0;
+                                    @endphp
+                                    @foreach( $tickets as $label => $count )
+                                    @if( $count > 0 )
+                                    @php
+                                        $sumTickets += $count;
+                                        $sumPrice += $count * $prices->$label;
+                                    @endphp
                                     <tr>
-                                        <td>Standard</td>
-                                        <td>4</td>
+                                        <td>{{ $label }}</td>
+                                        <td>{{ $count }}</td>
+                                        <td>{{ $prices->$label }} <i class="fa fa-eur"></i></td>
                                     </tr>
-                                    <tr>
-                                        <td>Reduced</td>
-                                        <td>2</td>
-                                    </tr>
+                                    @endif
+                                    @endforeach
                                 </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th>Total</th>
+                                        <th>{{ $sumTickets }}</th>
+                                        <th>{{ $sumPrice }} <i class="fa fa-eur"></i></th>
+                                    </tr>
+                                </tfoot>
                             </table>
                         </div>
                     </div>
@@ -73,13 +96,15 @@
                     </div>
                     <div class="card-body">
                         <p class="card-text">This information will be used to send your tickets via mail and track it
-                            in our system (<a href="#">privacy terms</a>)</p>
+                            in our system (<a href="{{ route('privacy') }}">privacy terms</a>)</p>
                         <ul>
-                            <li>E-Mail: mg@ge.com</li>
-                            <li>Name: Martin</li>
-                            <li>Newsletter subscription via mail: yes</li>
+                            <li>E-Mail: {{ $customerData['email'] }}</li>
+                            <li>Name: {{ $customerData['name'] }}</li>
+                            <li>Newsletter subscription via mail: @if( array_key_exists('newsletter', $customerData) )
+                                yes
+                                @else no @endif</li>
                         </ul>
-                        <a href="#">Edit my data</a>
+                        <a href="{{ route('ts.customerData') }}">Edit my data</a>
                     </div>
                 </div>
             </div>
@@ -91,7 +116,8 @@
                     <div class="card-body">
                         <p class="card-text">Select a payment method for this purchase!</p>
                     </div>
-                    <form action="{{ route('laypursucc') }}" method="GET">
+                    <form action="{{ route('ts.pay') }}" method="post">
+                        @csrf
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item"><input type="radio" name="paymethod" value="paypal" /> <img src="/img/logos/paypal.jpg"
                                     alt="PayPal" height="30px"></li>
@@ -109,8 +135,8 @@
 
 @section('custom-js')
 <script type="text/javascript">
-    $(document).ready(function() {
+$(document).ready(function() {
 
-    });
+});
 </script>
 @endsection

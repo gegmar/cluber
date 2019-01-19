@@ -23,7 +23,7 @@ class CustomerDataController extends Controller
             return redirect()->route('seatmap', ['event' => session('event')->id]);
         }
 
-        $data = new \stdClass();
+        $data = [];
         if (session()->has('customerData')) {
             $data = session('customerData');
         }
@@ -34,8 +34,7 @@ class CustomerDataController extends Controller
 
     public function setData(SetCustomerData $request)
     {
-        $data = $request->all();
-        session('customerData', $request->all());
+        session(['customerData' => $request->validated()]);
         return redirect()->route('ts.overview');
     }
 }

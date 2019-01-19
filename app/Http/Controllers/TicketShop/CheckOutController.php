@@ -9,7 +9,18 @@ class CheckOutController extends Controller
 {
     public function getOverview()
     {
-        return view('errors.tbd');
+        // Only allow requests for sessions with existing customer data
+        if (!session()->has('customerData')) {
+            return redirect()->route('ts.customerData');
+        }
+
+        $cData = session('customerData');
+
+        return view('ticketshop.purchase-overview', [
+            'event' => session('event'),
+            'tickets' => session('tickets'),
+            'customerData' => session('customerData'),
+        ]);
     }
 
     public function getPaymentUrl()

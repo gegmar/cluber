@@ -25,6 +25,7 @@ class SeatMapController extends Controller
             $tickets = $request->session()->get('tickets');
         }
 
+        // TODO: Bug@countValidation
         return view($seatMapView, ['event' => $event, 'tickets' => $tickets]);
     }
 

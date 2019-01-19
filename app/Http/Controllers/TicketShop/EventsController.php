@@ -19,7 +19,7 @@ class EventsController extends Controller
     public function index()
     {
         $projects = Project::with(['events' => function ($query) {
-            $query->where('start_date', '>=', new \DateTime());
+            $query->where('start_date', '>=', new \DateTime())->orderBy('start_date', 'ASC');
         }, 'events.location'])->get();
 
         $currentProjects = $projects->filter(function ($project) {

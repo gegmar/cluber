@@ -51,6 +51,7 @@ $prices = json_decode($event->priceList->prices);
 </script>
 <script type="text/javascript">
 $(document).ready(function() {
+    var freeTickets = {{ $event->freeTickets() }};
     $(".tickets").TouchSpin({
         buttondown_class: 'btn btn-secondary',
         buttonup_class: 'btn btn-secondary',
@@ -77,7 +78,7 @@ $(document).ready(function() {
         $('.tickets').each(function() {
             sum += Number($(this).val());
         });
-        if (sum > 8) {
+        if (sum > 8 || sum > freeTickets) {
             console.log(sum + "is too large")
             $(this).val(prev_val);
             return false;
