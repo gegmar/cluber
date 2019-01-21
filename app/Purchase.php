@@ -68,6 +68,23 @@ class Purchase extends Model
         return collect($list);
     }
 
+    public function deleteWithAllData()
+    {
+        $tickets = $this->tickets->each(function ($ticket) {
+            $ticket->delete();
+        });
+
+        $user = $this->customer;
+
+        $this->delete();
+
+        // If this purchase is the only purchase of the user,
+        // and the user's password is empty, delete the user.
+        if ($user->purchases->count() === 1 && $user->password == '') {
+            $user->delete();
+        }
+    }
+
     public function tickets()
     {
         return $this->hasMany('App\Ticket');

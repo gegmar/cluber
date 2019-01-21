@@ -12,6 +12,7 @@ use App\Role;
 use App\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Ticket;
+use App\PaymentProvider\PayPal;
 
 class CheckOutController extends Controller
 {
@@ -109,6 +110,7 @@ class CheckOutController extends Controller
                 $paymentUrl = Klarna::getPaymentUrl($purchase);
                 break;
             case 'PayPal':
+                $paymentUrl = PayPal::getPaymentUrl($purchase);
                 break;
         }
 
@@ -129,19 +131,26 @@ class CheckOutController extends Controller
         $purchase->state_updated = new \DateTime();
         $purchase->save();
 
-        return view('ticketshop.purchase-success', ['purchase' => $purchase]);
+        return redirect()->route('ticket.purchase')->with('status', 'Purchase successful - Please download your tickets.');
     }
 
-    public function paymentAborted()
+    public function paymentAborted(Purchase $purchase)
     {
-
+        $purchase->deleteWithAllData();
+        return redirect()->route('ts.events')->with('status', 'Purchase aborted - Your previously selected tickets have been deleted.');
     }
 
-    public function paymentTimedOut()
+    public function paymentTimedOut(Purchase $purchase)
     {
-
+        return $this->paymentAborted($purchase);
     }
 
+
+    /*
+     *************************
+     * Methods for later use *
+     *************************
+     */
     public function notifyLoss(Purchase $purchase, string $secret)
     {
 

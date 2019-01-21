@@ -52,6 +52,9 @@ Route::namespace('TicketShop')->prefix('ts')->name('ts.')->group(function () {
             Route::get('{purchase}/{secret}/refunded', 'CheckoutController@notifyRefunded')->name('refunded');
         });
 
+        // PaymentProvider-specific URLs
+        Route::get('{purchase}/{secret}/paypal/executepayment', 'PaymentProviderController@payPalExecutePayment')->name('payPalExec');
+
     });
 
 });
