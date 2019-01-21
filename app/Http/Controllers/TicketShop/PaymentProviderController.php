@@ -28,7 +28,7 @@ class PaymentProviderController extends Controller
             $purchase->state_updated = new \DateTime();
             $purchase->save();
 
-            $returnable = redirect()->route('ticket.purchase')->with('status', 'Purchase successful - Please download your tickets.');
+            $returnable = redirect()->route('ticket.purchase', ['purchase' => $purchase])->with('status', 'Purchase successful - Please download your tickets.');
         } catch (PaymentProviderException $e) {
             $returnable->with('status', $e->getMessage());
         }

@@ -131,7 +131,7 @@ class CheckOutController extends Controller
         $purchase->state_updated = new \DateTime();
         $purchase->save();
 
-        return redirect()->route('ticket.purchase')->with('status', 'Purchase successful - Please download your tickets.');
+        return redirect()->route('ticket.purchase', ['purchase' => $purchase])->with('status', 'Purchase successful - Please download your tickets.');
     }
 
     public function paymentAborted(Purchase $purchase)
