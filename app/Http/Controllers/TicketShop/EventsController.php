@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Project;
 use App\Event;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Cache;
 
 class EventsController extends Controller
 {
@@ -18,6 +20,13 @@ class EventsController extends Controller
      */
     public function index()
     {
+        // Cleanup lost orders all 5 minutes
+        if (!Cache::has('deletedLostOrders')) {
+            $expiresAt = now()->addMinutes(5);
+            Artisan::call('app:deleteLostOrders');
+            Cache::put('deletedLostOrders', '1', $expiresAt);
+        }
+
         $projects = Project::with(['events' => function ($query) {
             $query->where('start_date', '>=', new \DateTime())->orderBy('start_date', 'ASC');
         }, 'events.location'])->get();

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class SeatMap extends Model
 {
-    protected $fillable = ['rows', 'columns', 'name', 'description'];
+    protected $fillable = ['seats', 'name', 'description', 'layout'];
 
     public function events()
     {

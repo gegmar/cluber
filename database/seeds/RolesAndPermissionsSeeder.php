@@ -20,7 +20,7 @@ class RolesAndPermissionsSeeder extends Seeder
         $pem_getNewsletter = App\Permission::create(['name' => 'RECEIVE_NEWSLETTER']);
         $pem_administrate = App\Permission::create(['name' => 'ADMINISTRATE']);
 
-        $role_reseller = App\Role::create(['name' => 'Reseller']);
+        $role_retailer = App\Role::create(['name' => 'Retailer']);
         $role_admin = App\Role::create(['name' => 'Administrator']);
         $role_newsletterReceiver = App\Role::create(['name' => 'NewsletterReceiver']);
         $role_paymentProvider = App\Role::create(['name' => 'PaymentProvider']);
@@ -28,6 +28,6 @@ class RolesAndPermissionsSeeder extends Seeder
         $role_newsletterReceiver->permissions()->attach($pem_getNewsletter);
         $role_paymentProvider->permissions()->attach($pem_paymentProvider);
         $role_admin->permissions()->attach($pem_administrate);
-        $role_reseller->permissions()->attach($pem_sellTickets);
+        $role_retailer->permissions()->attach($pem_sellTickets);
     }
 }

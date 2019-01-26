@@ -3,10 +3,14 @@
     <!-- Sidebar Header-->
     @component('components.profile')
     @endcomponent
-    <!-- Sidebar Navidation Menus--><span class="heading">Customer</span>
+
+    @if(Auth::user() == null || !Auth::user()->hasPermission('SELL_TICKETS'))
+    <!-- Sidebar Navidation Menus-->
+    <span class="heading">Customer</span>
     <ul class="list-unstyled">
         <li><a href="{{ route('ts.events') }}"> <i class="fa fa-ticket"></i>Tickets </a></li>
     </ul>
+    @endif
 
     @auth
 
@@ -17,8 +21,8 @@
         <li><a href="#retailDropdown" aria-expanded="false" data-toggle="collapse"> <i class="fa fa-shopping-cart"></i>Retail
             </a>
             <ul id="retailDropdown" class="collapse list-unstyled ">
-                <li><a href="#"><i class="fa fa-eur"></i>Sell Tickets</a></li>
-                <li><a href="#"><i class="fa fa-history"></i>Sold Tickets</a></li>
+                <li><a href="{{ route('retail.sell.events') }}"><i class="fa fa-eur"></i>Sell Tickets</a></li>
+                <li><a href="{{ route('retail.sold.tickets') }}"><i class="fa fa-history"></i>Sold Tickets</a></li>
             </ul>
         </li>
         <li><a href="#eventsDropdown" aria-expanded="false" data-toggle="collapse"> <i class="fa fa-calendar"></i>Events

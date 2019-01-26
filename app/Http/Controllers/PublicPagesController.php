@@ -16,7 +16,7 @@ class PublicPagesController extends Controller
         return view('errors.tbd');
     }
 
-    public function privacyStatements()
+    public function privacyStatement()
     {
         return view('errors.tbd');
     }

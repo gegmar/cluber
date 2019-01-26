@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Middleware\CheckPermission;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,8 +13,6 @@
 |
  */
 Auth::routes(['verify' => true]);
-
-Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/', 'TicketShop\EventsController@index')->name('start');
 
@@ -75,8 +75,18 @@ Route::middleware(['auth', 'verified'])->group(function () {
     });
 
     // Retail routes
-    Route::prefix('retail')->name('retail.')->group(function () {
+    Route::middleware(['perm:SELL_TICKETS'])->namespace('Retail')->prefix('retail')->name('retail.')->group(function () {
+        // Handle selling tickets
+        Route::prefix('sell')->name('sell.')->group(function () {
+            Route::get('/', 'SellTicketsController@events')->name('events');
+            Route::get('/{event}/seats', 'SellTicketsController@seats')->name('seats');
+            Route::get('/{event}/sell', 'SellTicketsController@sellTickets')->name('sell');
+        });
 
+        // Handle already sold tickets
+        Route::prefix('sold')->name('sold.')->group(function () {
+            Route::get('/', 'SoldTicketsController@getPurchases')->name('tickets');
+        });
     });
 
     // Admin routes
