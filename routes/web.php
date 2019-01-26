@@ -10,7 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
  */
-Auth::routes();
+Auth::routes(['verify' => true]);
 
 Route::get('/home', 'HomeController@index')->name('home');
 
@@ -64,4 +64,9 @@ Route::prefix('ticket')->name('ticket.')->group(function () {
     Route::get('{ticket}', 'TicketsController@showTicket')->name('show');
     Route::get('{purchase}/all', 'TicketsController@showPurchase')->name('purchase');
     Route::get('{purchase}/download', 'TicketsController@download')->name('download');
+});
+
+// The following routes are only accessible for verified and authenticated users
+Route::middleware(['auth', 'verified'])->group(function () {
+
 });
