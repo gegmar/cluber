@@ -61,6 +61,7 @@ Route::namespace('TicketShop')->prefix('ts')->name('ts.')->group(function () {
 
 // All routes regarding fetching tickets for purchases
 Route::prefix('ticket')->name('ticket.')->group(function () {
+    Route::get('{ticket}', 'TicketsController@showTicket')->name('show');
     Route::get('{purchase}/all', 'TicketsController@showPurchase')->name('purchase');
     Route::get('{purchase}/download', 'TicketsController@download')->name('download');
 });

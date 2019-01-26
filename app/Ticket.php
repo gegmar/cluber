@@ -9,6 +9,16 @@ class Ticket extends Model
     //
     protected $fillable = ['random_id', 'seat_number', 'purchase_id', 'event_id', 'price_category_id'];
 
+    /**
+     * Get the route key for the model.
+     *
+     * @return string
+     */
+    public function getRouteKeyName()
+    {
+        return 'random_id';
+    }
+
     public function price()
     {
         return $this->priceCategory->price;

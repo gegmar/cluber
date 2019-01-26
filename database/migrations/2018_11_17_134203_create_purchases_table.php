@@ -19,6 +19,7 @@ class CreatePurchasesTable extends Migration
             $table->dateTime('state_updated');
             $table->string('random_id');
             $table->string('payment_secret');
+            $table->string('customer_name')->nullable();
             $table->unsignedInteger('vendor_id')->nullable();
             $table->unsignedInteger('customer_id')->nullable();
             $table->timestamps();

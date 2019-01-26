@@ -3,16 +3,17 @@
 namespace App\Http\Controllers\TicketShop;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Purchase;
-use App\Http\Requests\PayTickets;
-use App\PaymentProvider\Klarna;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use App\Http\Requests\PayTickets;
+use App\Http\Controllers\Controller;
+use App\PaymentProvider\PayPal;
+use App\PaymentProvider\Klarna;
+use App\Exceptions\PaymentProviderException;
+use App\Purchase;
 use App\Role;
 use App\User;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Ticket;
-use App\PaymentProvider\PayPal;
 
 class CheckOutController extends Controller
 {
@@ -82,6 +83,11 @@ class CheckOutController extends Controller
         $purchase = new Purchase();
         $purchase->generateSecrets();
         $purchase->customer_id = $customer->id;
+        // If someone already has bought tickets with the same email address
+        // but with a different name, we store the custom name to the purchase.
+        if ($cData['name'] != $customer->name) {
+            $purchase->customer_name = $cData['name'];
+        }
         $purchase->vendor_id = User::where('name', $request->validated()['paymethod'])->first()->id;
         $purchase->save();
 
@@ -122,14 +128,11 @@ class CheckOutController extends Controller
      */
     public function paymentSuccessful(Purchase $purchase, string $secret)
     {
-        // Validate if the sent secret matches the purchase-secret
-        if ($purchase->payment_secret != $secret) {
-            return redirect()->route('ts.overview');
+        try {
+            $purchase->setStateToPaid($secret);
+        } catch (PaymentProviderException $e) {
+            return redirect()->route('ts.overview')->with('status', $e->getMessage());
         }
-
-        $purchase->state = 'paid';
-        $purchase->state_updated = new \DateTime();
-        $purchase->save();
 
         return redirect()->route('ticket.purchase', ['purchase' => $purchase])->with('status', 'Purchase successful - Please download your tickets.');
     }

@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Exceptions\PaymentProviderException;
 
 class Purchase extends Model
 {
@@ -38,6 +39,9 @@ class Purchase extends Model
         $this->payment_secret = str_random(32);
     }
 
+    /**
+     * Sum of all ticket prices included in the purchase
+     */
     public function total()
     {
         $tickets = $this->tickets;
@@ -55,6 +59,10 @@ class Purchase extends Model
         return collect($events);
     }
 
+    /**
+     * Prepare all tickets grouped by their priceCategory
+     * for displaying in a view
+     */
     public function ticketList()
     {
         $list = [];
@@ -62,12 +70,18 @@ class Purchase extends Model
             if (array_key_exists($ticket->priceCategory->name, $list)) {
                 $list[$ticket->priceCategory->name]['count']++;
             } else {
-                $list[$ticket->priceCategory->name] = ['count' => 0, 'category' => $ticket->priceCategory];
+                $list[$ticket->priceCategory->name] = ['count' => 1, 'category' => $ticket->priceCategory];
             }
         });
         return collect($list);
     }
 
+    /**
+     * Deletes the full purchase with all associated data
+     * 
+     * If the customer's user has other purchases connected,
+     * the user will not be deleted.
+     */
     public function deleteWithAllData()
     {
         $tickets = $this->tickets->each(function ($ticket) {
@@ -83,6 +97,18 @@ class Purchase extends Model
         if ($user->purchases->count() === 1 && $user->password == '') {
             $user->delete();
         }
+    }
+
+    public function setStateToPaid(string $secret)
+    {
+        // Validate if the sent secret matches the purchase-secret
+        if ($this->payment_secret != $secret) {
+            throw new PaymentProviderException('Error - Secret does not match purchase!');
+        }
+
+        $this->state = 'paid';
+        $this->state_updated = new \DateTime();
+        $this->save();
     }
 
     public function tickets()
