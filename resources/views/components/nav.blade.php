@@ -7,7 +7,10 @@
     <ul class="list-unstyled">
         <li><a href="{{ route('ts.events') }}"> <i class="fa fa-ticket"></i>Tickets </a></li>
     </ul>
+
     @auth
+
+    @if(Auth::user()->hasPermission('SELL_TICKETS'))
     <!-- Backoffice links -->
     <span class="heading">Backoffice</span>
     <ul class="list-unstyled">
@@ -26,7 +29,9 @@
             </ul>
         </li>
     </ul>
+    @endif
 
+    @if(Auth::user()->hasPermission('ADMINISTRATE'))
     <!-- Admin links -->
     <span class="heading">Admin</span>
     <ul class="list-unstyled">
@@ -41,5 +46,7 @@
             </ul>
         </li>
     </ul>
+    @endif
+
     @endauth
 </nav>

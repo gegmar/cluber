@@ -69,4 +69,18 @@ Route::prefix('ticket')->name('ticket.')->group(function () {
 // The following routes are only accessible for verified and authenticated users
 Route::middleware(['auth', 'verified'])->group(function () {
 
+    // Profile routes
+    Route::prefix('profile')->name('profile.')->group(function () {
+        Route::get('/', 'ProfileController@getProfile')->name('show');
+    });
+
+    // Retail routes
+    Route::prefix('retail')->name('retail.')->group(function () {
+
+    });
+
+    // Admin routes
+    Route::prefix('admin')->name('admin.')->group(function () {
+
+    });
 });
