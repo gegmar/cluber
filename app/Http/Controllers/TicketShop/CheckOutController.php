@@ -14,6 +14,8 @@ use App\Purchase;
 use App\Role;
 use App\User;
 use App\Ticket;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\TicketsPaid;
 
 class CheckOutController extends Controller
 {
@@ -134,7 +136,10 @@ class CheckOutController extends Controller
             return redirect()->route('ts.overview')->with('status', $e->getMessage());
         }
 
-        return redirect()->route('ticket.purchase', ['purchase' => $purchase])->with('status', 'Purchase successful - Please download your tickets.');
+        Mail::to($purchase->customer)->send(new TicketsPaid($purchase));
+
+        return redirect()->route('ticket.purchase', ['purchase' => $purchase])
+            ->with('status', 'Purchase successful - Please download your tickets.');
     }
 
     public function paymentAborted(Purchase $purchase)
