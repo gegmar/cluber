@@ -10,7 +10,8 @@
                     <div style="position: absolute; right: 3mm; top: 3mm; text-align: right; font-size: 4mm; ">
                         <b></b>
                         <br>
-                        Ausgestellt für : <b>@if ( $ticket->purchase->customer_name != null ) {{ $ticket->purchase->customer_name }} @else {{ $ticket->purchase->customer->name }} @endif</b><br>
+                        @if($ticket->purchase->customer_id != null)
+                        Ausgestellt für : <b>@if ( $ticket->purchase->customer_name != null ) {{ $ticket->purchase->customer_name }} @else {{ $ticket->purchase->customer->name }} @endif</b><br>@endif
                         Ausgestellt am : <b>{{ date_format( date_create($ticket->purchase->state_updated), "l, d.m.Y H:i") }}</b>
                         <br>
                     </div>

@@ -29,7 +29,7 @@
                         <label class="col-sm-3 form-control-label">{{ $category->name }} ({{ $category->price }} <i class="fa fa-eur"></i>)</label>
                         <div class="col-sm-9">
                             <input type="text" name="tickets[{{ $category->name }}]" class="tickets form-control" data-price="{{ $category->price }}"
-                                value="@if( $tickets !== null){{ $tickets[$category->name] }}@endif">
+                                value="0">
                         </div>
                     </div>
                     @endforeach
@@ -53,7 +53,7 @@ $(document).ready(function() {
         buttondown_class: 'btn btn-secondary',
         buttonup_class: 'btn btn-secondary',
         min: 0,
-        max: 8,
+        max: freeTickets,
         step: 1,
         decimals: 0,
     });
@@ -79,6 +79,7 @@ $(document).ready(function() {
             $(this).val(prev_val);
             return false;
         }
+        prev_val = $(this).val();
 
         calculatePrice();
 

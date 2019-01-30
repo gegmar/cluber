@@ -4,13 +4,21 @@
 
 @section('page-title', 'Tickets')
 
+@if($purchase->vendor_id == auth()->user()->id)
+@section('nav-link', route('retail.sell.events'))
+@else
 @section('nav-link', route('ts.events'))
+@endif
 
 @section('content')
 <!---  Breadcrumb -->
 <div class="breadcrumb-holder container-fluid">
     <ul class="breadcrumb">
+        @if($purchase->vendor_id == auth()->user()->id)
+        <li class="breadcrumb-item"><a href="{{ route('retail.sell.events') }}">Back to Event overview</a></li>
+        @else
         <li class="breadcrumb-item"><a href="{{ route('ts.events') }}">Back to Event overview</a></li>
+        @endif
         <li class="breadcrumb-item active">Download Tickets</li>
     </ul>
 </div>
@@ -41,7 +49,7 @@
             <div class="col-md-4">
                 <div class="card">
                     <div class="card-header d-flex align-items-center">
-                        <h3 class="h4">My Tickets</h3>
+                        <h3 class="h4">Tickets</h3>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -75,6 +83,7 @@
                     </div>
                 </div>
             </div>
+            @if($purchase->customer !== null)
             <div class="col-md-4">
                 <div class="card">
                     <div class="card-header d-flex align-items-center">
@@ -91,6 +100,7 @@
                     </div>
                 </div>
             </div>
+            @endif
             <div class="col-md-4">
                 <div class="card">
                     <div class="card-header d-flex align-items-center">
@@ -105,6 +115,24 @@
                     </ul>
                 </div>
             </div>
+            
+            @if($purchase->vendor_id == auth()->user()->id)
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header d-flex align-items-center">
+                        <h3 class="h4">Manage Purchase</h3>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">You may edit this purchase by )</p>
+                        <ul>
+                            <li><button class="btn btn-danger">Delete Purchase</button></li>
+                            <li><button class="btn">Edit Purchase</button></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            @endif
+
         </div>
     </div>
 </section>

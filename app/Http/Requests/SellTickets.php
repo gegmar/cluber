@@ -13,7 +13,7 @@ class SellTickets extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return $this->user()->hasPermission('SELL_TICKETS');
     }
 
     /**

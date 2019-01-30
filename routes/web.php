@@ -80,7 +80,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::prefix('sell')->name('sell.')->group(function () {
             Route::get('/', 'SellTicketsController@events')->name('events');
             Route::get('/{event}/seats', 'SellTicketsController@seats')->name('seats');
-            Route::get('/{event}/sell', 'SellTicketsController@sellTickets')->name('sell');
+            Route::post('/{event}/sell', 'SellTicketsController@sellTickets')->name('sell');
         });
 
         // Handle already sold tickets
