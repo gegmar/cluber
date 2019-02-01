@@ -90,6 +90,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
         });
     });
 
+    // Events routes
+    Route::middleware(['perm:SELL_TICKETS'])->namespace('Events')->prefix('events')->name('events.')->group(function () {
+
+        Route::get('/', 'StatisticsController@dashboard')->name('dashboard');
+        Route::get('/{event}/pdf-overview.pdf', 'StatisticsController@downloadOverview')->name('download-overview');
+
+    });
+
     // Admin routes
     Route::prefix('admin')->name('admin.')->group(function () {
 

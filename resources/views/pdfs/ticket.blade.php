@@ -20,19 +20,21 @@
                         Reihe : <b>ROW</b><br>
                         Platz : <b>SEAT</b><br>
                         --}}
+                        Eindeutige ID: <b>{{ $ticket->id }}</b>
+                        <br>
+                        Preis: <b>{{ $ticket->priceCategory->price }} € ({{ $ticket->priceCategory->name }})</b>
+                        <br><br>
                         Ort: <b>{{ $ticket->event->location->name }}</b>
                         <br>
                         Adresse: <b>{{ $ticket->event->location->address }}</b>
                         <br>
                     </div>
-                    <h1>{{ $ticket->event->project->name }} ({{ $ticket->event->second_name }})</h1>
+                    <h1>{{ $ticket->event->project->name }}</h1>
+                    <h2>{{ $ticket->event->second_name }}</h2>
                     <br>
                     &nbsp;&nbsp;&nbsp;&nbsp;<b>Gültig am {{ date_format( date_create($ticket->event->start_date), "l, d.m.Y H:i") }}</b>
                     <br>
                     {{--<img src="{{ asset('img/logos/theater-logo.png') }}" alt="logo" style="margin-top: 3mm; margin-left: 20mm; height: 20mm;">--}}
-                    &nbsp;&nbsp;&nbsp;&nbsp;<b>Eindeutige ID: {{ $ticket->id }}</b>
-                    <br>
-                    &nbsp;&nbsp;&nbsp;&nbsp;<b>Preis: {{ $ticket->priceCategory->price }} € ({{ $ticket->priceCategory->name }})</b>
                 </div>
             </td>
         </tr>

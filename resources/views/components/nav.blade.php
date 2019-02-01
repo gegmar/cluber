@@ -26,8 +26,8 @@
         <li><a href="#eventsDropdown" aria-expanded="false" data-toggle="collapse"> <i class="fa fa-calendar"></i>Events
             </a>
             <ul id="eventsDropdown" class="collapse list-unstyled ">
-                <li><a href="#"> <i class="fa fa-area-chart"></i>Dashboard</a></li>
-                <li><a href="#"><i class="fa fa-th"></i>Block Seats</a></li>
+                <li><a href="{{ route('events.dashboard') }}"> <i class="fa fa-area-chart"></i>Dashboard</a></li>
+                {{-- <li><a href="#"><i class="fa fa-th"></i>Block Seats</a></li> --}}
             </ul>
         </li>
     </ul>

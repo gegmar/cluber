@@ -24,7 +24,9 @@
                     <div class="card-header">{{ $project->name }}</div>
                     <div class="card-body">
                         <h4 class="card-title">{{ $event->second_name }}</h4>
-                        <p class="card-text">{{ $event->start_date }}</p>
+                        <p class="card-text"><i class="fa fa-calendar"></i> {{ date_format(date_create($event->start_date), 'l, d.m.Y') }}</p>
+                        <p class="card-text"><i class="fa fa-clock-o"></i> {{ date_format(date_create($event->start_date),
+                            'H:i') }}</p>
                         <a href="{{ route('ts.seatmap', ['event' => $event->id]) }}" class="btn btn-primary">Buy
                             Tickets</a>
                     </div>
@@ -35,7 +37,9 @@
                     <div class="card-header">{{ $project->name }}</div>
                     <div class="card-body">
                         <h4 class="card-title">{{ $event->second_name }}</h4>
-                        <p class="card-text">{{ $event->start_date }}</p>
+                        <p class="card-text"><i class="fa fa-calendar"></i> {{ date_format(date_create($event->start_date), 'l, d.m.Y') }}</p>
+                        <p class="card-text"><i class="fa fa-clock-o"></i> {{ date_format(date_create($event->start_date),
+                            'H:i') }}</p>
                     </div>
                     <div class="card-footer text-muted">Sold Out!</div>
                 </div>
