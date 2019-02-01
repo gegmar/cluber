@@ -4,13 +4,11 @@
     @component('components.profile')
     @endcomponent
 
-    @if(Auth::user() == null || !Auth::user()->hasPermission('SELL_TICKETS'))
     <!-- Sidebar Navidation Menus-->
     <span class="heading">Customer</span>
     <ul class="list-unstyled">
         <li><a href="{{ route('ts.events') }}"> <i class="fa fa-ticket"></i>Tickets </a></li>
     </ul>
-    @endif
 
     @auth
 

@@ -22,6 +22,9 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,700">
     <!-- theme stylesheet-->
     <link rel="stylesheet" href="/css/style.green.premium.css" id="theme-stylesheet">
+    <!-- DataTables CSS-->
+    <link rel="stylesheet" href="/vendor/datatables.net-bs4/css/dataTables.bootstrap4.css">
+    <link rel="stylesheet" href="/vendor/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css">
     <!-- Custom stylesheet - for your changes-->
     <link rel="stylesheet" href="/css/custom.css">
     <!-- Favicon-->

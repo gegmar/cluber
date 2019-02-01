@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use App\Purchase;
+use Illuminate\Support\Facades\Log;
 
 class DeleteLostOrders extends Command
 {

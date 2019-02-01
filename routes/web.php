@@ -86,6 +86,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         // Handle already sold tickets
         Route::prefix('sold')->name('sold.')->group(function () {
             Route::get('/', 'SoldTicketsController@getPurchases')->name('tickets');
+            Route::delete('/delete/{purchase}', 'SoldTicketsController@deletePurchase')->name('delete');
         });
     });
 

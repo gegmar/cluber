@@ -4,8 +4,8 @@
 
 @section('page-title', 'Tickets')
 
-@if($purchase->vendor_id == auth()->user()->id)
-@section('nav-link', route('retail.sell.events'))
+@if(auth()->user() && $purchase->vendor_id == auth()->user()->id)
+@section('nav-link', route('retail.sold.tickets'))
 @else
 @section('nav-link', route('ts.events'))
 @endif
@@ -14,8 +14,8 @@
 <!---  Breadcrumb -->
 <div class="breadcrumb-holder container-fluid">
     <ul class="breadcrumb">
-        @if($purchase->vendor_id == auth()->user()->id)
-        <li class="breadcrumb-item"><a href="{{ route('retail.sell.events') }}">Back to Event overview</a></li>
+        @if(auth()->user() && $purchase->vendor_id == auth()->user()->id)
+        <li class="breadcrumb-item"><a href="{{ route('retail.sold.tickets') }}">Sold Tickets</a></li>
         @else
         <li class="breadcrumb-item"><a href="{{ route('ts.events') }}">Back to Event overview</a></li>
         @endif
@@ -116,6 +116,7 @@
                 </div>
             </div>
             
+            @auth
             @if($purchase->vendor_id == auth()->user()->id)
             <div class="col-md-4">
                 <div class="card">
@@ -123,15 +124,17 @@
                         <h3 class="h4">Manage Purchase</h3>
                     </div>
                     <div class="card-body">
-                        <p class="card-text">You may edit this purchase by )</p>
-                        <ul>
-                            <li><button class="btn btn-danger">Delete Purchase</button></li>
-                            <li><button class="btn">Edit Purchase</button></li>
-                        </ul>
+                        <p class="card-text">Click the button to delete the purchase. Attention: This action is irreversible!</p>
+                        <form action="{{ route('retail.sold.delete', ['purchase' => $purchase]) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
                     </div>
                 </div>
             </div>
             @endif
+            @endauth
 
         </div>
     </div>

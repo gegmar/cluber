@@ -77,7 +77,7 @@ class Purchase extends Model
     }
 
     /**
-     * Deletes the full purchase with all associated data
+     * Deletes all associated data of the purchase and sets it to state=deleted
      * 
      * If the customer's user has other purchases connected,
      * the user will not be deleted.
@@ -90,11 +90,13 @@ class Purchase extends Model
 
         $user = $this->customer;
 
-        $this->delete();
+        $this->state = "deleted";
+        $this->state_updated = new \DateTime();
+        $this->save();
 
         // If this purchase is the only purchase of the user,
         // and the user's password is empty, delete the user.
-        if ($user->purchases->count() === 1 && $user->password == '') {
+        if ($user && $user->purchases->count() === 1 && $user->password == '') {
             $user->delete();
         }
     }
