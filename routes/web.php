@@ -41,20 +41,20 @@ Route::namespace('TicketShop')->prefix('ts')->name('ts.')->group(function () {
     Route::get('/my-data', 'CustomerDataController@getData')->name('customerData');
     Route::post('/my-data', 'CustomerDataController@setData')->name('setCustomerData');
 
-    Route::get('/overview', 'CheckoutController@getOverview')->name('overview');
-    Route::post('/pay', 'CheckoutController@startPayment')->name('pay');
+    Route::get('/overview', 'CheckOutController@getOverview')->name('overview');
+    Route::post('/pay', 'CheckOutController@startPayment')->name('pay');
 
     // PaymentProvider URLs
     Route::prefix('payment')->name('payment.')->group(function () {
-        Route::get('{purchase}/successful/{secret}', 'CheckoutController@paymentSuccessful')->name('successful');
-        Route::get('{purchase}/aborted', 'CheckoutController@paymentAborted')->name('aborted');
-        Route::get('{purchase}/timedout', 'CheckoutController@paymentTimedOut')->name('timedout');
+        Route::get('{purchase}/successful/{secret}', 'CheckOutController@paymentSuccessful')->name('successful');
+        Route::get('{purchase}/aborted', 'CheckOutController@paymentAborted')->name('aborted');
+        Route::get('{purchase}/timedout', 'CheckOutController@paymentTimedOut')->name('timedout');
 
         Route::name('notify.')->group(function () {
-            Route::get('{purchase}/{secret}/loss', 'CheckoutController@notifyLoss')->name('loss');
-            Route::get('{purchase}/{secret}/pending', 'CheckoutController@notifyPending')->name('pending');
-            Route::get('{purchase}/{secret}/received', 'CheckoutController@notifyReceived')->name('received');
-            Route::get('{purchase}/{secret}/refunded', 'CheckoutController@notifyRefunded')->name('refunded');
+            Route::get('{purchase}/{secret}/loss', 'CheckOutController@notifyLoss')->name('loss');
+            Route::get('{purchase}/{secret}/pending', 'CheckOutController@notifyPending')->name('pending');
+            Route::get('{purchase}/{secret}/received', 'CheckOutController@notifyReceived')->name('received');
+            Route::get('{purchase}/{secret}/refunded', 'CheckOutController@notifyRefunded')->name('refunded');
         });
 
         // PaymentProvider-specific URLs
