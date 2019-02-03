@@ -27,6 +27,7 @@ Route::get('/privacy', 'PublicPagesController@privacyStatement')->name('privacy'
 Route::get('/terms', 'PublicPagesController@termsAndConditions')->name('terms');
 Route::get('/impress', 'PublicPagesController@impress')->name('impress');
 
+
 /**
  * Public ticket shop routes
  */
