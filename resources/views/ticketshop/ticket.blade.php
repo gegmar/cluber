@@ -2,7 +2,7 @@
 
 @section('title', 'Ticketshop')
 
-@section('page-title', 'Ticket '.$ticket->id)
+@section('page-title', __('ticketshop.ticket').' #'.$ticket->id)
 
 @section('nav-link', route('ts.events'))
 

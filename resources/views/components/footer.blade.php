@@ -3,7 +3,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-4">
-                <p>{{ config('app.owner') }} &copy; 2019</p>
+                <p>{{ config('app.owner') }} &copy; {{ date_format(new \DateTime, 'Y')}}</p>
             </div>
             <div class="col-sm-4">
                 <p><a href="{{ route('impress') }}">{{__('ticketshop.impress')}}</a> | <a href="{{ route('terms') }}">{{ __('ticketshop.terms')}}</a>

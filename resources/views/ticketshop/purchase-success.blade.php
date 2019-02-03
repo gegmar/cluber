@@ -2,7 +2,7 @@
 
 @section('title', 'Ticketshop')
 
-@section('page-title', 'Tickets')
+@section('page-title', __('ticketshop.tickets'))
 
 @if(auth()->user() && $purchase->vendor_id == auth()->user()->id)
 @section('nav-link', route('retail.sold.tickets'))
@@ -15,11 +15,11 @@
 <div class="breadcrumb-holder container-fluid">
     <ul class="breadcrumb">
         @if(auth()->user() && $purchase->vendor_id == auth()->user()->id)
-        <li class="breadcrumb-item"><a href="{{ route('retail.sold.tickets') }}">Sold Tickets</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('retail.sold.tickets') }}">{{__('ticketshop.sold_tickets')}}</a></li>
         @else
-        <li class="breadcrumb-item"><a href="{{ route('ts.events') }}">Back to Event overview</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('ts.events') }}">{{__('ticketshop.back_to_events')}}</a></li>
         @endif
-        <li class="breadcrumb-item active">Download Tickets</li>
+        <li class="breadcrumb-item active">{{__('ticketshop.download_tickets')}}</li>
     </ul>
 </div>
 <section class="projects">
@@ -49,16 +49,16 @@
             <div class="col-md-4">
                 <div class="card">
                     <div class="card-header d-flex align-items-center">
-                        <h3 class="h4">Tickets</h3>
+                        <h3 class="h4">{{__('ticketshop.tickets')}}</h3>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th>Ticket type</th>
-                                        <th>Number of tickets</th>
-                                        <th>Price per ticket</th>
+                                        <th>{{__('ticketshop.price-category')}}</th>
+                                        <th>{{__('ticketshop.number_of_tickets')}}</th>
+                                        <th>{{__('ticketshop.price')}} / {{__('ticketshop.ticket')}}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -73,7 +73,7 @@
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                        <th>Total</th>
+                                        <th>{{__('ticketshop.total')}}</th>
                                         <th>{{ $purchase->tickets->count() }}</th>
                                         <th>{{ $purchase->total() }} <i class="fa fa-eur"></i></th>
                                     </tr>
@@ -87,15 +87,14 @@
             <div class="col-md-4">
                 <div class="card">
                     <div class="card-header d-flex align-items-center">
-                        <h3 class="h4">Customer data</h3>
+                        <h3 class="h4">{{__('ticketshop.customer_data')}}</h3>
                     </div>
                     <div class="card-body">
-                        <p class="card-text">This information will be used to send your tickets via mail and track it
-                        in our system (<a href="{{ route('privacy') }}">privacy terms</a>)</p>
+                        <p class="card-text">@lang('ticketshop.privacy_final')</p>
                         <ul>
-                            <li>E-Mail: {{ $purchase->customer->email }}</li>
-                            <li>Name: {{ $purchase->customer->name }}</li>
-                            <li>Newsletter subscription via mail: @if( $purchase->customer->hasPermission('RECEIVE_NEWSLETTER') )yes @else no @endif</li>
+                            <li>{{__('ticketshop.email')}}: {{ $purchase->customer->email }}</li>
+                            <li>{{__('ticketshop.name')}}: {{ $purchase->customer->name }}</li>
+                            <li>{{__('ticketshop.newsletter_options')}}: @if( $purchase->customer->hasPermission('RECEIVE_NEWSLETTER') ) {{__('ticketshop.yes')}} @else {{__('ticketshop.no')}} @endif</li>
                         </ul>
                     </div>
                 </div>
@@ -104,14 +103,13 @@
             <div class="col-md-4">
                 <div class="card">
                     <div class="card-header d-flex align-items-center">
-                        <h3 class="h4">Download Tickets</h3>
+                        <h3 class="h4">{{__('ticketshop.download_tickets')}}</h3>
                     </div>
                     <div class="card-body">
-                        <p class="card-text">Success! You can download your tickets here as pdf! Please bring them to
-                            the event in order to enter the location.</p>
+                        <p class="card-text">{{__('ticketshop.purchase_success')}}</p>
                     </div>
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item"><a href="{{ route('ticket.download', ['purchase' => $purchase->random_id]) }}">Tickets</a></li>
+                        <li class="list-group-item"><a href="{{ route('ticket.download', ['purchase' => $purchase->random_id]) }}">{{__('ticketshop.tickets')}}</a></li>
                     </ul>
                 </div>
             </div>
@@ -121,14 +119,14 @@
             <div class="col-md-4">
                 <div class="card">
                     <div class="card-header d-flex align-items-center">
-                        <h3 class="h4">Manage Purchase</h3>
+                        <h3 class="h4">{{__('ticketshop.mange_purchase')}}</h3>
                     </div>
                     <div class="card-body">
-                        <p class="card-text">Click the button to delete the purchase. Attention: This action is irreversible!</p>
+                        <p class="card-text">{{__('ticketshop.delete_purchase_warning')}}</p>
                         <form action="{{ route('retail.sold.delete', ['purchase' => $purchase->random_id]) }}" method="POST">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger">Delete</button>
+                            <button type="submit" class="btn btn-danger">{{__('ticketshop.delete')}}</button>
                         </form>
                     </div>
                 </div>

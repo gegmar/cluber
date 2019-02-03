@@ -2,7 +2,7 @@
 
 @section('title', 'Ticketshop')
 
-@section('page-title', 'Tickets')
+@section('page-title', __('ticketshop.events'))
 
 @section('nav-link', route('retail.sell.events'))
 

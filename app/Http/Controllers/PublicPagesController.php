@@ -8,16 +8,16 @@ class PublicPagesController extends Controller
 {
     public function impress()
     {
-        return view('errors.tbd');
+        return redirect()->away(config('app.impress_url'));
     }
 
     public function termsAndConditions()
     {
-        return view('errors.tbd');
+        return view('public.terms');
     }
 
     public function privacyStatement()
     {
-        return view('errors.tbd');
+        return view('public.privacy');
     }
 }

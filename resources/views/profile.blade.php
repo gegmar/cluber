@@ -2,7 +2,7 @@
 
 @section('title', 'Ticketshop')
 
-@section('page-title', 'Profile')
+@section('page-title', __('ticketshop.my_profile'))
 
 @section('nav-link', route('profile.show'))
 

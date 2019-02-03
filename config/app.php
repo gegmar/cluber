@@ -17,6 +17,7 @@ return [
     'version' => '0.1.0',
     'owner' => env('APP_OWNER', 'Club'),
     'owner_webmaster' => env('APP_WEBMASTER', 'webmaster@example.com'),
+    'impress_url' => env('IMPRESS_URL', 'https://example.com'),
 
     /*
     |--------------------------------------------------------------------------
