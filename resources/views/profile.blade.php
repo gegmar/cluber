@@ -10,8 +10,8 @@
 <!---  Breadcrumb -->
 <div class="breadcrumb-holder container-fluid">
     <ul class="breadcrumb">
-        <li class="breadcrumb-item"><a href="{{ route('ts.events') }}">Back to Event overview</a></li>
-        <li class="breadcrumb-item active">My Profile</li>
+        <li class="breadcrumb-item"><a href="{{ route('ts.events') }}">{{__('ticketshop.back_to_events')}}</a></li>
+        <li class="breadcrumb-item active">{{__('ticketshop.my_profile')}}</li>
     </ul>
 </div>
 <section>
@@ -26,25 +26,25 @@
                 </div>
                 <form class="card" action="" method="POST">
                     <div class="card-header">
-                        <h3 class="card-title">My Profile</h3>
+                        <h3 class="card-title">{{__('ticketshop.my_profile')}}</h3>
                     </div>
                     <div class="card-body">
                         @csrf
                         <div class="form-group">
-                            <label class="form-label">Name</label>
+                            <label class="form-label">{{__('ticketshop.name')}}</label>
                             <input name="name" placeholder="{{ Auth::user()->name }}" class="form-control">
                         </div>
                         <div class="form-group">
-                            <label class="form-label">Password</label>
+                            <label class="form-label">{{__('ticketshop.password')}}</label>
                             <input type="password" name="password" placeholder="*******" class="form-control">
                         </div>
                         <div class="form-group">
-                            <label class="form-label">Confirm Password</label>
+                            <label class="form-label">{{__('ticketshop.password_confirmation')}}</label>
                             <input type="password" name="password_confirmation" placeholder="*******" class="form-control">
                         </div>
                     </div>
                     <div class="card-footer text-right">
-                        <button class="btn btn-primary">Save</button>
+                        <button class="btn btn-primary">{{__('ticketshop.save')}}</button>
                     </div>
                 </form>
             </div>

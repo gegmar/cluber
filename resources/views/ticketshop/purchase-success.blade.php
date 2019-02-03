@@ -125,7 +125,7 @@
                     </div>
                     <div class="card-body">
                         <p class="card-text">Click the button to delete the purchase. Attention: This action is irreversible!</p>
-                        <form action="{{ route('retail.sold.delete', ['purchase' => $purchase]) }}" method="POST">
+                        <form action="{{ route('retail.sold.delete', ['purchase' => $purchase->random_id]) }}" method="POST">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger">Delete</button>

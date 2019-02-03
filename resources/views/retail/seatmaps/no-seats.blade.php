@@ -10,8 +10,8 @@
 <!---  Breadcrumb -->
 <div class="breadcrumb-holder container-fluid">
     <ul class="breadcrumb">
-        <li class="breadcrumb-item"><a href="{{ route('retail.sell.events') }}">Events</a></li>
-        <li class="breadcrumb-item active">Select Seats</li>
+        <li class="breadcrumb-item"><a href="{{ route('retail.sell.events') }}">{{__('ticketshop.events')}}</a></li>
+        <li class="breadcrumb-item active">{{__('ticketshop.Select_Seats')}}</li>
     </ul>
 </div>
 <section>
@@ -21,7 +21,7 @@
                 <h4>{{ $event->project->name }} | {{ $event->second_name }}</h4>
             </div>
             <div class="card-body">
-                <p>Please select how many tickets you need (Price: <span id="price">0</span> <i class="fa fa-eur"></i>).</p>
+                <p>{{__('ticketshop.select_number_of_tickets')}} ({{__('ticketshop.price')}}: <span id="price">0</span> <i class="fa fa-eur"></i>).</p>
                 <form class="form-horizontal" action="{{ route('retail.sell.sell', ['event' => $event->id]) }}" method="POST">
                     @csrf
                     @foreach( $event->priceList->categories as $category)
@@ -34,7 +34,7 @@
                     </div>
                     @endforeach
                     <div class="form-group row justify-content-center">
-                        <button type="submit" class="col-sm-2 btn btn-primary">Sell</button>
+                        <button type="submit" class="col-sm-2 btn btn-primary">{{__('ticketshop.sell')}}</button>
                     </div>
                 </form>
             </div>

@@ -1,12 +1,12 @@
 @component('mail::message')
-# Your Tickets
+# {{__('mail.your-tickets')}}
 
-Thank you for your purchase! You can find your tickets attached to this email and by clicking the following button.
+{{__('mail.thanks4buying-tickets')}}
 
 @component('mail::button', ['url' => route('ticket.purchase', ['purchase' => $purchase]), 'color' => 'success'])
-View purchase online
+{{__('mail.view-online')}}
 @endcomponent
 
-Thanks,<br>
+{{__('thanks')}}<br>
 {{ config('app.name') }}
 @endcomponent

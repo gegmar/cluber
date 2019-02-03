@@ -56,7 +56,7 @@
                     <i>Jedes Ticket ist durch dessen QR-Code in der linken unteren Ecke geschützt. Durch Einscannen werden Sie
                     auf unseren Online-Ticketshop geführt. Dort sehen Sie neben den gleichen Details wie auf diesem Ticket,
                     ob dieses Ticket echt und noch gültig ist.<br>
-                    Bei technischen Fragen oder bei Betrugsversuchen kontaktieren Sie uns bitte unter webmaster@frei-wild-molln.at!</i>
+                    Bei technischen Fragen oder bei Betrugsversuchen kontaktieren Sie uns bitte unter {{ config('app.owner_webmaster') }}!</i>
                 </div>
             </td>
         </tr>

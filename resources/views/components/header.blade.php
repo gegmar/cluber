@@ -15,14 +15,25 @@
                 <!-- Navbar Menu -->
                 <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
                     <!-- Languages dropdown    -->
+                    @if(App::isLocale('en'))
                     <li class="nav-item dropdown"><a id="languages" rel="nofollow" data-target="#" href="#" data-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false" class="nav-link language dropdown-toggle"><img
-                                src="/img/flags/16/GB.png" alt="English"><span class="d-none d-sm-inline-block">English</span></a>
+                                src="/img/flags/16/GB.png" alt="{{__('lang.english')}}"><span class="d-none d-sm-inline-block">{{__('lang.english')}}</span></a>
                         <ul aria-labelledby="languages" class="dropdown-menu">
-                            <li><a rel="nofollow" href="#" class="dropdown-item"> <img src="/img/flags/16/DE.png" alt="German"
-                                        class="mr-2">German</a></li>
+                            <li><a rel="nofollow" href="{{ route('set-locale', ['locale' => 'de']) }}" class="dropdown-item"> <img src="/img/flags/16/DE.png" alt="{{__('lang.german')}}"
+                                        class="mr-2">{{__('lang.german')}}</a></li>
                         </ul>
                     </li>
+                    @else
+                    <li class="nav-item dropdown"><a id="languages" rel="nofollow" data-target="#" href="#" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false" class="nav-link language dropdown-toggle"><img
+                                src="/img/flags/16/DE.png" alt="{{__('lang.german')}}"><span class="d-none d-sm-inline-block">{{__('lang.german')}}</span></a>
+                        <ul aria-labelledby="languages" class="dropdown-menu">
+                            <li><a rel="nofollow" href="{{ route('set-locale', ['locale' => 'en']) }}" class="dropdown-item"> <img src="/img/flags/16/GB.png" alt="{{__('lang.english')}}"
+                                        class="mr-2">{{__('lang.english')}}</a></li>
+                        </ul>
+                    </li>
+                    @endif
                     @auth
                     <!-- Logout    -->
                     <li class="nav-item dropdown">

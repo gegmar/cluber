@@ -14,7 +14,7 @@
                             <div class="logo">
                                 <h1>{{ config('app.name', 'Laravel') }}</h1>
                             </div>
-                            <p>Free platform for theatre clubs</p>
+                            <p>{{ __('ticketshop.welcome') }}</p>
                         </div>
                     </div>
                 </div>

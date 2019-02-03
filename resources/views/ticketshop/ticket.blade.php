@@ -10,8 +10,8 @@
 <!---  Breadcrumb -->
 <div class="breadcrumb-holder container-fluid">
     <ul class="breadcrumb">
-        <li class="breadcrumb-item"><a href="{{ route('ts.events') }}">Back to Event overview</a></li>
-        <li class="breadcrumb-item active">Ticket State</li>
+        <li class="breadcrumb-item"><a href="{{ route('ts.events') }}">{{__('ticketshop.back_to_events')}}</a></li>
+        <li class="breadcrumb-item active">{{__('ticketshop.ticket_state')}}</li>
     </ul>
 </div>
 <section class="projects">
@@ -45,12 +45,12 @@
                     @if($ticket->purchase->state == 'paid')
                     <div class="icon bg-green"><i class="fa fa-check"></i></div>
                     <div class="title">
-                        <span>Ticket<br>paid</span>
+                        <span>@lang('ticketshop.ticket_paid')</span>
                     </div>
                     @else
                     <div class="icon bg-red"><i class="fa fa-exclamation"></i></div>
                     <div class="title">
-                        <span>Ticket<br>not paid</span>
+                        <span>@lang('ticketshop.ticket_not_paid')</span>
                     </div>
                     @endif
                     <div class="number"></div>
@@ -61,7 +61,7 @@
                 <div class="item d-flex align-items-center">
                     <div class="icon bg-green"><i class="icon-bill"></i></div>
                     <div class="title">
-                        <span>Ticket<br>Price</span>
+                        <span>@lang('ticketshop.ticket_price')</span>
                     </div>
                     <div class="number"><strong>{{ $ticket->priceCategory->price}} <i class="fa fa-eur"></i></strong></div>
                 </div>
@@ -80,7 +80,7 @@
                 <div class="item d-flex align-items-center">
                     <div class="icon bg-green"><i class="icon-check"></i></div>
                     <div class="title">
-                        <span>Ticket<br>Owner</span>
+                        <span>@lang('ticketshop.ticket_owner')</span>
                     </div>
                 <div class="number"><strong>@if($ticket->purchase->customer_name != null) {{ $ticket->purchase->customer_name }} @else {{ $ticket->purchase->customer->name }} @endif</strong></div>
                 </div>

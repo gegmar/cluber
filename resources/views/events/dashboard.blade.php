@@ -10,7 +10,7 @@
 <!---  Breadcrumb -->
 <div class="breadcrumb-holder container-fluid">
     <ul class="breadcrumb">
-        <li class="breadcrumb-item active">Dashboard</li>
+        <li class="breadcrumb-item active">{{__('ticketshop.dashboard')}}</li>
     </ul>
 </div>
 <!-- Projects Section-->
@@ -38,7 +38,7 @@
                                 aria-valuemax="{{ $event->seatMap->seats }}" class="progress-bar bg-red"></div>
                         </div>
                     </div>
-                    <a class="btn btn-info pull-right" href="{{ route('events.download-overview', ['event' => $event->id]) }}" target="_blank"><i class="fa fa-table"></i> Download overview</a>
+                    <a class="btn btn-info pull-right" href="{{ route('events.download-overview', ['event' => $event->id]) }}" target="_blank"><i class="fa fa-table"></i> {{__('ticketshop.download-overview')}}</a>
                 </div>
             </div>
         </div>
@@ -53,7 +53,7 @@
             <div class="col-xl-3 col-sm-6">
                 <div class="item d-flex align-items-center">
                     <div class="icon bg-violet"><i class="fa fa-calendar"></i></div>
-                    <div class="title"><span>Active<br>Events</span></div>
+                    <div class="title"><span>@lang('ticketshop.events-active')</span></div>
                     <div class="number"><strong>{{ $openEvents->count() }}</strong></div>
                 </div>
             </div>
@@ -61,7 +61,7 @@
             <div class="col-xl-3 col-sm-6">
                 <div class="item d-flex align-items-center">
                     <div class="icon bg-red"><i class="fa fa-bar-chart"></i></div>
-                    <div class="title"><span>Market<br>Share</span></div>
+                    <div class="title"><span>@lang('ticketshop.market-share')</span></div>
                     <div class="number"><strong>{{$marketShare}}%</strong></div>
                 </div>
             </div>
@@ -69,12 +69,7 @@
             <div class="col-xl-3 col-sm-6">
                 <div class="item d-flex align-items-center">
                     <div class="icon bg-green"><i class="icon-bill"></i></div>
-                    <div class="title"><span>Number of<br>total sales</span>
-                        <div class="progress">
-                            <div role="progressbar" style="width: 40%; height: 4px;" aria-valuenow="40" aria-valuemin="0"
-                                aria-valuemax="100" class="progress-bar bg-green"></div>
-                        </div>
-                    </div>
+                    <div class="title"><span>@lang('ticketshop.number-sales')</span></div>
                     <div class="number"><strong>{{ $totalSales }}</strong></div>
                 </div>
             </div>
@@ -82,7 +77,7 @@
             <div class="col-xl-3 col-sm-6">
                 <div class="item d-flex align-items-center">
                     <div class="icon bg-orange"><i class="icon-check"></i></div>
-                    <div class="title"><span>Total<br>Turnover</span>
+                    <div class="title"><span>@lang('ticketshop.total-turnover')</span>
                     </div>
                     <div class="number"><strong>{{ $myTurnOver}} <i class="fa fa-eur"></i></strong></div>
                 </div>

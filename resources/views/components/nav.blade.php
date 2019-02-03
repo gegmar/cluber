@@ -5,28 +5,28 @@
     @endcomponent
 
     <!-- Sidebar Navidation Menus-->
-    <span class="heading">Customer</span>
+    <span class="heading">{{__('ticketshop.shop')}}</span>
     <ul class="list-unstyled">
-        <li><a href="{{ route('ts.events') }}"> <i class="fa fa-ticket"></i>Tickets </a></li>
+        <li><a href="{{ route('ts.events') }}"> <i class="fa fa-ticket"></i>{{__('ticketshop.tickets')}}</a></li>
     </ul>
 
     @auth
 
     @if(Auth::user()->hasPermission('SELL_TICKETS'))
     <!-- Backoffice links -->
-    <span class="heading">Backoffice</span>
+    <span class="heading">{{__('ticketshop.backoffice')}}</span>
     <ul class="list-unstyled">
-        <li><a href="#retailDropdown" aria-expanded="false" data-toggle="collapse"> <i class="fa fa-shopping-cart"></i>Retail
+        <li><a href="#retailDropdown" aria-expanded="false" data-toggle="collapse"> <i class="fa fa-shopping-cart"></i>{{__('ticketshop.retail')}}
             </a>
             <ul id="retailDropdown" class="collapse list-unstyled ">
-                <li><a href="{{ route('retail.sell.events') }}"><i class="fa fa-eur"></i>Sell Tickets</a></li>
-                <li><a href="{{ route('retail.sold.tickets') }}"><i class="fa fa-history"></i>Sold Tickets</a></li>
+                <li><a href="{{ route('retail.sell.events') }}"><i class="fa fa-eur"></i>{{__('ticketshop.sell_tickets')}}</a></li>
+                <li><a href="{{ route('retail.sold.tickets') }}"><i class="fa fa-history"></i>{{__('ticketshop.sold_tickets')}}</a></li>
             </ul>
         </li>
-        <li><a href="#eventsDropdown" aria-expanded="false" data-toggle="collapse"> <i class="fa fa-calendar"></i>Events
+        <li><a href="#eventsDropdown" aria-expanded="false" data-toggle="collapse"> <i class="fa fa-calendar"></i>{{__('ticketshop.events')}}
             </a>
             <ul id="eventsDropdown" class="collapse list-unstyled ">
-                <li><a href="{{ route('events.dashboard') }}"> <i class="fa fa-area-chart"></i>Dashboard</a></li>
+                <li><a href="{{ route('events.dashboard') }}"> <i class="fa fa-area-chart"></i>{{__('ticketshop.dashboard')}}</a></li>
                 {{-- <li><a href="#"><i class="fa fa-th"></i>Block Seats</a></li> --}}
             </ul>
         </li>

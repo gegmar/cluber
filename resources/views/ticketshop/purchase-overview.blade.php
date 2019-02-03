@@ -10,10 +10,10 @@
 <!---  Breadcrumb -->
 <div class="breadcrumb-holder container-fluid">
     <ul class="breadcrumb">
-        <li class="breadcrumb-item"><a href="{{ route('ts.events') }}">Events</a></li>
-        <li class="breadcrumb-item"><a href="{{ route('ts.seatmap', ['event' => $event->id]) }}">Select Seats</a></li>
-        <li class="breadcrumb-item"><a href="{{ route('ts.customerData') }}">My Data</a></li>
-        <li class="breadcrumb-item active">Overview</li>
+        <li class="breadcrumb-item"><a href="{{ route('ts.events') }}">{{__('ticketshop.events')}}</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('ts.seatmap', ['event' => $event->id]) }}">{{__('ticketshop.Select_Seats')}}</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('ts.customerData') }}">{{__('ticketshop.customer_data')}}</a></li>
+        <li class="breadcrumb-item active">{{__('ticketshop.overview')}}</li>
     </ul>
 </div>
 <section class="projects">
@@ -43,16 +43,16 @@
             <div class="col-md-4">
                 <div class="card">
                     <div class="card-header d-flex align-items-center">
-                        <h3 class="h4">My Tickets</h3>
+                        <h3 class="h4">{{__('ticketshop.my_tickets')}}</h3>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th>Ticket type</th>
-                                        <th>Number of tickets</th>
-                                        <th>Price per ticket</th>
+                                        <th>{{__('ticketshop.price-category')}}</th>
+                                        <th>{{__('ticketshop.number_of_tickets')}}</th>
+                                        <th>{{__('ticketshop.price')}} / {{__('ticketshop.ticket')}}</th>
                                     </tr>
                                 </thead>
                                 @php
@@ -80,7 +80,7 @@
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                        <th>Total</th>
+                                        <th>{{__('ticketshop.total')}}</th>
                                         <th>{{ $sumTickets }}</th>
                                         <th>{{ $sumPrice }} <i class="fa fa-eur"></i></th>
                                     </tr>
@@ -93,38 +93,37 @@
             <div class="col-md-4">
                 <div class="card">
                     <div class="card-header d-flex align-items-center">
-                        <h3 class="h4">Customer data</h3>
+                        <h3 class="h4">{{__('ticketshop.customer_data')}}</h3>
                     </div>
                     <div class="card-body">
-                        <p class="card-text">This information will be used to send your tickets via mail and track it
-                            in our system (<a href="{{ route('privacy') }}">privacy terms</a>)</p>
+                        <p class="card-text">@lang('ticketshop.privacy_final')</p>
                         <ul>
-                            <li>E-Mail: {{ $customerData['email'] }}</li>
-                            <li>Name: {{ $customerData['name'] }}</li>
-                            <li>Newsletter subscription via mail: @if( array_key_exists('newsletter', $customerData) )
-                                yes
-                                @else no @endif</li>
+                            <li>{{_('ticketshop.email')}}: {{ $customerData['email'] }}</li>
+                            <li>{{__('ticketshop.name')}}: {{ $customerData['name'] }}</li>
+                            <li>{{__('ticketshop.newsletter_option')}}: @if( array_key_exists('newsletter', $customerData) )
+                                {{__('ticketshop.yes')}}
+                                @else {{__('ticketshop.no')}} @endif</li>
                         </ul>
-                        <a href="{{ route('ts.customerData') }}">Edit my data</a>
+                        <a href="{{ route('ts.customerData') }}">{{__('ticketshop.edit')}}</a>
                     </div>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="card">
                     <div class="card-header d-flex align-items-center">
-                        <h3 class="h4">Payment Method</h3>
+                        <h3 class="h4">{{__('ticketshop.payment_method')}}</h3>
                     </div>
                     <div class="card-body">
-                        <p class="card-text">Select a payment method for this purchase!</p>
+                        <p class="card-text">{{__('ticketshop.select_payment_method')}}</p>
                     </div>
                     <form action="{{ route('ts.pay') }}" method="post">
                         @csrf
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item"><input type="radio" name="paymethod" value="PayPal" /> <img src="/img/logos/paypal.jpg"
-                                    alt="PayPal" height="30px"> or Credit Card</li>
+                                    alt="PayPal" height="30px"> {{__('ticketshop.or_credit_card')}}</li>
                             <li class="list-group-item"><input type="radio" name="paymethod" value="Klarna" /> <img src="/img/logos/klarna.png"
                                     alt="Klarna" height="30px"> = SofortÜberweisung</li>
-                            <li class="list-group-item"><button class="btn btn-primary">Buy</button></li>
+                            <li class="list-group-item"><button class="btn btn-primary">{{__('ticketshop.buy')}}</button></li>
                         </ul>
                     </form>
                 </div>

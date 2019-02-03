@@ -10,7 +10,7 @@
 <!---  Breadcrumb -->
 <div class="breadcrumb-holder container-fluid">
     <ul class="breadcrumb">
-        <li class="breadcrumb-item">Events</li>
+        <li class="breadcrumb-item">{{__('ticketshop.events')}}</li>
     </ul>
 </div>
 <section>
@@ -27,10 +27,9 @@
                         <p class="card-text"><i class="fa fa-calendar"></i> {{ date_format(date_create($event->start_date), 'l, d.m.Y') }}</p>
                         <p class="card-text"><i class="fa fa-clock-o"></i> {{ date_format(date_create($event->start_date),
                             'H:i') }}</p>
-                        <a href="{{ route('ts.seatmap', ['event' => $event->id]) }}" class="btn btn-primary">Buy
-                            Tickets</a>
+                        <a href="{{ route('ts.seatmap', ['event' => $event->id]) }}" class="btn btn-primary">{{__('ticketshop.Buy_Tickets')}}</a>
                     </div>
-                    <div class="card-footer text-muted">Still tickets available</div>
+                    <div class="card-footer text-muted">{{__('ticketshop.tickets_still_available')}}</div>
                 </div>
                 @else
                 <div class="card">
@@ -41,7 +40,7 @@
                         <p class="card-text"><i class="fa fa-clock-o"></i> {{ date_format(date_create($event->start_date),
                             'H:i') }}</p>
                     </div>
-                    <div class="card-footer text-muted">Sold Out!</div>
+                    <div class="card-footer text-muted">{{__('ticketshop.sold_out')}}</div>
                 </div>
                 @endif
             </div> <!-- end event col -->

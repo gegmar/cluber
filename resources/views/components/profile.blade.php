@@ -4,7 +4,7 @@
     </a>
     <div class="title">
         <h1 class="h4">{{ auth()->user()->name }}</h1>
-        <p><a href="{{ route('profile.show') }}">Profile</a></p>
+        <p><a href="{{ route('profile.show') }}">{{__('ticketshop.profile')}}</a></p>
     </div>
 </div>
 @endauth

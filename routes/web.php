@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Middleware\CheckPermission;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +12,11 @@ use App\Http\Middleware\CheckPermission;
 |
  */
 Auth::routes(['verify' => true]);
+
+Route::get('setlang/{locale}', function ($locale) {
+    session(['locale' => $locale]);
+    return redirect()->back();
+})->name('set-locale');
 
 Route::get('/', 'TicketShop\EventsController@index')->name('start');
 

@@ -3,14 +3,14 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-4">
-                <p>Theaterverein X &copy; 2017-2019</p>
+                <p>{{ config('app.owner') }} &copy; 2019</p>
             </div>
             <div class="col-sm-4">
-                <p><a href="{{ route('impress') }}">Impress</a> | <a href="{{ route('terms') }}">Terms & Conditions</a>
-                    | <a href="{{ route('privacy') }}">Privacy</a></p>
+                <p><a href="{{ route('impress') }}">{{__('ticketshop.impress')}}</a> | <a href="{{ route('terms') }}">{{ __('ticketshop.terms')}}</a>
+                    | <a href="{{ route('privacy') }}">{{ __('ticketshop.privacy')}}</a></p>
             </div>
             <div class="col-sm-4 text-right">
-                <p>Version x.y.z</p>
+                <p>{{__('ticketshop.version')}} {{ config('app.version') }}</p>
             </div>
         </div>
     </div>

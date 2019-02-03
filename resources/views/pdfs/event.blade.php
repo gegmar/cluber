@@ -17,7 +17,7 @@ td
     border-right: solid 1px #000;
 }
 </style>
-<span style="font-size: 20px; font-weight: bold;">Tickets overview<br></span>
+<span style="font-size: 20px; font-weight: bold;">{{__('ticketshop.ticket-overview')}}<br></span>
 <br>
 <br>
 <table>
@@ -36,10 +36,10 @@ td
             </th>
         </tr>
         <tr>
-            <th>Shop</th>
-            <th>Owner</th>
-            <th>Price Category (Price€)</th>
-            <th>Arrived?</th>
+            <th>{{__('ticketshop.shop')}}</th>
+            <th>{{__('ticketshop.owner')}}</th>
+            <th>{{__('ticketshop.price-category')}} ({{__('ticketshop.price')}} <i class="fa fa-eur"></i></th>
+            <th>{{__('ticketshop.arrived')}}</th>
         </tr>
     </thead>
     <tbody>
@@ -47,7 +47,7 @@ td
         <tr class="border-bottom">
             <td>{{ $ticket->id }}</td>
             <td>{{ $ticket->purchase->vendor->name }}</td>
-            <td>@if($ticket->purchase->customer){{ $ticket->purchase->customer->name}} @elseif($ticket->purchase->customer_name) {{ $ticket->purchase->customer_name }} @else Shop Customer @endif</td>
+            <td>@if($ticket->purchase->customer){{ $ticket->purchase->customer->name}} @elseif($ticket->purchase->customer_name) {{ $ticket->purchase->customer_name }} @else {{__('ticketshop.shop-customer')}} @endif</td>
             <td>{{$ticket->priceCategory->name}} ({{ $ticket->priceCategory->price}} €)</td>
             <td></td>
         </tr>
