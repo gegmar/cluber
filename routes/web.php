@@ -75,7 +75,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // Profile routes
     Route::prefix('profile')->name('profile.')->group(function () {
-        Route::get('/', 'ProfileController@getProfile')->name('show');
+        Route::get('/', 'ProfileController@get')->name('show');
+        Route::post('update', 'ProfileController@update')->name('update');
     });
 
     // Retail routes

@@ -40,7 +40,7 @@ class TheaterKirchdorfDarioFooSeeder extends Seeder
             'price' => 8
         ]);
 
-        $priceList->priceCategories()->attach([$standardPrice, $reducedPrice]);
+        $priceList->categories()->attach([$standardPrice->id, $reducedPrice->id]);
 
         $project = App\Project::create([
             'name' => 'Verzeihung, wer ist hier der Boss?',
@@ -85,6 +85,7 @@ class TheaterKirchdorfDarioFooSeeder extends Seeder
                 'seat_map_id' => $seatMap->id,
                 'price_list_id' => $priceList->id
             ]);
+            $count++;
         }
     }
 }

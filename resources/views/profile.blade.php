@@ -24,7 +24,8 @@
                         <h3 class="mb-3">{{ Auth::user()->name }}</h3>
                     </div>
                 </div>
-                <form class="card" action="" method="POST">
+                <form class="card" action="{{ route('profile.update') }}" method="POST">
+                    @csrf
                     <div class="card-header">
                         <h3 class="card-title">{{__('ticketshop.my_profile')}}</h3>
                     </div>
