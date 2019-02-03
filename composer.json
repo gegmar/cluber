@@ -1,7 +1,7 @@
 {
-    "name": "laravel/laravel",
-    "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "name": "gegmar/cluber",
+    "description": "Free ticket shop for theatre clubs",
+    "keywords": ["clubs", "theatre", "ticketing"],
     "license": "MIT",
     "type": "project",
     "require": {
