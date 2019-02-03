@@ -27,7 +27,7 @@
                         <p class="card-text">{{ $event->start_date }}</p>
                         <a href="{{ route('retail.sell.seats', ['event' => $event->id]) }}" class="btn btn-primary">{{__('ticketshop.sell_tickets')}}</a>
                     </div>
-                    <div class="card-footer text-muted">{{__('ticketshop.tickets_available', $event->freeTickets(), ['ticketCount' => $event->freeTickets()])}}</div>
+                    <div class="card-footer text-muted">{{ trans_choice('ticketshop.tickets_available', $event->freeTickets(), ['value' => $event->freeTickets()])}}</div>
                 </div>
                 @else
                 <div class="card">

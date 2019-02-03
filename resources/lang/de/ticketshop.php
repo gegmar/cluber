@@ -52,7 +52,7 @@ return [
     'price-category' => 'Preiskategorie',
     'privacy' => 'Datenschutz',
     'privacy_agree' => 'Ich stimme der Verarbeitung meiner Daten und der Datenschutzbestimmungen dieser Seite zu.',
-    'privacy_final' => 'Diese Informationen werden verwendet um Ihnen Ihre Karten zu senden und den Einkauf in unserem System nachvollziehen zu können (<a href="' . route('privacy') . '">privacy terms</a>).',
+    'privacy_final' => 'Diese Informationen werden verwendet um Ihnen Ihre Karten zu senden und den Einkauf in unserem System nachvollziehen zu können (<a href="' . route('privacy') . '">Datenschutzerklärung</a>).',
     'privacy_statement' => 'Datenschutzerklärung',
     'profile' => 'Profil',
     'purchase_overview_description' => 'Das sind Ihre Verkäufe. Sie können diese über das "Suchen/Search" Feld durchsuchen!',

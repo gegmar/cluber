@@ -58,7 +58,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <button type="submit" class="btn btn-primary">{{__('ticketshop.submit')}}</button>
+                        <button type="submit" class="btn btn-primary">{{__('ticketshop.continue')}}</button>
                     </div>
                 </form>
             </div>

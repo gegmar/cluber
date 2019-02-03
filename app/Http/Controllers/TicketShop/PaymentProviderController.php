@@ -20,6 +20,10 @@ class PaymentProviderController extends Controller
             PayPal::executePayment($paymentId, $payerId);
 
             $purchase->setStateToPaid($secret);
+
+
+            Mail::to($purchase->customer)->send(new TicketsPaid($purchase));
+
             $returnable = redirect()->route('ticket.purchase', ['purchase' => $purchase])
                 ->with('status', 'Purchase successful - Please download your tickets.');
         } catch (PaymentProviderException $e) {

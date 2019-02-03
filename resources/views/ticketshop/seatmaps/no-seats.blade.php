@@ -21,7 +21,7 @@
                 <h4>{{ $event->project->name }} | {{ $event->second_name }}</h4>
             </div>
             <div class="card-body">
-                <p>{{__('ticketshop.select_number_of_tickets')}} ({{_('ticketshop.price')}}: <span id="price">0</span> <i class="fa fa-eur"></i>).</p>
+                <p>{{__('ticketshop.select_number_of_tickets')}} ({{__('ticketshop.price')}}: <span id="price">0</span> <i class="fa fa-eur"></i>).</p>
                 <form class="form-horizontal" action="{{ route('ts.setSeatMap', ['event' => $event->id]) }}" method="POST">
                     @csrf
                     @foreach( $event->priceList->categories as $category)

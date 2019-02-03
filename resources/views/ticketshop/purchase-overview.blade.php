@@ -98,7 +98,7 @@
                     <div class="card-body">
                         <p class="card-text">@lang('ticketshop.privacy_final')</p>
                         <ul>
-                            <li>{{_('ticketshop.email')}}: {{ $customerData['email'] }}</li>
+                            <li>{{__('ticketshop.email')}}: {{ $customerData['email'] }}</li>
                             <li>{{__('ticketshop.name')}}: {{ $customerData['name'] }}</li>
                             <li>{{__('ticketshop.newsletter_option')}}: @if( array_key_exists('newsletter', $customerData) )
                                 {{__('ticketshop.yes')}}

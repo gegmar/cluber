@@ -94,7 +94,7 @@
                         <ul>
                             <li>{{__('ticketshop.email')}}: {{ $purchase->customer->email }}</li>
                             <li>{{__('ticketshop.name')}}: {{ $purchase->customer->name }}</li>
-                            <li>{{__('ticketshop.newsletter_options')}}: @if( $purchase->customer->hasPermission('RECEIVE_NEWSLETTER') ) {{__('ticketshop.yes')}} @else {{__('ticketshop.no')}} @endif</li>
+                            <li>{{__('ticketshop.newsletter_option')}}: @if( $purchase->customer->hasPermission('RECEIVE_NEWSLETTER') ) {{__('ticketshop.yes')}} @else {{__('ticketshop.no')}} @endif</li>
                         </ul>
                     </div>
                 </div>

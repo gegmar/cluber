@@ -17,7 +17,7 @@ td
     border-right: solid 1px #000;
 }
 </style>
-<span style="font-size: 20px; font-weight: bold;">{{__('ticketshop.ticket-overview')}}<br></span>
+<span style="font-size: 20px; font-weight: bold;">{{__('ticketshop.tickets-overview')}}<br></span>
 <br>
 <br>
 <table>

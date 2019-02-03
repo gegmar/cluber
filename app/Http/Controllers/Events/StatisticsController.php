@@ -18,7 +18,8 @@ class StatisticsController extends Controller
         $openEvents = Event::where('end_date', '>', new \DateTime())->get();
         $mySales = Purchase::where('vendor_id', auth()->user()->id)->where('state', 'paid')->get();
         $totalSales = $mySales->count();
-        $marketShare = round($totalSales * 100 / Purchase::where('state', 'paid')->count());
+        $allSales = Purchase::where('state', 'paid')->count();
+        $marketShare = round($totalSales * 100 / ($allSales > 0 ? $allSales : 1)); // Prevent a division by zero
 
         $myTurnOver = 0;
         foreach ($mySales as $purchase) {
