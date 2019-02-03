@@ -52,8 +52,7 @@ return [
     'price' => 'Price',
     'price-category' => 'Price Category',
     'privacy' => 'Privacy',
-    'privacy_agree' => 'I agree that my data is processed as it is stated in the privacy
-    section.',
+    'privacy_agree' => 'I agree that my data is processed as it is stated in the <a href="' . route('privacy') . '" target="_blank">privacy section</a>.',
     'privacy_final' => 'This information will be used to send your tickets via mail and track it
     in our system (<a href="' . route('privacy') . '">privacy terms</a>)',
     'privacy_statement' => 'Privacy Statement',
@@ -76,7 +75,7 @@ return [
     'sold_tickets' => 'Sold Tickets',
     'Start' => 'Start',
     'terms' => 'Terms and Conditions',
-    'terms_agree' => 'I agree to the Terms and Conditions of this online shop.',
+    'terms_agree' => 'I agree to the <a href="' . route('terms') . '" target="_blank">Terms and Conditions</a> of this online shop.',
     'ticket' => 'Ticket',
     'ticket_not_paid' => 'Ticket<br>not paid',
     'ticket_owner' => 'Ticket<br>Owner',

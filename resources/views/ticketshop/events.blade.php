@@ -21,7 +21,7 @@
             <div class="col-md-4">
                 @if( !$event->isSoldOut() )
                 <div class="card">
-                    <div class="card-header">{{ $project->name }}</div>
+                    <div class="card-header"><h2>{{ $project->name }}</h2></div>
                     <div class="card-body">
                         <h4 class="card-title">{{ $event->second_name }}</h4>
                         <p class="card-text"><i class="fa fa-calendar"></i> {{ date_format(date_create($event->start_date), 'l, d.m.Y') }}</p>

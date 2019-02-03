@@ -23,6 +23,7 @@ class CreatePriceListsTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->decimal('price', 8, 2);
+            $table->string('description')->nullable();
             $table->timestamps();
         });
 

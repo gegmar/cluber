@@ -44,12 +44,12 @@
                         <div>
                             <input id="check-terms" type="checkbox" name="terms" value="true" required="required" @if(
                                 array_key_exists('terms', $data) )checked @endif>
-                            <label for="check-terms">{{__('ticketshop.terms_agree')}}</label>
+                            <label for="check-terms">@lang('ticketshop.terms_agree')</label>
                         </div>
                         <div>
                             <input id="check-privacy" type="checkbox" name="privacy" value="true" required="required"
                                 @if( array_key_exists('privacy', $data) )checked @endif>
-                            <label for="check-privacy">{{__('ticketshop.privacy_agree')}}</label>
+                            <label for="check-privacy">@lang('ticketshop.privacy_agree')</label>
                         </div>
                         <div>
                             <input id="check-newsletter" type="checkbox" name="newsletter" value="true" @if(

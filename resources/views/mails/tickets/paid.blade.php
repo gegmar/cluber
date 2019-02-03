@@ -7,6 +7,6 @@
 {{__('mail.view-online')}}
 @endcomponent
 
-{{__('thanks')}}<br>
+{{__('mail.thanks')}}<br>
 {{ config('app.name') }}
 @endcomponent

@@ -109,7 +109,7 @@
                         <p class="card-text">{{__('ticketshop.purchase_success')}}</p>
                     </div>
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item"><a href="{{ route('ticket.download', ['purchase' => $purchase->random_id]) }}">{{__('ticketshop.tickets')}}</a></li>
+                        <li class="list-group-item"><a target="_blank" href="{{ route('ticket.download', ['purchase' => $purchase->random_id]) }}">{{__('ticketshop.tickets')}}</a></li>
                     </ul>
                 </div>
             </div>
@@ -119,7 +119,7 @@
             <div class="col-md-4">
                 <div class="card">
                     <div class="card-header d-flex align-items-center">
-                        <h3 class="h4">{{__('ticketshop.mange_purchase')}}</h3>
+                        <h3 class="h4">{{__('ticketshop.manage_purchase')}}</h3>
                     </div>
                     <div class="card-body">
                         <p class="card-text">{{__('ticketshop.delete_purchase_warning')}}</p>

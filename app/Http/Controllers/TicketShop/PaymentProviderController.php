@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use App\PaymentProvider\PayPal;
 use App\Purchase;
 use App\Exceptions\PaymentProviderException;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\TicketsPaid;
 
 class PaymentProviderController extends Controller
 {
@@ -20,7 +22,6 @@ class PaymentProviderController extends Controller
             PayPal::executePayment($paymentId, $payerId);
 
             $purchase->setStateToPaid($secret);
-
 
             Mail::to($purchase->customer)->send(new TicketsPaid($purchase));
 

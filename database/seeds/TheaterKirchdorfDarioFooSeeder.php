@@ -31,13 +31,14 @@ class TheaterKirchdorfDarioFooSeeder extends Seeder
         ]);
 
         $standardPrice = App\PriceCategory::create([
-            'name' => 'Normal',
+            'name' => 'Standard',
             'price' => 10
         ]);
 
         $reducedPrice = App\PriceCategory::create([
             'name' => 'Ermäßigt',
-            'price' => 8
+            'price' => 8,
+            'description' => 'Kinder, Lehrlinge und Studenten'
         ]);
 
         $priceList->categories()->attach([$standardPrice->id, $reducedPrice->id]);
