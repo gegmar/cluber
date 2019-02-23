@@ -120,7 +120,7 @@
                         @csrf
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item"><input type="radio" name="paymethod" value="PayPal" /> <img src="/img/logos/paypal.jpg"
-                                    alt="PayPal" height="30px"> {{__('ticketshop.or_credit_card')}}</li>
+                                    alt="PayPal" height="30px">{{-- {{__('ticketshop.or_credit_card')}} --}}</li>
                             <li class="list-group-item"><input type="radio" name="paymethod" value="Klarna" /> <img src="/img/logos/klarna.png"
                                     alt="Klarna" height="30px"> = SofortÜberweisung</li>
                             <li class="list-group-item"><button class="btn btn-primary">{{__('ticketshop.buy')}}</button></li>
