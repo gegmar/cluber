@@ -13,7 +13,7 @@ class AttachRoleToUser extends Command
      *
      * @var string
      */
-    protected $signature = 'app:attachRole {email} {role_name}';
+    protected $signature = 'app:attach-role {email} {role_name}';
 
     /**
      * The console command description.
