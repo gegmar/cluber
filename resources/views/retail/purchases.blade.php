@@ -32,6 +32,7 @@
                     <table id="sales" style="width: 100%;" class="table">
                         <thead>
                             <tr>
+                                <th>{{__('ticketshop.id')}}</th>
                                 <th>{{__('ticketshop.date')}}</th>
                                 <th>{{__('ticketshop.events')}}</th>
                                 <th>{{__('ticketshop.customer')}}</th>
@@ -42,6 +43,7 @@
                         <tbody>
                             @foreach($purchases as $purchase)
                             <tr>
+                                <td>{{ $purchase->id }}</td>
                                 <td>{{ $purchase->state_updated}}</td>
                                 <td>@foreach( $purchase->events() as $event) {{ $event->project->name }} | {{ $event->second_name }} @endforeach</td>
                                 <td>@if($purchase->customer) {{ $purchase->customer->name }} @elseif($purchase->customer_name) {{ $purchase->customer_name }} @else {{__('ticketshop.shop-customer')}} @endif</td>
