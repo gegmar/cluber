@@ -59,9 +59,7 @@ Route::namespace('TicketShop')->prefix('ts')->name('ts.')->group(function () {
 
         // PaymentProvider-specific URLs
         Route::get('{purchase}/{secret}/paypal/executepayment', 'PaymentProviderController@payPalExecutePayment')->name('payPalExec');
-
     });
-
 });
 
 // All routes regarding fetching tickets for purchases
@@ -101,11 +99,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         Route::get('/', 'StatisticsController@dashboard')->name('dashboard');
         Route::get('/{event}/pdf-overview.pdf', 'StatisticsController@downloadOverview')->name('download-overview');
+    });
 
+    // Supervisor routes
+    Route::middleware(['perm:SUPERVISE'])->namespace('Supervision')->prefix('supervision')->name('supervision.')->group(function () {
+
+        Route::get('/', 'AnalyticController@dashboard')->name('dashboard');
+        Route::get('/{project}/export.csv', 'AnalyticController@downloadCSV')->name('export-csv');
     });
 
     // Admin routes
-    Route::prefix('admin')->name('admin.')->group(function () {
-
-    });
+    Route::prefix('admin')->name('admin.')->group(function () { });
 });

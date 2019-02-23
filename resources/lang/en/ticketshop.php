@@ -11,12 +11,14 @@ return [
     |
  */
     'actions' => 'Aktions',
+    'analysis' => 'Analysis',
     'arrived' => 'Arrived?',
     'back_to_events' => 'Back to Events',
     'backoffice' => 'Backoffice',
     'buy' => 'Buy',
     'Buy_Tickets' => 'Buy Tickets',
     'continue' => 'Continue',
+    'csv-export' => 'Export as CSV',
     'customer' => 'Customer',
     'customer_data' => 'Customer Data',
     'customer_date_description' => 'Please add your information to our purchase in order to receive your tickets later via email and
@@ -32,7 +34,12 @@ return [
     'email_confirmation' => 'Confirm Email',
     'events' => 'Events',
     'events-active' => 'Active<br>Events',
+    'events-finished' => 'Finished<br>Events',
+    'events-total' => 'Total<br>Events',
+    'export' => 'Export',
+    'id' => 'ID',
     'impress' => 'Impress',
+    'load' => 'Load',
     'manage_purchase' => 'Manage Purchase',
     'market-share' => 'Market<br>Share',
     'my_profile' => 'My Profile',
@@ -57,6 +64,7 @@ return [
     in our system (<a href="' . route('privacy') . '">privacy terms</a>)',
     'privacy_statement' => 'Privacy Statement',
     'profile' => 'Profile',
+    'projects' => 'Projects',
     'purchase_overview_description' => 'These are your sales. Search and select them by the "search"-Field!',
     'purchase_success' => 'Success! You can download your tickets here as pdf! Please bring them to
     the event in order to enter the location.',
@@ -74,6 +82,7 @@ return [
     'sold_out' => 'Sold Out!',
     'sold_tickets' => 'Sold Tickets',
     'Start' => 'Start',
+    'supervision' => 'Supervision',
     'terms' => 'Terms and Conditions',
     'terms_agree' => 'I agree to the <a href="' . route('terms') . '" target="_blank">Terms and Conditions</a> of this online shop.',
     'ticket' => 'Ticket',

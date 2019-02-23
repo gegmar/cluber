@@ -33,6 +33,19 @@
     </ul>
     @endif
 
+    @if(Auth::user()->hasPermission('SUPERVISE'))
+    <!-- Supervision links -->
+    <span class="heading">{{__('ticketshop.supervision')}}</span>
+    <ul class="list-unstyled">
+        <li><a href="#analysisDropdown" aria-expanded="false" data-toggle="collapse"> <i class="fa fa-calculator"></i>{{__('ticketshop.analysis')}}
+            </a>
+            <ul id="analysisDropdown" class="collapse list-unstyled ">
+                <li><a href="{{ route('supervision.dashboard') }}"><i class="fa fa-bar-chart"></i>{{__('ticketshop.projects')}}</a></li>
+            </ul>
+        </li>
+    </ul>
+    @endif
+
     @if(Auth::user()->hasPermission('ADMINISTRATE'))
     <!-- Admin links -->
     <span class="heading">Admin</span>
