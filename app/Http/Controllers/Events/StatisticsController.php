@@ -52,11 +52,9 @@ class StatisticsController extends Controller
             $html2pdf->writeHTML($content);
 
             $html2pdf->output('overview-event-' . $event->id . '.pdf');
-        } catch (Html2PdfException $e) {
+        } catch (Html2PdfException $exc) {
             $html2pdf->clean();
-            $formatter = new ExceptionFormatter($e);
-            $errorText = $formatter->getHtmlMessage();
-            return redirect()->route('events.dashboard')->with('state', $errorText);
+            return redirect()->route('events.dashboard')->with('state', $exc);
         }
     }
 }
