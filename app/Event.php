@@ -18,12 +18,29 @@ class Event extends Model
     }
 
     /**
-     * 
+     * Returns number of free tickets of an event
      */
     public function freeTickets()
     {
         return $this->seatMap->seats - $this->tickets->count();
     }
+
+    /**
+     * Local scopes & relations
+     */
+
+
+    public function scopeEnded($query)
+    {
+        return $query->where('end_date', '<', new \DateTime());
+    }
+
+    public function scopeOpen($query)
+    {
+        return $query->where('start_date', '>', new \DateTime());
+    }
+
+
 
     public function tickets()
     {
@@ -49,5 +66,4 @@ class Event extends Model
     {
         return $this->belongsTo('App\PriceList');
     }
-
 }
