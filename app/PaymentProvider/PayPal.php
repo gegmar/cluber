@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Log;
 use App\Exceptions\PaymentProviderException;
 use PayPal\Api\PaymentOptions;
 use PayPal\Api\PaymentExecution;
+use Illuminate\Support\Facades\App;
 
 
 
@@ -26,14 +27,20 @@ class PayPal
     /**
      * Generate context by supplying PayPal-Credentials
      */
-    private static function getApiContext() : ApiContext
+    private static function getApiContext(): ApiContext
     {
-        return new ApiContext(
+        $context = new ApiContext(
             new OAuthTokenCredential(
                 config('paymentprovider.payPalClientId'),     // ClientID
                 config('paymentprovider.payPalClientSecret')  // ClientSecret
             )
         );
+        if (App::environment('prod')) {
+            $context->setConfig([
+                'mode' => 'live'
+            ]);
+        }
+        return $context;
     }
 
     /**
@@ -113,6 +120,5 @@ class PayPal
             throw new PaymentProviderException('Error on executing PayPal payment.');
         }
         return $payment;
-
     }
 }
