@@ -14,6 +14,7 @@ return [
     'analysis' => 'Analyse',
     'arrived' => 'Gekommen?',
     'back_to_events' => 'Zurück zu den Veranstaltungen',
+    'back_to_start' => 'Zurück zum Start',
     'backoffice' => 'Büro',
     'buy' => 'Kaufen',
     'Buy_Tickets' => 'Karten kaufen',

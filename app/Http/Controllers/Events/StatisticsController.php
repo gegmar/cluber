@@ -7,7 +7,6 @@ use App\Http\Controllers\Controller;
 use App\Event;
 use Spipu\Html2Pdf\Html2Pdf;
 use Spipu\Html2Pdf\Exception\Html2PdfException;
-use Spipu\Html2Pdf\Exception\ExceptionFormatter;
 use App\Purchase;
 
 class StatisticsController extends Controller

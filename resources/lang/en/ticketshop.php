@@ -14,6 +14,7 @@ return [
     'analysis' => 'Analysis',
     'arrived' => 'Arrived?',
     'back_to_events' => 'Back to Events',
+    'back_to_start' => 'Back to Start',
     'backoffice' => 'Backoffice',
     'buy' => 'Buy',
     'Buy_Tickets' => 'Buy Tickets',

@@ -41,11 +41,8 @@ class TicketsController extends Controller
             $html2pdf->output('tickets-' . $purchase->id . '.pdf');
         } catch (Html2PdfException $e) {
             $html2pdf->clean();
-            $formatter = new ExceptionFormatter($e);
-            $errorText = $formatter->getHtmlMessage();
-            return redirect()->route('ticket.purchase', ['purchase' => $purchase])->with('state', $errorText);
+            return redirect()->route('ticket.purchase', ['purchase' => $purchase])->with('state', $e->getMessage());
         }
-
     }
 
     /**

@@ -18,7 +18,7 @@ Route::get('setlang/{locale}', function ($locale) {
     return redirect()->back();
 })->name('set-locale');
 
-Route::get('/', 'TicketShop\EventsController@index')->name('start');
+Route::get('/', 'StartController@index')->name('start');
 
 /**
  * Footer-Routes

@@ -8,7 +8,7 @@
 <!---  Breadcrumb -->
 <div class="breadcrumb-holder container-fluid">
     <ul class="breadcrumb">
-        <li class="breadcrumb-item"><a href="{{ route('ts.events') }}">{{__('ticketshop.back_to_events')}}</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('start') }}">{{__('ticketshop.back_to_start')}}</a></li>
     </ul>
 </div>
 <section>
