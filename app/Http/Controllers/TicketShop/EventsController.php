@@ -5,7 +5,6 @@ namespace App\Http\Controllers\TicketShop;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Project;
-use App\Event;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Cache;
 
@@ -27,8 +26,11 @@ class EventsController extends Controller
             Cache::put('deletedLostOrders', '1', $expiresAt);
         }
 
-        $projects = Project::with(['events' => function ($query) {
-            $query->where('start_date', '>=', new \DateTime())->orderBy('start_date', 'ASC');
+        $deadline = new \DateTime();
+        $deadline->add(new \DateInterval('PT2H'));
+
+        $projects = Project::with(['events' => function ($query) use ($deadline) {
+            $query->where('start_date', '>=', $deadline)->orderBy('start_date', 'ASC');
         }, 'events.location'])->get();
 
         $currentProjects = $projects->filter(function ($project) {
