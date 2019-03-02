@@ -15,9 +15,9 @@ class TheaterKirchdorfDarioFooSeeder extends Seeder
         $this->call(UserSeeder::class);
 
         $seatMap = App\SeatMap::create([
-            'seats' => 80,
-            'name' => 'Theater in der Werkstatt (Standard - ohne Sitzplätze)',
-            'description' => 'Standardmäßig werden im Theater Kirchdorf keine Sitzplatzkarten verkauft.',
+            'seats' => 68,
+            'name' => 'Theater in der Werkstatt (Verzeihung, wer ist hier der Boss?)',
+            'description' => 'Keine Sitzplatzkarten. Klavier blockiert erste Sitzreihe.',
             'layout' => null
         ]);
 
@@ -32,7 +32,7 @@ class TheaterKirchdorfDarioFooSeeder extends Seeder
 
         $standardPrice = App\PriceCategory::create([
             'name' => 'Standard',
-            'price' => 10
+            'price' => 14
         ]);
 
         $reducedPrice = App\PriceCategory::create([
