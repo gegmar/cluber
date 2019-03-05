@@ -50,11 +50,11 @@
                                 <td>{{ $purchase->tickets->count() }}</td>
                                 <td>
                                     <a href="{{ route('ticket.purchase', [$purchase->random_id]) }}" class="btn btn-default"><i class="fa fa-ticket"></i></a>
-                                    <form style="display:inline-block" action="{{ route('retail.sold.delete', ['purchase' => $purchase->random_id]) }}" method="POST">
+                                    {{-- <form style="display:inline-block" action="{{ route('retail.sold.delete', ['purchase' => $purchase->random_id]) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i></button>
-                                    </form>
+                                    </form>--}}
                                 </td>
                             </tr>
                             @endforeach
