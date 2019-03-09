@@ -122,11 +122,11 @@
                     </div>
                     <div class="card-body">
                         <p class="card-text">{{__('ticketshop.delete_purchase_warning')}}</p>
-                        <form action="{{ route('retail.sold.delete', ['purchase' => $purchase->random_id]) }}" method="POST">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger">{{__('ticketshop.delete')}}</button>
-                        </form>
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deletePurchaseModal">
+                            {{__('ticketshop.delete')}}
+                        </button>
+                        @component('components.modals.delete-purchase', ['purchase' => $purchase])
+                        @endcomponent
                     </div>
                 </div>
             </div>
