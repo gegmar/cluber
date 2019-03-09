@@ -12,7 +12,7 @@
                         <br>
                         @if($ticket->purchase->customer_id != null)
                         Ausgestellt für : <b>@if ( $ticket->purchase->customer_name != null ) {{ $ticket->purchase->customer_name }} @else {{ $ticket->purchase->customer->name }} @endif</b><br>@endif
-                        Ausgestellt am : <b>{{ date_format( date_create($ticket->purchase->state_updated), "l, d.m.Y H:i") }}</b>
+                        Ausgestellt am : <b>@datetime($ticket->purchase->state_updated) @time($ticket->purchase->state_updated)</b>
                         <br>
                     </div>
                     <div style="position: absolute; right: 3mm; bottom: 3mm; text-align: right; font-size: 4mm; ">
@@ -32,7 +32,7 @@
                     <h1>{{ $ticket->event->project->name }}</h1>
                     <h2>{{ $ticket->event->second_name }}</h2>
                     <br>
-                    &nbsp;&nbsp;&nbsp;&nbsp;<b>Gültig am {{ date_format( date_create($ticket->event->start_date), "l, d.m.Y H:i") }}</b>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<b>Gültig am @datetime($ticket->event->start_date) @time($ticket->event->start_date)</b>
                     <br>
                     {{--<img src="{{ asset('img/logos/theater-logo.png') }}" alt="logo" style="margin-top: 3mm; margin-left: 20mm; height: 20mm;">--}}
                 </div>

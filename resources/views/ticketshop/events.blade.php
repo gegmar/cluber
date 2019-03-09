@@ -24,9 +24,8 @@
                     <div class="card-header"><h2>{{ $project->name }}</h2></div>
                     <div class="card-body">
                         <h4 class="card-title">{{ $event->second_name }}</h4>
-                        <p class="card-text"><i class="fa fa-calendar"></i> {{ date_format(date_create($event->start_date), 'l, d.m.Y') }}</p>
-                        <p class="card-text"><i class="fa fa-clock-o"></i> {{ date_format(date_create($event->start_date),
-                            'H:i') }}</p>
+                        <p class="card-text"><i class="fa fa-calendar"></i> @datetime($event->start_date)</p>
+                        <p class="card-text"><i class="fa fa-clock-o"></i> @time($event->start_date)</p>
                         <a href="{{ route('ts.seatmap', ['event' => $event->id]) }}" class="btn btn-primary">{{__('ticketshop.Buy_Tickets')}}</a>
                     </div>
                     <div class="card-footer text-muted">{{__('ticketshop.tickets_still_available')}}</div>
@@ -36,9 +35,8 @@
                     <div class="card-header">{{ $project->name }}</div>
                     <div class="card-body">
                         <h4 class="card-title">{{ $event->second_name }}</h4>
-                        <p class="card-text"><i class="fa fa-calendar"></i> {{ date_format(date_create($event->start_date), 'l, d.m.Y') }}</p>
-                        <p class="card-text"><i class="fa fa-clock-o"></i> {{ date_format(date_create($event->start_date),
-                            'H:i') }}</p>
+                        <p class="card-text"><i class="fa fa-calendar"></i> @datetime($event->start_date)</p>
+                        <p class="card-text"><i class="fa fa-clock-o"></i> @time($event->start_date)</p>
                     </div>
                     <div class="card-footer text-muted">{{__('ticketshop.sold_out')}}</div>
                 </div>

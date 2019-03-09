@@ -28,12 +28,11 @@
                         </div>
                     </div>
                     <div class="project-date">
-                        <span class="hidden-sm-down">{{ date_format(date_create($event->start_date), 'l, d.m.Y') }}</span>
+                        <span class="hidden-sm-down">@datetime($event->start_date)</span>
                     </div>
                 </div>
                 <div class="right-col col-lg-6 d-flex align-items-center">
-                    <div class="time"><i class="fa fa-clock-o"></i>{{ date_format(date_create($event->start_date),
-                        'H:i') }}</div>
+                    <div class="time"><i class="fa fa-clock-o"></i>@time($event->start_date)</div>
                     <div class="comments"><i class="fa fa-map-marker"></i> {{ $event->location->name }}</div>
                 </div>
             </div>

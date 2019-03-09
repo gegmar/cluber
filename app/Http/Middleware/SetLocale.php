@@ -18,6 +18,7 @@ class SetLocale
     {
         $locale = $request->session()->get('locale', 'de');
         App::setLocale($locale);
+        setlocale(LC_TIME, $locale);
         return $next($request);
     }
 }
