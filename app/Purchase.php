@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Exceptions\PaymentProviderException;
+use Illuminate\Support\Facades\Log;
 
 class Purchase extends Model
 {
@@ -84,7 +85,7 @@ class Purchase extends Model
      */
     public function deleteWithAllData()
     {
-        $tickets = $this->tickets->each(function ($ticket) {
+        $this->tickets->each(function ($ticket) {
             $ticket->delete();
         });
 
@@ -97,7 +98,8 @@ class Purchase extends Model
         // If this purchase is the only purchase of the user,
         // and the user's password is empty, delete the user.
         if ($user && $user->purchases->count() === 1 && $user->password == '') {
-            $user->delete();
+            Log::info('Deleting customer "' . $user->name . '" (= #' . $user->id . ') of purchase #' . $this->id);
+            $user->deleteWithRoles();
         }
     }
 
@@ -127,5 +129,4 @@ class Purchase extends Model
     {
         return $this->belongsTo('App\User', 'vendor_id', 'id');
     }
-
 }

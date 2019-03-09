@@ -44,17 +44,7 @@ class DeleteLostOrders extends Command
             ->get();
 
         foreach ($lostOrders as $purchase) {
-            $id = $purchase->id;
-            Log::info('Deleting purchase #' . $id . '...');
-            $purchase->tickets->each(function ($ticket) {
-                $ticket->delete();
-            });
-            $customer = $purchase->customer;
-            $purchase->delete();
-            if ($customer != null && $customer->password == '' && $customer->purchases->count() == 0) {
-                Log::info('Deleting customer #' . $customer->id . ' of purchase #' . $id);
-                $customer->delete();
-            }
+            $purchase->deleteWithAllData();
         }
     }
 }
