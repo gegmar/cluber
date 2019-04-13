@@ -13,7 +13,7 @@ class StatisticsController extends Controller
 {
     public function dashboard()
     {
-        $upcomingEvents = Event::where('end_date', '>', new \DateTime())->orderBy('start_date', 'ASC')->take(5)->get();
+        $upcomingEvents = Event::where('end_date', '>', new \DateTime())->orderBy('start_date', 'ASC')->get();
         $openEvents = Event::where('end_date', '>', new \DateTime())->get();
         $mySales = Purchase::where('vendor_id', auth()->user()->id)->where('state', 'paid')->get();
         $totalSales = $mySales->count();
