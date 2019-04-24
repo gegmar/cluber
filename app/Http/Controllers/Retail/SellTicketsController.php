@@ -47,11 +47,6 @@ class SellTicketsController extends Controller
      */
     public function sellTickets(SellTickets $request, Event $event)
     {
-        if ($event->seatMap->layout !== null) {
-            // handle seat ids
-            // TODO for later
-        }
-
         $validated = $request->validated();
         $tickets = $validated['tickets'];
 
@@ -69,6 +64,18 @@ class SellTicketsController extends Controller
                 ->with('status', 'There are not as many tickets as you chose left. Please only choose a lesser amount of tickets!');
         }
 
+        if ($event->seatMap->layout !== null) {
+            // Check if seats are still free and not booked by a concurrent transaction in the meantime
+            $seats = $validated['selected-seats'];
+            if (!$event->areSeatsFree($seats)) {
+                // End transaction
+                DB::rollBackTransaction();
+                // redirect user to select a new set of seats
+                return redirect()->route('retail.sell.seats')
+                    ->with('status', 'Not all of your selected seats are still free. Please choose a new set of seats!');
+            }
+        }
+
         $prices = $event->priceList->categories;
         $prices = $prices->keyBy('name');
 
@@ -78,15 +85,17 @@ class SellTicketsController extends Controller
         $purchase->vendor_id = auth()->user()->id;
         $purchase->save();
 
+        $seatsIndex = 0;
         foreach ($tickets as $ticketCategory => $ticketCount) {
             for ($i = 0; $i < $ticketCount; $i++) {
                 $ticket = Ticket::create([
                     'random_id' => str_random(32),
-                    'seat_number' => 0,
+                    'seat_number' => isset($seats) ? $seats[$seatsIndex] : 0,
                     'purchase_id' => $purchase->id,
                     'event_id' => $event->id,
                     'price_category_id' => $prices[$ticketCategory]->id
                 ]);
+                $seatsIndex++;
             }
         }
 

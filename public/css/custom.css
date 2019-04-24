@@ -8,16 +8,16 @@
 }
 
 .sc-front-indicator {
-	width: 145px;
 	margin: 5px 32px 15px 32px;
-	background-color: #f6f6f6;	
-	color: #adadad;
+	background-color: #5c5c5c;	
+	color: #FFFFFF;
 	text-align: center;
 	padding: 3px;
 	border-radius: 5px;
 }
 .sc-wrapper {
 	width: 100%;
+	overflow: auto;
 	text-align: center;
 }
 .sc-container {
@@ -73,13 +73,11 @@ div.seatCharts-seat.unavailable {
 }
 div.seatCharts-container {
 	border-right: 1px dotted #adadad;
-	width: 200px;
 	padding: 20px;
 	float: left;
 }
 div.seatCharts-legend {
 	padding-left: 0px;
-	position: absolute;
 	bottom: 16px;
 }
 ul.seatCharts-legendList {

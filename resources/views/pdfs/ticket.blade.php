@@ -21,6 +21,10 @@
                         Platz : <b>SEAT</b><br>
                         --}}
                         Eindeutige ID: <b>{{ $ticket->id }}</b>
+                        @if( $ticket->event->seatMap->layout !== null)
+                        <br>
+                        Platznummer: <b>{{ $ticket->seat_number }}</b>
+                        @endif
                         <br>
                         Preis: <b>{{ $ticket->priceCategory->price }} € ({{ $ticket->priceCategory->name }})</b>
                         <br><br>

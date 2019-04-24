@@ -26,6 +26,15 @@ class Event extends Model
     }
 
     /**
+     * Returns true if the given array of seat ids is still free / not already booked
+     */
+    public function areSeatsFree(array $requestedSeats): bool
+    {
+        $bookedSeats = $this->tickets()->whereIn('seat_number', $requestedSeats)->get();
+        return $bookedSeats->isEmpty();
+    }
+
+    /**
      * Local scopes & relations
      */
 

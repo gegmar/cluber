@@ -26,8 +26,6 @@ class CheckOutController extends Controller
             return redirect()->route('ts.customerData');
         }
 
-        $cData = session('customerData');
-
         return view('ticketshop.purchase-overview', [
             'event' => session('event'),
             'tickets' => session('tickets'),
@@ -65,6 +63,20 @@ class CheckOutController extends Controller
                 ->with('status', 'There are not as many tickets as you chose left. Please only choose a lesser amount of tickets!');
         }
 
+        if ($event->seatMap->layout !== null) {
+            // Check if seats are still free and not booked by a concurrent transaction in the meantime
+            $seats = session('seats');
+            if (!$event->areSeatsFree($seats)) {
+                // End transaction
+                DB::rollBackTransaction();
+                // Empty session data in order to select new seats
+                $request->session()->forget('seats');
+                // redirect user to select a new set of seats
+                return redirect()->route('ts.seatmap')
+                    ->with('status', 'Not all of your selected seats are still free. Please choose a new set of seats!');
+            }
+        }
+
         try {
             $customer = User::where('email', $cData['email'])->firstOrFail();
         } catch (ModelNotFoundException $e) {
@@ -94,23 +106,24 @@ class CheckOutController extends Controller
         $purchase->save();
 
 
-
+        $seatsIndex = 0;
         foreach ($tickets as $ticketCategory => $ticketCount) {
             for ($i = 0; $i < $ticketCount; $i++) {
                 $ticket = Ticket::create([
                     'random_id' => str_random(32),
-                    'seat_number' => 0,
+                    'seat_number' => isset($seats) ? $seats[$seatsIndex] : 0,
                     'purchase_id' => $purchase->id,
                     'event_id' => $event->id,
                     'price_category_id' => $prices[$ticketCategory]->id
                 ]);
+                $seatsIndex++;
             }
         }
 
         DB::commit();
 
         // forget all session data that has been written into database
-        $request->session()->forget(['customerData', 'event', 'tickets']);
+        $request->session()->forget(['customerData', 'event', 'tickets', 'seats']);
 
         $paymentUrl = 'https://www.github.com';
         switch ($request->validated()['paymethod']) {
@@ -160,22 +173,14 @@ class CheckOutController extends Controller
      *************************
      */
     public function notifyLoss(Purchase $purchase, string $secret)
-    {
-
-    }
+    { }
 
     public function notifyPending(Purchase $purchase, string $secret)
-    {
-
-    }
+    { }
 
     public function notifyReceived(Purchase $purchase, string $secret)
-    {
-
-    }
+    { }
 
     public function notifyRefunded(Purchase $purchase, string $secret)
-    {
-
-    }
+    { }
 }
