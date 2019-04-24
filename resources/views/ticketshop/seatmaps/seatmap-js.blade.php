@@ -145,10 +145,10 @@ $(document).ready(function() {
         naming: {
             top: false,
             getLabel: function(character, row, column) {
-                return firstSeatLabel++;
+                return column;
             },
             getId: function(character, row, column) {
-                return firstSeatLabel;
+                return firstSeatLabel++;
             }
         },
         legend: {
@@ -167,15 +167,15 @@ $(document).ready(function() {
                 }
 
                 //let's create a new <input> which we'll add to the form
-                label = this.settings.label;
-                $('#seats_form').append('<input type="hidden" id="input-selected-seat-' + label + '" name="selected-seats[]" value="' + label + '" />');
+                seatId = this.settings.id;
+                $('#seats_form').append('<input type="hidden" id="input-selected-seat-' + seatId + '" name="selected-seats[]" value="' + seatId + '" />');
                 updateSelectedSeatsCount(1);
 
                 return 'selected';
             } else if (this.status() == 'selected') {
                 // remove the input from the form
-                label = this.settings.label;
-                $('#input-selected-seat-' + label).remove();
+                seatId = this.settings.id;
+                $('#input-selected-seat-' + seatId).remove();
                 updateSelectedSeatsCount(-1);
                 //seat has been vacated
                 return 'available';
