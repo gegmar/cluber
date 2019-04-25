@@ -36,6 +36,7 @@
                                 <th>{{__('ticketshop.date')}}</th>
                                 <th>{{__('ticketshop.events')}}</th>
                                 <th>{{__('ticketshop.customer')}}</th>
+                                <th>{{__('ticketshop.state')}}</th>
                                 <th>{{__('ticketshop.number_of_tickets')}}</th>
                                 <th>{{__('ticketshop.actions')}}</th>
                             </tr>
@@ -47,6 +48,7 @@
                                 <td>{{ $purchase->state_updated}}</td>
                                 <td>@foreach( $purchase->events() as $event) {{ $event->project->name }} | {{ $event->second_name }} @endforeach</td>
                                 <td>@if($purchase->customer) {{ $purchase->customer->name }} @elseif($purchase->customer_name) {{ $purchase->customer_name }} @else {{__('ticketshop.shop-customer')}} @endif</td>
+                                <td>{{ __('ticketshop.'.$purchase->state) }}</td>
                                 <td>{{ $purchase->tickets->count() }}</td>
                                 <td>
                                     <a href="{{ route('ticket.purchase', [$purchase->random_id]) }}" class="btn btn-default"><i class="fa fa-ticket"></i></a>

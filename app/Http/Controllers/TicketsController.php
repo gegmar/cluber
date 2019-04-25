@@ -7,13 +7,14 @@ use App\Purchase;
 use App\Ticket;
 use Spipu\Html2Pdf\Html2Pdf;
 use Spipu\Html2Pdf\Exception\Html2PdfException;
-use Spipu\Html2Pdf\Exception\ExceptionFormatter;
 
 class TicketsController extends Controller
 {
+    protected $soldStates = ['paid', 'free', 'reserved'];
+
     public function showPurchase(Purchase $purchase)
     {
-        if ($purchase->state !== 'paid') {
+        if (!in_array($purchase->state, $this->soldStates)) {
             return redirect()->route('ts.events')->with('state', 'Error - Purchase has not been paid yet.');
         }
 
@@ -22,7 +23,7 @@ class TicketsController extends Controller
 
     public function download(Purchase $purchase)
     {
-        if ($purchase->state !== 'paid') {
+        if (!in_array($purchase->state, $this->soldStates)) {
             return redirect()->route('ts.events')->with('state', 'Error - Purchase has not been paid yet.');
         }
 

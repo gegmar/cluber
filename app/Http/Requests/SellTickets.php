@@ -24,6 +24,10 @@ class SellTickets extends FormRequest
     public function rules()
     {
         return [
+            'action' => [
+                'required',
+                'in:paid,reserved,free'
+            ],
             'tickets' => [
                 'required',
                 'array',
@@ -37,6 +41,16 @@ class SellTickets extends FormRequest
                         $fail('There are not as many tickets as you chose left. Please only choose a valid amount of tickets!');
                     }
                 }
+            ],
+            // CustomerData is always required unless the action is sell --> then no contact information is required
+            'customer-name' => [
+                'required_if:action,free,reserved',
+                'max:255'
+            ],
+            'customer-email' => [
+                'required_if:action,free,reserved',
+                'email',
+                'max:255'
             ],
             'selected-seats' => [
                 'sometimes',

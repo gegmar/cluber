@@ -36,8 +36,15 @@
                     </div>
                     @endforeach
                     <div class="form-group justify-content-center">
-                        <button id="submit-button" type="submit" class="btn btn-primary" disabled>{{__('ticketshop.sell')}}</button>
+                        <button type="submit" class="btn btn-primary submitters" disabled>{{__('ticketshop.sell')}}</button>
+                        @if(Auth::user()->hasPermission('RESERVE_TICKETS'))
+                        <button type="button" class="btn btn-outline-primary submitters" data-toggle="modal" data-target="#reserveModal" disabled>{{__('ticketshop.reserve')}}</button>
+                        @endif
+                        @if(Auth::user()->hasPermission('HANDLING_FREE_TICKETS'))
+                        <button type="button" class="btn btn-warning submitters" data-toggle="modal" data-target="#freeModal" disabled>{{__('ticketshop.free-tickets')}}</button>
+                        @endif
                     </div>
+                    <input type="hidden" name="action" value="paid" />
                 </form>
             </div>
         </div>
@@ -65,6 +72,74 @@
         </div>
     </div>
 </div>
+
+<!-- Modal:ReserveTickets -->
+<div class="modal fade" id="reserveModal" tabindex="-1" role="dialog" aria-labelledby="reserveModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="reserveModalLabel">{{__('ticketshop.customer_data')}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="{{__('ticketshop.cancel')}}">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="reservation-form">
+                    <div class="form-group row">
+                        <label class="col-sm-3 form-control-label">{{__('ticketshop.customer')}}</label>
+                        <div class="col-sm-9">
+                            <input type="text" name="customer-name" class="form-control" value="" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 form-control-label">{{__('ticketshop.email')}}</label>
+                        <div class="col-sm-9">
+                            <input type="email" name="customer-email" class="form-control" value="" required>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">{{__('ticketshop.cancel')}}</button>
+                <button id="submit-reservation" type="button" class="btn btn-outline-primary">{{__('ticketshop.reserve')}}</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal:FreeTickets -->
+<div class="modal fade" id="freeModal" tabindex="-1" role="dialog" aria-labelledby="freeModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="freeModalLabel">{{__('ticketshop.customer_data')}}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="{{__('ticketshop.cancel')}}">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="free-form">
+                        <div class="form-group row">
+                            <label class="col-sm-3 form-control-label">{{__('ticketshop.customer')}}</label>
+                            <div class="col-sm-9">
+                                <input type="text" name="customer-name" class="form-control" value="" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-3 form-control-label">{{__('ticketshop.email')}}</label>
+                            <div class="col-sm-9">
+                                <input type="email" name="customer-email" class="form-control" value="" required>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{{__('ticketshop.cancel')}}</button>
+                    <button id="submit-free" type="button" class="btn btn-warning">{{__('ticketshop.free-tickets')}}</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
 @endsection
 
@@ -84,6 +159,20 @@ $(document).ready(function() {
         decimals: 0,
     });
 
+    $('#submit-reservation').click(function(){
+        $('#seats_form').append($('#reservation-form').find('input[name="customer-name"]'));
+        $('#seats_form').append($('#reservation-form').find('input[name="customer-email"]'));
+        $('#seats_form').find('input[name="action"]').val('reserved');
+        $('#seats_form').submit();
+    });
+
+    $('#submit-free').click(function(){
+        $('#seats_form').append($('#free-form').find('input[name="customer-name"]'));
+        $('#seats_form').append($('#free-form').find('input[name="customer-email"]'));
+        $('#seats_form').find('input[name="action"]').val('free');
+        $('#seats_form').submit();
+    });
+
     function calculatePrice() {
         var price = 0;
         $('.tickets').each(function() {
@@ -95,9 +184,9 @@ $(document).ready(function() {
     function updateButtonState() {
         if( $('#selected-seats-count').html() != 0 &&
             $('#selected-seats-count').html() == $('#selected-persons-count').html() ) {
-            $('#submit-button').prop('disabled', false);
+            $('.submitters').prop('disabled', false);
         } else {
-            $('#submit-button').attr('disabled', true);
+            $('.submitters').attr('disabled', true);
         }
     }
 

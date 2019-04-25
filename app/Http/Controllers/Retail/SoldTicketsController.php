@@ -11,7 +11,7 @@ class SoldTicketsController extends Controller
     public function getPurchases()
     {
         $purchases = Purchase::where('vendor_id', auth()->user()->id)
-            ->where('state', 'paid')
+            ->whereIn('state', ['paid', 'free', 'reserved'])
             ->orderBy('state_updated', 'DESC')
             ->get();
         return view('retail.purchases', ['purchases' => $purchases]);

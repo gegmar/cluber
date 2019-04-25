@@ -99,6 +99,8 @@
                 </div>
             </div>
             @endif
+
+            @if($purchase->state != 'reserved')
             <div class="col-md-4">
                 <div class="card">
                     <div class="card-header d-flex align-items-center">
@@ -112,6 +114,7 @@
                     </ul>
                 </div>
             </div>
+            @endif
             
             @auth
             @if($purchase->vendor_id == auth()->user()->id)

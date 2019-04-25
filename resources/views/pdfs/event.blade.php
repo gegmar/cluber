@@ -23,22 +23,24 @@ td
 <table>
     <colgroup>
         <col style="width: 5%" class="col1">
-        <col style="width: 30%">
+        <col style="width: 20%">
         <col style="width: 25%">
         <col style="width: 30%">
-        <col style="width: 10%">
+        <col style="width: 15%">
+        <col style="width: 5%">
     </colgroup>
     <thead>
         <tr>
             <th rowspan="2">ID</th>
-            <th colspan="4" style="font-size: 16px;">
+            <th colspan="5" style="font-size: 16px;">
                 {{$event->project->name}} | {{ $event->second_name }}
             </th>
         </tr>
         <tr>
             <th>{{__('ticketshop.shop')}}</th>
             <th>{{__('ticketshop.owner')}}</th>
-            <th>{{__('ticketshop.price-category')}} ({{__('ticketshop.price')}} <i class="fa fa-eur"></i></th>
+            <th>{{__('ticketshop.price-category')}} ({{__('ticketshop.price')}} <i class="fa fa-eur"></i>)</th>
+            <th>{{__('ticketshop.state')}}</th>
             <th>{{__('ticketshop.arrived')}}</th>
         </tr>
     </thead>
@@ -49,6 +51,7 @@ td
             <td>{{ $ticket->purchase->vendor->name }}</td>
             <td>@if($ticket->purchase->customer){{ $ticket->purchase->customer->name}} @elseif($ticket->purchase->customer_name) {{ $ticket->purchase->customer_name }} @else {{__('ticketshop.shop-customer')}} @endif</td>
             <td>{{$ticket->priceCategory->name}} ({{ $ticket->priceCategory->price}} €)</td>
+            <td>{{ __('ticketshop.'.$ticket->purchase->state)}}</td>
             <td></td>
         </tr>
         @endforeach

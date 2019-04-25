@@ -162,13 +162,21 @@ class TheaterFreiWildVerteidigungSeeder extends Seeder
         ]);
 
         // Special requirement: We have to block some seats for technical equipment in the backrows
+        // Add a dummy vendor to reference the blocked tickets
+        $equipmentVendor = App\User::create([
+            'name' => 'Technik',
+            'email' => 'Technik@system.local',
+            'email_verified_at' => null,
+            'password' => '',
+        ]);
         // Get all events with this seatmap
-        $seatMap->events->each(function ($event) use ($standardPrice) {
+        $seatMap->events->each(function ($event) use ($standardPrice, $equipmentVendor) {
             $purchase = App\Purchase::create([
-                'state' => 'paid',
+                'state' => 'free',
                 'state_updated' => new \DateTime(),
                 'random_id' => str_random(32),
                 'payment_secret' => str_random(32),
+                'vendor_id' => $equipmentVendor->id,
             ]);
             $techSeats = [98, 99, 100, 116, 117, 118];
             foreach ($techSeats as $seat) {
