@@ -66,12 +66,6 @@
                                 <input type="text" name="customer-name" class="form-control" value="" required>
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <label class="col-sm-3 form-control-label">{{__('ticketshop.email')}}</label>
-                            <div class="col-sm-9">
-                                <input type="email" name="customer-email" class="form-control" value="" required>
-                            </div>
-                        </div>
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -98,12 +92,6 @@
                             <label class="col-sm-3 form-control-label">{{__('ticketshop.customer')}}</label>
                             <div class="col-sm-9">
                                 <input type="text" name="customer-name" class="form-control" value="" required>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-sm-3 form-control-label">{{__('ticketshop.email')}}</label>
-                            <div class="col-sm-9">
-                                <input type="email" name="customer-email" class="form-control" value="" required>
                             </div>
                         </div>
                     </form>
@@ -135,14 +123,12 @@ $(document).ready(function() {
 
     $('#submit-reservation').click(function(){
         $('#ticket-form').append($('#reservation-form').find('input[name="customer-name"]'));
-        $('#ticket-form').append($('#reservation-form').find('input[name="customer-email"]'));
         $('#ticket-form').find('input[name="action"]').val('reserved');
         $('#ticket-form').submit();
     });
 
     $('#submit-free').click(function(){
         $('#ticket-form').append($('#free-form').find('input[name="customer-name"]'));
-        $('#ticket-form').append($('#free-form').find('input[name="customer-email"]'));
         $('#ticket-form').find('input[name="action"]').val('free');
         $('#ticket-form').submit();
     });

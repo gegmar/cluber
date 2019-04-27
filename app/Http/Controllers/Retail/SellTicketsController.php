@@ -72,16 +72,8 @@ class SellTicketsController extends Controller
         }
 
         // Check if customer data was sent. Then handle the user.
-        if (array_key_exists('customer-email', $validated)) {
-            try {
-                $customer = User::where('email', $validated['customer-email'])->firstOrFail();
-            } catch (ModelNotFoundException $e) {
-                $customer = User::create([
-                    'name' => $validated['customer-name'],
-                    'email' => $validated['customer-email'],
-                    'password' => '',
-                ]);
-            }
+        if (array_key_exists('customer-name', $validated)) {
+            $customerName = $validated['customer-name'];
         }
 
         // Start a transaction for inserting all session data into database
@@ -117,7 +109,7 @@ class SellTicketsController extends Controller
         $purchase->generateSecrets();
         $purchase->state = $action;
         $purchase->vendor_id = auth()->user()->id;
-        $purchase->customer_id = isset($customer) ? $customer->id : null;
+        $purchase->customer_name = isset($customerName) ? $customerName : null;
         $purchase->save();
 
         $seatsIndex = 0;

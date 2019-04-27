@@ -47,11 +47,6 @@ class SellTickets extends FormRequest
                 'required_if:action,free,reserved',
                 'max:255'
             ],
-            'customer-email' => [
-                'required_if:action,free,reserved',
-                'email',
-                'max:255'
-            ],
             'selected-seats' => [
                 'sometimes',
                 'required',

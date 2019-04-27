@@ -145,7 +145,7 @@ $(document).ready(function() {
         naming: {
             top: false,
             getLabel: function(character, row, column) {
-                return column;
+                return 19 - column;
             },
             getId: function(character, row, column) {
                 return firstSeatLabel++;

@@ -91,12 +91,6 @@
                             <input type="text" name="customer-name" class="form-control" value="" required>
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label class="col-sm-3 form-control-label">{{__('ticketshop.email')}}</label>
-                        <div class="col-sm-9">
-                            <input type="email" name="customer-email" class="form-control" value="" required>
-                        </div>
-                    </div>
                 </form>
             </div>
             <div class="modal-footer">
@@ -123,12 +117,6 @@
                             <label class="col-sm-3 form-control-label">{{__('ticketshop.customer')}}</label>
                             <div class="col-sm-9">
                                 <input type="text" name="customer-name" class="form-control" value="" required>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-sm-3 form-control-label">{{__('ticketshop.email')}}</label>
-                            <div class="col-sm-9">
-                                <input type="email" name="customer-email" class="form-control" value="" required>
                             </div>
                         </div>
                     </form>
@@ -161,14 +149,12 @@ $(document).ready(function() {
 
     $('#submit-reservation').click(function(){
         $('#seats_form').append($('#reservation-form').find('input[name="customer-name"]'));
-        $('#seats_form').append($('#reservation-form').find('input[name="customer-email"]'));
         $('#seats_form').find('input[name="action"]').val('reserved');
         $('#seats_form').submit();
     });
 
     $('#submit-free').click(function(){
         $('#seats_form').append($('#free-form').find('input[name="customer-name"]'));
-        $('#seats_form').append($('#free-form').find('input[name="customer-email"]'));
         $('#seats_form').find('input[name="action"]').val('free');
         $('#seats_form').submit();
     });
@@ -235,7 +221,7 @@ $(document).ready(function() {
         naming: {
             top: false,
             getLabel: function(character, row, column) {
-                return column;
+                return 19 - column;
             },
             getId: function(character, row, column) {
                 return firstSeatLabel++;

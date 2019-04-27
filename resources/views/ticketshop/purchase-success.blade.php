@@ -82,7 +82,7 @@
                     </div>
                 </div>
             </div>
-            @if($purchase->customer !== null)
+            @if($purchase->customer || $purchase->customer_name )
             <div class="col-md-4">
                 <div class="card">
                     <div class="card-header d-flex align-items-center">
@@ -91,9 +91,13 @@
                     <div class="card-body">
                         <p class="card-text">@lang('ticketshop.privacy_final')</p>
                         <ul>
+                            @if($purchase->customer)
                             <li>{{__('ticketshop.email')}}: {{ $purchase->customer->email }}</li>
-                            <li>{{__('ticketshop.name')}}: {{ $purchase->customer->name }}</li>
+                            @endif
+                            <li>{{__('ticketshop.name')}}: @if($purchase->customer_name){{ $purchase->customer_name }} @else {{ $purchase->customer->name }} @endif</li>
+                            @if($purchase->customer)
                             <li>{{__('ticketshop.newsletter_option')}}: @if( $purchase->customer->hasPermission('RECEIVE_NEWSLETTER') ) {{__('ticketshop.yes')}} @else {{__('ticketshop.no')}} @endif</li>
+                            @endif
                         </ul>
                     </div>
                 </div>
