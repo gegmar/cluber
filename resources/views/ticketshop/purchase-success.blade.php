@@ -129,6 +129,13 @@
                     </div>
                     <div class="card-body">
                         <p class="card-text">{{__('ticketshop.delete_purchase_warning')}}</p>
+                        @if($purchase->state !== 'paid')
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#sellPurchaseModal">
+                            {{__('ticketshop.sell')}}
+                        </button>
+                        @component('components.modals.sell-purchase', ['purchase' => $purchase])
+                        @endcomponent
+                        @endif
                         <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deletePurchaseModal">
                             {{__('ticketshop.delete')}}
                         </button>

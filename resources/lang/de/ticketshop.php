@@ -85,6 +85,7 @@ return [
     'Select_Seats' => 'Sitzplätze wählen',
     'selected' => 'Ausgewählt',
     'sell' => 'Verkaufen',
+    'sell_purchase_warning' => 'Wollen Sie wirklich diesen Einkauf auf "bezahlt" setzen?',
     'sell_tickets' => 'Karten verkaufen',
     'shop' => 'Shop',
     'shop-customer' => 'Shop-Kunde',

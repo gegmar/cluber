@@ -88,6 +88,7 @@ return [
     'Select_Seats' => 'Select Seats',
     'selected' => 'Selected',
     'sell' => 'Sell',
+    'sell_purchase_warning' => 'Do you really want to set this purchase to "paid"?',
     'sell_tickets' => 'Sell Tickets',
     'shop' => 'Shop',
     'shop-customer' => 'Shop Customer',
