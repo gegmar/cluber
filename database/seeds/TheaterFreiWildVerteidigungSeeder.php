@@ -65,12 +65,12 @@ class TheaterFreiWildVerteidigungSeeder extends Seeder
 
         $standardPriceWithPreEvent = App\PriceCategory::create([
             'name' => 'Standard + Eintritt Jam-Session',
-            'price' => 25
+            'price' => 29
         ]);
 
         $preEventOnlyPrice = App\PriceCategory::create([
             'name' => 'Eintritt zur Jam-Session',
-            'price' => 9
+            'price' => 16
         ]);
 
         // Link pricelists and categories together
