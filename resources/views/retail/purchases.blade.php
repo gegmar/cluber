@@ -47,7 +47,7 @@
                                 <td>{{ $purchase->id }}</td>
                                 <td>{{ $purchase->state_updated}}</td>
                                 <td>@foreach( $purchase->events() as $event) {{ $event->project->name }} | {{ $event->second_name }} @endforeach</td>
-                                <td>@if($purchase->customer) {{ $purchase->customer->name }} @elseif($purchase->customer_name) {{ $purchase->customer_name }} @else {{__('ticketshop.shop-customer')}} @endif</td>
+                                <td>@if($purchase->customer_name) {{ $purchase->customer_name }} @elseif($purchase->customer) {{ $purchase->customer->name }} @else {{__('ticketshop.shop-customer')}} @endif</td>
                                 <td>{{ __('ticketshop.'.$purchase->state) }}</td>
                                 <td>{{ $purchase->tickets->count() }}</td>
                                 <td>
