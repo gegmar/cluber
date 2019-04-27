@@ -25,14 +25,23 @@ td
         <col style="width: 5%" class="col1">
         <col style="width: 20%">
         <col style="width: 25%">
+        @if($event->seatMap->layout)
+        <col style="width: 20%">
+        <col style="width: 10%">
+        @else
         <col style="width: 30%">
+        @endif
         <col style="width: 15%">
         <col style="width: 5%">
     </colgroup>
     <thead>
         <tr>
             <th rowspan="2">ID</th>
+            @if($event->seatMap->layout)
+            <th colspan="6" style="font-size: 16px;">
+            @else
             <th colspan="5" style="font-size: 16px;">
+            @endif
                 {{$event->project->name}} | {{ $event->second_name }}
             </th>
         </tr>
@@ -40,6 +49,9 @@ td
             <th>{{__('ticketshop.shop')}}</th>
             <th>{{__('ticketshop.owner')}}</th>
             <th>{{__('ticketshop.price-category')}} ({{__('ticketshop.price')}} <i class="fa fa-eur"></i>)</th>
+            @if($event->seatMap->layout)
+            <th>{{__('ticketshop.row')}} | {{__('ticketshop.seat')}}</th>
+            @endif
             <th>{{__('ticketshop.state')}}</th>
             <th>{{__('ticketshop.arrived')}}</th>
         </tr>
@@ -51,6 +63,9 @@ td
             <td>{{ $ticket->purchase->vendor->name }}</td>
             <td>@if($ticket->purchase->customer){{ $ticket->purchase->customer->name}} @elseif($ticket->purchase->customer_name) {{ $ticket->purchase->customer_name }} @else {{__('ticketshop.shop-customer')}} @endif</td>
             <td>{{$ticket->priceCategory->name}} ({{ $ticket->priceCategory->price}} €)</td>
+            @if($event->seatMap->layout)
+            <td>{{ (int)ceil($ticket->seat_number / 18)  }} | {{ $ticket->seat_number % 18 }}</td>
+            @endif
             <td>{{ __('ticketshop.'.$ticket->purchase->state)}}</td>
             <td></td>
         </tr>
