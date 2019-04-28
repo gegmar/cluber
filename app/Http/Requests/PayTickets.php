@@ -24,7 +24,10 @@ class PayTickets extends FormRequest
     public function rules()
     {
         return [
-            'paymethod' => 'in:PayPal,Klarna,CreditCard'
+            'paymethod' => [
+                'required',
+                'in:PayPal,Klarna,CreditCard'
+            ]
         ];
     }
 }
