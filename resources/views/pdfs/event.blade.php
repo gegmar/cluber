@@ -64,7 +64,7 @@ td
             <td>@if($ticket->purchase->customer_name) {{ $ticket->purchase->customer_name }} @elseif($ticket->purchase->customer){{ $ticket->purchase->customer->name}} @else {{__('ticketshop.shop-customer')}} @endif</td>
             <td>{{$ticket->priceCategory->name}} ({{ $ticket->priceCategory->price}} €)</td>
             @if($event->seatMap->layout)
-            <td>{{ (int)ceil($ticket->seat_number / 18)  }} | {{ $ticket->seat_number % 18 }}</td>
+            <td>{{ (int)ceil($ticket->seat_number / 18)  }} | {{ 19- ( $ticket->seat_number % 18 != 0 ? $ticket->seat_number % 18 : 18) }}</td>
             @endif
             <td>{{ __('ticketshop.'.$ticket->purchase->state)}}</td>
             <td></td>
