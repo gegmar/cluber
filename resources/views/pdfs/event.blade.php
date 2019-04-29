@@ -16,6 +16,22 @@ td
     border-top: solid 1px #000;
     border-right: solid 1px #000;
 }
+/* SeatMap-Styles */
+table.seatmap { border:dashed 1px #444444;margin-top:5mm;margin-left:10mm;}
+    table.seatmap td {
+	    font-size:15pt;
+	    font-weight:bold;
+	    border:solid 1px #000000;
+	    padding:1px;
+	    text-align:center;
+	    width:30px;
+	    height:30px;
+    }
+    td.paid { color:#0A0;}
+    td.reserved { color:#A00; }
+    td.cstummer { background-color:#123; }
+    rownumber { border:solid 1px #000000;width:10mm; }
+    seatnumber { border:solid 1px #000000;width:50px; }
 </style>
 <span style="font-size: 20px; font-weight: bold;">{{__('ticketshop.tickets-overview')}}<br></span>
 <br>
@@ -79,3 +95,32 @@ td
         </tr>
     </tfoot>
 </table>
+
+@if($event->seatMap->layout)
+<!-- 
+	Event Seatmap
+-->
+<page orientation="paysage">
+    <div class="stage"><span>B&uuml;hne</span></div>
+	<table class="seatmap" cellspacing="7px">
+		@for($row = 1; $row < 8; $row++)
+		<tr>
+			<td class="rownumber">R {{ $row }}</td>
+            @for ($seatInRow = 1; $seatInRow < 19 ; $seatInRow++)
+            @php
+            $seatNumber = $seatInRow + ($row - 1) *18;
+            $ticket = $event->tickets()->where('seat_number', $seatNumber)->first();
+            @endphp
+            <td class="@if($ticket) paid @endif">@if($ticket) {{ $ticket->id }} @else &nbsp; @endif</td>
+			@endfor
+		</tr>
+		@endfor
+		<tr class="seatnumber">
+			<td>&nbsp;</td>
+			@for($seatInRow = 18; $seatInRow > 0; $seatInRow--)
+			<td> {{ $seatInRow }}</td>
+			@endfor
+		</tr>
+	</table>
+</page>
+@endif
