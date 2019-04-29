@@ -81,7 +81,7 @@
                     <div class="title">
                         <span>@lang('ticketshop.ticket_owner')</span>
                     </div>
-                <div class="number"><strong>@if($ticket->purchase->customer_name != null) {{ $ticket->purchase->customer_name }} @else {{ $ticket->purchase->customer->name }} @endif</strong></div>
+                <div class="number"><strong>@if($ticket->purchase->customer_name) {{ $ticket->purchase->customer_name }} @elseif($ticket->purchase->customer) {{ $ticket->purchase->customer->name }} @else {{ __('ticketshop.shop-customer')}} @endif</strong></div>
                 </div>
             </div>
         </div>
