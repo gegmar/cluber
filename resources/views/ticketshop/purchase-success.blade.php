@@ -122,6 +122,7 @@
             
             @auth
             @if($purchase->vendor_id == auth()->user()->id)
+            <!-- Vendor-actions -->
             <div class="col-md-4">
                 <div class="card">
                     <div class="card-header d-flex align-items-center">
@@ -148,6 +149,32 @@
             @endauth
 
         </div>
+
+        @foreach ($purchase->events() as $event)
+        @if($event->seatMap->layout)
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>{{ $event->project->name }} | {{ $event->second_name }}</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="sc-wrapper">
+                            <div class="sc-container">
+                                <div id="seat-map-{{ $event->id }}">
+                                    <div class="sc-front-indicator">{{__('ticketshop.stage')}}</div>
+                                </div>
+                                <div class="booking-details">
+                                    <div id="legend"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @endif
+        @endforeach
     </div>
 </section>
 @endsection
@@ -155,7 +182,46 @@
 @section('custom-js')
 <script type="text/javascript">
     $(document).ready(function() {
+        @foreach($purchase->events() as $event)
+        @if($event->seatMap->layout)
+    var firstSeatLabel = 1;
+    var sc = $('#seat-map-{{ $event->id }}').seatCharts({
+        map: [
+            {!! $event->seatMap->layout !!}
+        ], 
+        seats: {
+            a: {
+                price: 100,
+                classes: 'first-class', //your custom CSS class
+                category: 'First Class'
+            },
 
+        },
+        naming: {
+            top: false,
+            getLabel: function(character, row, column) {
+                return 19 - column;
+            },
+            getId: function(character, row, column) {
+                return firstSeatLabel++;
+            }
+        },
+        legend: {
+            node: $('#legend'),
+            items: [
+                ['a', 'selected', "{{__('ticketshop.selected')}}"]
+            ]
+        },
+        click: function() {
+            return this.status();
+        }
+    });
+
+    // Set booked seats as unavailable
+    var bookedSeats = {{ json_encode( $event->tickets()->where('purchase_id', $purchase->id)->pluck('seat_number')->toArray() ) }};
+    sc.get(bookedSeats).status('selected');
+        @endif
+        @endforeach
     });
 </script>
 @endsection
