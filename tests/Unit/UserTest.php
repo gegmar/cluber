@@ -3,15 +3,14 @@
 namespace Tests\Unit;
 
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\User;
 use App\Role;
 use App\Permission;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class UserTest extends TestCase
 {
-    use RefreshDatabase;
+    use DatabaseTransactions;
     /**
      * A basic unit test example.
      *

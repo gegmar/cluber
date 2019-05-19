@@ -3,13 +3,12 @@
 namespace Tests\Feature;
 
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\User;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class StartControllerTest extends TestCase
 {
-    use RefreshDatabase;
+    use DatabaseTransactions;
 
     public function testAnonRedirect()
     {
