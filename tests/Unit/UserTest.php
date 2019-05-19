@@ -11,11 +11,7 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 class UserTest extends TestCase
 {
     use DatabaseTransactions;
-    /**
-     * A basic unit test example.
-     *
-     * @return void
-     */
+
     public function testhasPermission()
     {
         $user = factory(User::class)->create();
