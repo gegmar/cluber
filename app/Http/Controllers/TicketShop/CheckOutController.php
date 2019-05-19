@@ -16,6 +16,7 @@ use App\User;
 use App\Ticket;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\TicketsPaid;
+use Illuminate\Support\Str;
 
 class CheckOutController extends Controller
 {
@@ -110,7 +111,7 @@ class CheckOutController extends Controller
         foreach ($tickets as $ticketCategory => $ticketCount) {
             for ($i = 0; $i < $ticketCount; $i++) {
                 $ticket = Ticket::create([
-                    'random_id' => str_random(32),
+                    'random_id' => Str::random(32),
                     'seat_number' => isset($seats) ? $seats[$seatsIndex] : 0,
                     'purchase_id' => $purchase->id,
                     'event_id' => $event->id,

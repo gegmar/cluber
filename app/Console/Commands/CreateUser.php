@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use App\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class CreateUser extends Command
 {
@@ -43,7 +44,7 @@ class CreateUser extends Command
         $user->email = $this->argument('email');
         $user->name = $this->argument('email');
         $user->email_verified_at = new \DateTime();
-        $password = str_random(20);
+        $password = Str::random(20);
         $user->password = Hash::make($password);
         $user->save();
         $this->info('Your password: ' . $password);

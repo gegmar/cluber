@@ -1,10 +1,11 @@
 <?php
 
 use Faker\Generator as Faker;
+use Illuminate\Support\Str;
 
 $factory->define(App\Ticket::class, function (Faker $faker) {
     return [
-        'random_id' => str_random(32),
+        'random_id' => Str::random(32),
         'purchase_id' => function () {
             return factory(App\Purchase::class)->create()->id;
         },

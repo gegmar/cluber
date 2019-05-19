@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use App\Exceptions\PaymentProviderException;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 
 class Purchase extends Model
 {
@@ -36,8 +37,8 @@ class Purchase extends Model
     public function generateSecrets()
     {
         $this->state_updated = new \DateTime();
-        $this->random_id = str_random(32);
-        $this->payment_secret = str_random(32);
+        $this->random_id = Str::random(32);
+        $this->payment_secret = Str::random(32);
     }
 
     /**

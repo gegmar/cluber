@@ -14,6 +14,7 @@ use App\Event;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 
 class SellTicketsController extends Controller
 {
@@ -116,7 +117,7 @@ class SellTicketsController extends Controller
         foreach ($tickets as $ticketCategory => $ticketCount) {
             for ($i = 0; $i < $ticketCount; $i++) {
                 $ticket = Ticket::create([
-                    'random_id' => str_random(32),
+                    'random_id' => Str::random(32),
                     'seat_number' => isset($seats) ? $seats[$seatsIndex] : 0,
                     'purchase_id' => $purchase->id,
                     'event_id' => $event->id,

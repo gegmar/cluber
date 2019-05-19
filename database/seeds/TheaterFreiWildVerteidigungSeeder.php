@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class TheaterFreiWildVerteidigungSeeder extends Seeder
 {
@@ -174,14 +175,14 @@ class TheaterFreiWildVerteidigungSeeder extends Seeder
             $purchase = App\Purchase::create([
                 'state' => 'free',
                 'state_updated' => new \DateTime(),
-                'random_id' => str_random(32),
-                'payment_secret' => str_random(32),
+                'random_id' => Str::random(32),
+                'payment_secret' => Str::random(32),
                 'vendor_id' => $equipmentVendor->id,
             ]);
             $techSeats = [98, 99, 100, 116, 117, 118];
             foreach ($techSeats as $seat) {
                 App\Ticket::create([
-                    'random_id' => str_random(32),
+                    'random_id' => Str::random(32),
                     'seat_number' => $seat, // Strongly advised to overwrite this value for automated tests
                     'purchase_id' => $purchase->id,
                     'event_id' => $event->id,
