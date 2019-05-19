@@ -13,7 +13,7 @@ return [
     |
  */
 
-    'password' => 'Passwords must be at least six characters and match the confirmation.',
+    'password' => 'Passwort muss mindestens 8 Zeichen lang sein. Beide Passworteingaben müssen gleich sein.',
     'reset' => 'Ihr Passwort wurde zurückgesetzt!',
     'sent' => 'Wir haben Ihnen per E-Mail einen Link zum Zurücksetzen Ihres Passworts geschickt!',
     'token' => 'Dieser Link ist ungültig.',

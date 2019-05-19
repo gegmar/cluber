@@ -39,6 +39,7 @@ return [
     'dimensions' => ':attribute hat eine ungültige Bildgröße.',
     'distinct' => ':attribute Feld hat einen oder mehrere doppelte Werte.',
     'email' => ':attribute muss eine valide E-Mailadresse sein.',
+    'ends_with' => 'The :attribute must end with one of the following: :values',
     'exists' => 'Ausgewähltes :attribute ist nicht valide.',
     'file' => ':attribute muss eine Datei sein.',
     'filled' => ':attribute muss einen Wert haben.',
