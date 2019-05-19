@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/gegmar/cluber.svg?branch=master)](https://travis-ci.org/gegmar/cluber)
+
 ## About Cluber
 
 Cluber shall provide as a first use case a simple user interface to sell online tickets for the events organized by the clubs. The software builds on the popular Laravel project and aims to run on all conventional webhosters that provide PHP-Webspace and databases.
