@@ -38,6 +38,8 @@ class User extends Authenticatable implements MustVerifyEmail
             });
         });
         return $permissions;
+        // This approach would require 1:n-relations between models, but those are n:m-relations
+        // return $this->hasManyThrough('App\Permission', 'App\Role');
     }
 
     public function deleteWithRoles()
