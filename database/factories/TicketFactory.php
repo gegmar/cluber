@@ -5,9 +5,21 @@ use Faker\Generator as Faker;
 $factory->define(App\Ticket::class, function (Faker $faker) {
     return [
         'random_id' => str_random(32),
-        'seat_number' => random_int(0, 80), // Strongly advised to overwrite this value for automated tests
-        'purchase_id' => factory(App\Purchase::class)->make()->id,
-        'event_id' => factory(App\Event::class)->make()->id,
-        'price_category_id' => factory(App\PriceCategory::class)->make()->id, // Strongly advised to overwrite this value for automated tests
+        'purchase_id' => function () {
+            return factory(App\Purchase::class)->create()->id;
+        },
+        'event_id' => function () {
+            return factory(App\Event::class)->create()->id;
+        },
+        'price_category_id' => function (array $ticket) {
+            $event = App\Event::find($ticket['event_id']);
+            $priceCategories = $event->priceList->categories;
+            return $priceCategories[random_int(0, $priceCategories->count() - 1)];
+        },
+        'seat_number' => function (array $ticket) {
+            $event = App\Event::find($ticket['event_id']);
+            $seatMap = $event->seatMap;
+            return random_int(1, $seatMap->seats);
+        },
     ];
 });

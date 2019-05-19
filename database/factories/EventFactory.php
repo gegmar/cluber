@@ -10,9 +10,9 @@ $factory->define(App\Event::class, function (Faker $faker) {
         'start_date' => $startDate,
         'end_date' => $endDate,
         'second_name' => $faker->word,
-        'project_id' => factory(App\Project::class)->make()->id,
-        'location_id' => factory(App\Location::class)->make()->id,
-        'seat_map_id' => factory(App\SeatMap::class)->make()->id,
-        'price_list_id' => factory(App\PriceList::class)->make()->id
+        'project_id' => factory(App\Project::class)->create()->id,
+        'location_id' => factory(App\Location::class)->create()->id,
+        'seat_map_id' => factory(App\SeatMap::class)->create()->id,
+        'price_list_id' => factory(App\PriceList::class)->create()->id
     ];
 });
