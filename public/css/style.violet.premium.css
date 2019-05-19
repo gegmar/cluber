@@ -435,6 +435,10 @@ nav.side-navbar a i {
   transition: none;
 }
 
+nav.side-navbar a .badge {
+  vertical-align: middle;
+}
+
 nav.side-navbar .sidebar-header {
   padding: 30px 15px;
 }
@@ -529,6 +533,8 @@ nav.side-navbar.shrinked ul li a {
   color: #aaa;
   -webkit-transition: color 0.3s, background 0.3s;
   transition: color 0.3s, background 0.3s;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 nav.side-navbar.shrinked ul li a[data-toggle="collapse"]::before {
@@ -941,11 +947,14 @@ nav.navbar .dropdown-menu h3 {
   nav.navbar .nav-item > a {
     font-size: 13px;
   }
+  nav.navbar .dropdown {
+    position: static;
+  }
   nav.navbar .dropdown-menu {
-    right: auto;
-    left: -50%;
-    -webkit-transform: translateX(-50%);
-    transform: translateX(-50%);
+    width: 90vw;
+    right: 2.5vw;
+    left: 2.5vw;
+    margin: 0 auto;
   }
 }
 
@@ -1558,6 +1567,15 @@ footer.main-footer p {
 
 /*
 * ==========================================================
+*       UTILITIES
+* ==========================================================
+*/
+.bg-cover {
+  background-size: cover;
+}
+
+/*
+* ==========================================================
 *     FORMS
 * ==========================================================
 */
@@ -1670,8 +1688,6 @@ button, input[type='submit'] {
 }
 
 .checkbox-template, .radio-template {
-  -webkit-transform: translateY(3px);
-  transform: translateY(3px);
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -1790,12 +1806,6 @@ input.input-material.is-invalid ~ label {
 
 .modal-content {
   border-radius: 0;
-}
-
-.i-checks {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
 }
 
 /*
