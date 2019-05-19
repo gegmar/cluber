@@ -25,3 +25,5 @@ script:
 
 after_script:
   - snyk monitor
+
+# snyk config stolen from: https://blog.travis-ci.com/2017-04-20-continuous-security-snyk-travis-ci/
