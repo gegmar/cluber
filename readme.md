@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/gegmar/cluber.svg?branch=master)](https://travis-ci.org/gegmar/cluber)
+[![Known Vulnerabilities](https://snyk.io/test/github/gegmar/cluber/badge.svg)](https://snyk.io/test/github/gegmar/cluber)
 
 ## About Cluber
 
