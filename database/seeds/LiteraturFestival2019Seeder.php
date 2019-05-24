@@ -149,9 +149,9 @@ class LiteraturFestival2019Seeder extends Seeder
             'end_date' => '2019-09-01 23:59:00',
             'second_name' => 'Festival- und Tagespässe',
             'project_id' => $project->id,
-            'location_id' => $festivalBuero,
+            'location_id' => $festivalBuero->id,
             'seat_map_id' => $seatMap->id,
-            'price_list_id' => $passList
+            'price_list_id' => $passList->id
         ]);
 
         // Events 29.8.
@@ -160,7 +160,7 @@ class LiteraturFestival2019Seeder extends Seeder
             'end_date' => '2019-08-29 13:00:00',
             'second_name' => 'Schreibwerkstatt mit Tex Rubinowitz',
             'project_id' => $project->id,
-            'location_id' => $festivalBuero,
+            'location_id' => $festivalBuero->id,
             'seat_map_id' => $seatMap->id,
             'price_list_id' => $priceList30->id
         ]);
@@ -170,7 +170,7 @@ class LiteraturFestival2019Seeder extends Seeder
             'end_date' => '2019-08-29 13:00:00',
             'second_name' => 'KINDER, KINDER Magdalena Brandstötter',
             'project_id' => $project->id,
-            'location_id' => $spesSeminarraum,
+            'location_id' => $spesSeminarraum->id,
             'seat_map_id' => $seatMap->id,
             'price_list_id' => $priceList5->id
         ]);
@@ -180,7 +180,7 @@ class LiteraturFestival2019Seeder extends Seeder
             'end_date' => '2019-08-29 23:00:00',
             'second_name' => 'LESUNG Ilija Trojanow',
             'project_id' => $project->id,
-            'location_id' => $theaterSaal,
+            'location_id' => $theaterSaal->id,
             'seat_map_id' => $seatMap->id,
             'price_list_id' => $priceList15->id
         ]);
@@ -191,7 +191,7 @@ class LiteraturFestival2019Seeder extends Seeder
             'end_date' => '2019-08-30 13:00:00',
             'second_name' => 'KINDER, KINDER Thomas Mauz',
             'project_id' => $project->id,
-            'location_id' => $festivalBueroForVS,
+            'location_id' => $festivalBueroForVS->id,
             'seat_map_id' => $seatMap->id,
             'price_list_id' => $priceList5->id
         ]);
@@ -201,7 +201,7 @@ class LiteraturFestival2019Seeder extends Seeder
             'end_date' => '2019-08-30 13:00:00',
             'second_name' => 'BUCHPRÄSENTATION + GESPRÄCH Daniela Strigl',
             'project_id' => $project->id,
-            'location_id' => $galerie,
+            'location_id' => $galerie->id,
             'seat_map_id' => $seatMap->id,
             'price_list_id' => $priceList10->id
         ]);
@@ -211,7 +211,7 @@ class LiteraturFestival2019Seeder extends Seeder
             'end_date' => '2019-08-30 17:00:00',
             'second_name' => 'LESUNG + MUSIK Barbara Zeman',
             'project_id' => $project->id,
-            'location_id' => $panoramaCafe,
+            'location_id' => $panoramaCafe->id,
             'seat_map_id' => $seatMap->id,
             'price_list_id' => $priceList10->id
         ]);
@@ -221,7 +221,7 @@ class LiteraturFestival2019Seeder extends Seeder
             'end_date' => '2019-08-30 19:00:00',
             'second_name' => 'LESUNG Judith W. Taschler',
             'project_id' => $project->id,
-            'location_id' => $theaterSaal,
+            'location_id' => $theaterSaal->id,
             'seat_map_id' => $seatMap->id,
             'price_list_id' => $priceList10->id
         ]);
@@ -231,7 +231,7 @@ class LiteraturFestival2019Seeder extends Seeder
             'end_date' => '2019-08-30 21:00:00',
             'second_name' => 'LESUNG + GESPRÄCH Olga Flor',
             'project_id' => $project->id,
-            'location_id' => $bernardiSaal,
+            'location_id' => $bernardiSaal->id,
             'seat_map_id' => $seatMap->id,
             'price_list_id' => $priceList10->id
         ]);
@@ -241,7 +241,7 @@ class LiteraturFestival2019Seeder extends Seeder
             'end_date' => '2019-08-30 23:00:00',
             'second_name' => 'LESUNG Vea Kaiser',
             'project_id' => $project->id,
-            'location_id' => $theaterSaal,
+            'location_id' => $theaterSaal->id,
             'seat_map_id' => $seatMap->id,
             'price_list_id' => $priceList15->id
         ]);
@@ -252,7 +252,7 @@ class LiteraturFestival2019Seeder extends Seeder
             'end_date' => '2019-08-31 13:00:00',
             'second_name' => 'KINDER, KINDER Uly Paya',
             'project_id' => $project->id,
-            'location_id' => $spesMeditationsraum,
+            'location_id' => $spesMeditationsraum->id,
             'seat_map_id' => $seatMap->id,
             'price_list_id' => $priceList5->id
         ]);
@@ -262,7 +262,7 @@ class LiteraturFestival2019Seeder extends Seeder
             'end_date' => '2019-08-31 13:00:00',
             'second_name' => 'LESUNG + GESPRÄCH Hans Eichhorn',
             'project_id' => $project->id,
-            'location_id' => $galerie,
+            'location_id' => $galerie->id,
             'seat_map_id' => $seatMap->id,
             'price_list_id' => $priceList10->id
         ]);
@@ -272,7 +272,7 @@ class LiteraturFestival2019Seeder extends Seeder
             'end_date' => '2019-08-31 17:00:00',
             'second_name' => 'THEATER Puppentheater Guglhupf (ab 16 Jahre)',
             'project_id' => $project->id,
-            'location_id' => $theaterSaal,
+            'location_id' => $theaterSaal->id,
             'seat_map_id' => $seatMap->id,
             'price_list_id' => $priceList10->id
         ]);
@@ -282,7 +282,7 @@ class LiteraturFestival2019Seeder extends Seeder
             'end_date' => '2019-08-31 19:00:00',
             'second_name' => 'LESUNG Thomas Sautner',
             'project_id' => $project->id,
-            'location_id' => $bernardiSaal,
+            'location_id' => $bernardiSaal->id,
             'seat_map_id' => $seatMap->id,
             'price_list_id' => $priceList10->id
         ]);
@@ -292,7 +292,7 @@ class LiteraturFestival2019Seeder extends Seeder
             'end_date' => '2019-08-31 21:00:00',
             'second_name' => 'LESUNG Philipp Weiss',
             'project_id' => $project->id,
-            'location_id' => $bibliothek,
+            'location_id' => $bibliothek->id,
             'seat_map_id' => $seatMap->id,
             'price_list_id' => $priceList10->id
         ]);
@@ -302,7 +302,7 @@ class LiteraturFestival2019Seeder extends Seeder
             'end_date' => '2019-08-31 23:00:00',
             'second_name' => 'LESUNG Wladimir Kaminer',
             'project_id' => $project->id,
-            'location_id' => $bernardiSaal,
+            'location_id' => $bernardiSaal->id,
             'seat_map_id' => $seatMap->id,
             'price_list_id' => $priceList15->id
         ]);
@@ -312,7 +312,7 @@ class LiteraturFestival2019Seeder extends Seeder
             'end_date' => '2019-08-31 23:55:00',
             'second_name' => 'KONZERT Felix Kramer + Band',
             'project_id' => $project->id,
-            'location_id' => $theaterSaal,
+            'location_id' => $theaterSaal->id,
             'seat_map_id' => $seatMap->id,
             'price_list_id' => $priceList10->id
         ]);
@@ -323,7 +323,7 @@ class LiteraturFestival2019Seeder extends Seeder
             'end_date' => '2019-09-01 13:00:00',
             'second_name' => 'KINDER, KINDER Märchen m. Rosa Teutsch',
             'project_id' => $project->id,
-            'location_id' => $festivalBueroForVS,
+            'location_id' => $festivalBueroForVS->id,
             'seat_map_id' => $seatMap->id,
             'price_list_id' => $priceList5->id
         ]);
@@ -333,7 +333,7 @@ class LiteraturFestival2019Seeder extends Seeder
             'end_date' => '2019-09-01 15:00:00',
             'second_name' => 'LITERATUR & MUSIK E. Einzinger + D. Strigl',
             'project_id' => $project->id,
-            'location_id' => $waldschenkeZeisl,
+            'location_id' => $waldschenkeZeisl->id,
             'seat_map_id' => $seatMap->id,
             'price_list_id' => $priceList10->id
         ]);
@@ -343,7 +343,7 @@ class LiteraturFestival2019Seeder extends Seeder
             'end_date' => '2019-09-01 18:00:00',
             'second_name' => 'LESUNG IM DUNKELN Eva Felbauer',
             'project_id' => $project->id,
-            'location_id' => $spesDunkelgenussraum,
+            'location_id' => $spesDunkelgenussraum->id,
             'seat_map_id' => $seatMap->id,
             'price_list_id' => $priceList15->id
         ]);
