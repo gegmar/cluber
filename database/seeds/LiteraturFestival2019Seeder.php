@@ -27,27 +27,24 @@ class LiteraturFestival2019Seeder extends Seeder
             'price' => 80,
             'description' => 'Eintritt für alle Veranstaltungen'
         ]);
+        $festivalPassList = App\PriceList::create(['name' => 'Festivalpass']);
+        $festivalPassList->categories()->attach($festivalPass->id);
 
         $day1Pass = App\PriceCategory::create([
             'name' => 'TAGESPASS 30.8.',
             'price' => 45,
             'description' => 'Eintritt für alle Veranstaltungen am 30.8.'
         ]);
+        $day1PassList = App\PriceList::create(['name' => 'Tagespass für 1. Tag']);
+        $day1PassList->categories()->attach($day1Pass->id);
 
         $day2Pass = App\PriceCategory::create([
             'name' => 'TAGESPASS 31.8.',
             'price' => 55,
             'description' => 'Eintritt für alle Veranstaltungen am 31.8.'
         ]);
-
-        $passList = App\PriceList::create([
-            'name' => 'Tages- und Festivalpässe'
-        ]);
-        $passList->categories()->attach([
-            $festivalPass->id,
-            $day1Pass->id,
-            $day2Pass->id
-        ]);
+        $day2PassList = App\PriceList::create(['name' => 'Tagespass für 2. Tag']);
+        $day2PassList->categories()->attach($day2Pass->id);
 
         // PriceCategories and lists with different values
         $price30 = App\PriceCategory::create([
@@ -79,11 +76,32 @@ class LiteraturFestival2019Seeder extends Seeder
         $priceList5->categories()->attach($price5->id);
 
 
-        // Add a dummy seatmap until final review of board
-        $seatMap = App\SeatMap::create([
+        // Create Capacity-SeatMaps
+        $cap100 = App\SeatMap::create([
             'seats' => 100,
-            'name' => 'Dummy-SeatMap',
-            'description' => 'SeatMap für Demo-Zwecke',
+            'name' => 'Capacity 100',
+            'description' => 'SeatMap with an amount of 100 seats',
+            'layout' => null
+        ]);
+
+        $cap70 = App\SeatMap::create([
+            'seats' => 70,
+            'name' => 'Capacity 70',
+            'description' => 'SeatMap with an amount of 70 seats',
+            'layout' => null
+        ]);
+
+        $cap50 = App\SeatMap::create([
+            'seats' => 50,
+            'name' => 'Capacity 50',
+            'description' => 'SeatMap with an amount of 50 seats',
+            'layout' => null
+        ]);
+
+        $cap20 = App\SeatMap::create([
+            'seats' => 20,
+            'name' => 'Capacity 20',
+            'description' => 'SeatMap with an amount of 20 seats',
             'layout' => null
         ]);
 
@@ -147,11 +165,31 @@ class LiteraturFestival2019Seeder extends Seeder
         App\Event::create([
             'start_date' => '2019-08-29 00:00:00',
             'end_date' => '2019-09-01 23:59:00',
-            'second_name' => 'Festival- und Tagespässe',
+            'second_name' => 'Festivalpass',
             'project_id' => $project->id,
             'location_id' => $festivalBuero->id,
-            'seat_map_id' => $seatMap->id,
-            'price_list_id' => $passList->id
+            'seat_map_id' => $cap100->id,
+            'price_list_id' => $festivalPassList->id
+        ]);
+
+        App\Event::create([
+            'start_date' => '2019-08-30 10:00:00',
+            'end_date' => '2019-08-30 23:59:00',
+            'second_name' => 'Tagespass',
+            'project_id' => $project->id,
+            'location_id' => $festivalBuero->id,
+            'seat_map_id' => $cap50->id,
+            'price_list_id' => $day1PassList->id
+        ]);
+
+        App\Event::create([
+            'start_date' => '2019-08-31 10:00:00',
+            'end_date' => '2019-08-31 23:59:00',
+            'second_name' => 'Tagespass',
+            'project_id' => $project->id,
+            'location_id' => $festivalBuero->id,
+            'seat_map_id' => $cap50->id,
+            'price_list_id' => $day2PassList->id
         ]);
 
         // Events 29.8.
@@ -161,7 +199,7 @@ class LiteraturFestival2019Seeder extends Seeder
             'second_name' => 'Schreibwerkstatt mit Tex Rubinowitz',
             'project_id' => $project->id,
             'location_id' => $festivalBuero->id,
-            'seat_map_id' => $seatMap->id,
+            'seat_map_id' => $cap20->id,
             'price_list_id' => $priceList30->id
         ]);
 
@@ -171,7 +209,7 @@ class LiteraturFestival2019Seeder extends Seeder
             'second_name' => 'KINDER, KINDER Magdalena Brandstötter',
             'project_id' => $project->id,
             'location_id' => $spesSeminarraum->id,
-            'seat_map_id' => $seatMap->id,
+            'seat_map_id' => $cap20->id,
             'price_list_id' => $priceList5->id
         ]);
 
@@ -181,7 +219,7 @@ class LiteraturFestival2019Seeder extends Seeder
             'second_name' => 'LESUNG Ilija Trojanow',
             'project_id' => $project->id,
             'location_id' => $theaterSaal->id,
-            'seat_map_id' => $seatMap->id,
+            'seat_map_id' => $cap100->id,
             'price_list_id' => $priceList15->id
         ]);
 
@@ -192,7 +230,7 @@ class LiteraturFestival2019Seeder extends Seeder
             'second_name' => 'KINDER, KINDER Thomas Mauz',
             'project_id' => $project->id,
             'location_id' => $festivalBueroForVS->id,
-            'seat_map_id' => $seatMap->id,
+            'seat_map_id' => $cap50->id,
             'price_list_id' => $priceList5->id
         ]);
 
@@ -202,7 +240,7 @@ class LiteraturFestival2019Seeder extends Seeder
             'second_name' => 'BUCHPRÄSENTATION + GESPRÄCH Daniela Strigl',
             'project_id' => $project->id,
             'location_id' => $galerie->id,
-            'seat_map_id' => $seatMap->id,
+            'seat_map_id' => $cap50->id,
             'price_list_id' => $priceList10->id
         ]);
 
@@ -212,7 +250,7 @@ class LiteraturFestival2019Seeder extends Seeder
             'second_name' => 'LESUNG + MUSIK Barbara Zeman',
             'project_id' => $project->id,
             'location_id' => $panoramaCafe->id,
-            'seat_map_id' => $seatMap->id,
+            'seat_map_id' => $cap50->id,
             'price_list_id' => $priceList10->id
         ]);
 
@@ -222,7 +260,7 @@ class LiteraturFestival2019Seeder extends Seeder
             'second_name' => 'LESUNG Judith W. Taschler',
             'project_id' => $project->id,
             'location_id' => $theaterSaal->id,
-            'seat_map_id' => $seatMap->id,
+            'seat_map_id' => $cap100->id,
             'price_list_id' => $priceList10->id
         ]);
 
@@ -232,7 +270,7 @@ class LiteraturFestival2019Seeder extends Seeder
             'second_name' => 'LESUNG + GESPRÄCH Olga Flor',
             'project_id' => $project->id,
             'location_id' => $bernardiSaal->id,
-            'seat_map_id' => $seatMap->id,
+            'seat_map_id' => $cap100->id,
             'price_list_id' => $priceList10->id
         ]);
 
@@ -242,7 +280,7 @@ class LiteraturFestival2019Seeder extends Seeder
             'second_name' => 'LESUNG Vea Kaiser',
             'project_id' => $project->id,
             'location_id' => $theaterSaal->id,
-            'seat_map_id' => $seatMap->id,
+            'seat_map_id' => $cap100->id,
             'price_list_id' => $priceList15->id
         ]);
 
@@ -253,7 +291,7 @@ class LiteraturFestival2019Seeder extends Seeder
             'second_name' => 'KINDER, KINDER Uly Paya',
             'project_id' => $project->id,
             'location_id' => $spesMeditationsraum->id,
-            'seat_map_id' => $seatMap->id,
+            'seat_map_id' => $cap50->id,
             'price_list_id' => $priceList5->id
         ]);
 
@@ -263,7 +301,7 @@ class LiteraturFestival2019Seeder extends Seeder
             'second_name' => 'LESUNG + GESPRÄCH Hans Eichhorn',
             'project_id' => $project->id,
             'location_id' => $galerie->id,
-            'seat_map_id' => $seatMap->id,
+            'seat_map_id' => $cap50->id,
             'price_list_id' => $priceList10->id
         ]);
 
@@ -273,7 +311,7 @@ class LiteraturFestival2019Seeder extends Seeder
             'second_name' => 'THEATER Puppentheater Guglhupf (ab 16 Jahre)',
             'project_id' => $project->id,
             'location_id' => $theaterSaal->id,
-            'seat_map_id' => $seatMap->id,
+            'seat_map_id' => $cap100->id,
             'price_list_id' => $priceList10->id
         ]);
 
@@ -283,7 +321,7 @@ class LiteraturFestival2019Seeder extends Seeder
             'second_name' => 'LESUNG Thomas Sautner',
             'project_id' => $project->id,
             'location_id' => $bernardiSaal->id,
-            'seat_map_id' => $seatMap->id,
+            'seat_map_id' => $cap70->id,
             'price_list_id' => $priceList10->id
         ]);
 
@@ -293,7 +331,7 @@ class LiteraturFestival2019Seeder extends Seeder
             'second_name' => 'LESUNG Philipp Weiss',
             'project_id' => $project->id,
             'location_id' => $bibliothek->id,
-            'seat_map_id' => $seatMap->id,
+            'seat_map_id' => $cap50->id,
             'price_list_id' => $priceList10->id
         ]);
 
@@ -303,7 +341,7 @@ class LiteraturFestival2019Seeder extends Seeder
             'second_name' => 'LESUNG Wladimir Kaminer',
             'project_id' => $project->id,
             'location_id' => $bernardiSaal->id,
-            'seat_map_id' => $seatMap->id,
+            'seat_map_id' => $cap70->id,
             'price_list_id' => $priceList15->id
         ]);
 
@@ -313,7 +351,7 @@ class LiteraturFestival2019Seeder extends Seeder
             'second_name' => 'KONZERT Felix Kramer + Band',
             'project_id' => $project->id,
             'location_id' => $theaterSaal->id,
-            'seat_map_id' => $seatMap->id,
+            'seat_map_id' => $cap100->id,
             'price_list_id' => $priceList10->id
         ]);
 
@@ -324,7 +362,7 @@ class LiteraturFestival2019Seeder extends Seeder
             'second_name' => 'KINDER, KINDER Märchen m. Rosa Teutsch',
             'project_id' => $project->id,
             'location_id' => $festivalBueroForVS->id,
-            'seat_map_id' => $seatMap->id,
+            'seat_map_id' => $cap50->id,
             'price_list_id' => $priceList5->id
         ]);
 
@@ -334,7 +372,7 @@ class LiteraturFestival2019Seeder extends Seeder
             'second_name' => 'LITERATUR & MUSIK E. Einzinger + D. Strigl',
             'project_id' => $project->id,
             'location_id' => $waldschenkeZeisl->id,
-            'seat_map_id' => $seatMap->id,
+            'seat_map_id' => $cap50->id,
             'price_list_id' => $priceList10->id
         ]);
 
@@ -344,7 +382,7 @@ class LiteraturFestival2019Seeder extends Seeder
             'second_name' => 'LESUNG IM DUNKELN Eva Felbauer',
             'project_id' => $project->id,
             'location_id' => $spesDunkelgenussraum->id,
-            'seat_map_id' => $seatMap->id,
+            'seat_map_id' => $cap20->id,
             'price_list_id' => $priceList15->id
         ]);
     }
