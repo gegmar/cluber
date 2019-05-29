@@ -110,7 +110,7 @@ class CheckOutController extends Controller
         $seatsIndex = 0;
         foreach ($tickets as $ticketCategory => $ticketCount) {
             for ($i = 0; $i < $ticketCount; $i++) {
-                $ticket = Ticket::create([
+                Ticket::create([
                     'random_id' => Str::random(32),
                     'seat_number' => isset($seats) ? $seats[$seatsIndex] : 0,
                     'purchase_id' => $purchase->id,

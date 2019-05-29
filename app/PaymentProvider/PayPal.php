@@ -110,13 +110,13 @@ class PayPal
 
         try {
             // Execute the payment
-            $result = $payment->execute($execution, $apiContext);
+            $payment->execute($execution, $apiContext);
             try {
                 $payment = Payment::get($paymentId, $apiContext);
-            } catch (Exception $ex) {
+            } catch (\Exception $ex) {
                 throw new PaymentProviderException('Error on getting Payment-ID.');
             }
-        } catch (Exception $ex) {
+        } catch (\Exception $ex) {
             throw new PaymentProviderException('Error on executing PayPal payment.');
         }
         return $payment;
