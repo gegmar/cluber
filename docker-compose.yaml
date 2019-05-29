@@ -1,13 +1,5 @@
 version: '2'
 services:
-  #app:
-  #  image: kyleparisi/larasible
-  #  ports:
-  #    - 80:80
-  #  environment:
-  #    - APP_ENV=testing
-  #  volumes:
-  #    - ./:/var/www/default
 
   mysql:
     image: mysql:5.7
@@ -28,13 +20,11 @@ services:
     external_links:
       - mysql:db
 
-  # Currently not working as expected. Watch https://github.com/rnwood/smtp4dev for updates
-  # Use instead 
-  #smtp4dev:
-  #  image: rnwood/smtp4dev:linux-amd64-v3
-  #  ports:
-  #    - 8081:80
-  #    - "2525:25"
+  smtp4dev:
+    image: rnwood/smtp4dev:linux-amd64-v3
+    ports:
+      - 3000:80
+      - "2525:25"
 
 #volumes: 
   # mysql_data:
