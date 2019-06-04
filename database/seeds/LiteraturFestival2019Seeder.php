@@ -15,6 +15,12 @@ class LiteraturFestival2019Seeder extends Seeder
         $this->call(RolesAndPermissionsSeeder::class);
         $this->call(UserSeeder::class);
 
+        // Virtual project for full day tickets
+        $passes = App\Project::create([
+            'name' => 'Tages- und Festivalpässe',
+            'description' => '4. Literaturfestival der Literarischen Nahversorger'
+        ]);
+
         // Project OÖ Literaturfestival
         $project = App\Project::create([
             'name' => '4553 - OÖ Literaturfestival',
@@ -165,8 +171,8 @@ class LiteraturFestival2019Seeder extends Seeder
         App\Event::create([
             'start_date' => '2019-08-29 00:00:00',
             'end_date' => '2019-09-01 23:59:00',
-            'second_name' => 'Festivalpass',
-            'project_id' => $project->id,
+            'second_name' => 'Festivalpass 29.8. - 01.09.',
+            'project_id' => $passes->id,
             'location_id' => $festivalBuero->id,
             'seat_map_id' => $cap100->id,
             'price_list_id' => $festivalPassList->id
@@ -175,8 +181,8 @@ class LiteraturFestival2019Seeder extends Seeder
         App\Event::create([
             'start_date' => '2019-08-30 10:00:00',
             'end_date' => '2019-08-30 23:59:00',
-            'second_name' => 'Tagespass',
-            'project_id' => $project->id,
+            'second_name' => 'Tagespass Freitag 30.08.',
+            'project_id' => $passes->id,
             'location_id' => $festivalBuero->id,
             'seat_map_id' => $cap50->id,
             'price_list_id' => $day1PassList->id
@@ -185,8 +191,8 @@ class LiteraturFestival2019Seeder extends Seeder
         App\Event::create([
             'start_date' => '2019-08-31 10:00:00',
             'end_date' => '2019-08-31 23:59:00',
-            'second_name' => 'Tagespass',
-            'project_id' => $project->id,
+            'second_name' => 'Tagespass Samstag 31.08.',
+            'project_id' => $passes->id,
             'location_id' => $festivalBuero->id,
             'seat_map_id' => $cap50->id,
             'price_list_id' => $day2PassList->id
