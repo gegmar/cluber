@@ -104,7 +104,7 @@ class SellTicketsController extends Controller
         }
 
         $prices = $event->priceList->categories;
-        $prices = $prices->keyBy('name');
+        $prices = $prices->keyBy('id');
 
         $purchase = new Purchase();
         $purchase->generateSecrets();

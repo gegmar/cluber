@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use App\Event;
+use App\PriceCategory;
 
 class SelectTickets extends FormRequest
 {
@@ -29,6 +30,11 @@ class SelectTickets extends FormRequest
                 'required',
                 'array',
                 function ($attribute, $value, $fail) {
+                    foreach ($value as $category => $count) {
+                        if (!PriceCategory::find($category)) {
+                            $fail('Please select only offered price categories!');
+                        }
+                    }
                     $ticketSum = array_sum($value);
                     if ($ticketSum === 0) {
                         $fail('Please select at least one or up to 8 tickets!');

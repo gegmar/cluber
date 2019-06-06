@@ -30,8 +30,8 @@
                             <div class="form-group row">
                                 <label class="col-sm-6 form-control-label">{{ $category->name }} ({{ $category->price }} <i class="fa fa-eur"></i>) @if($category->description)<i class="fa fa-info-circle" data-toggle="tooltip" data-placement="top" title="{{$category->description}}"></i>@endif</label>
                                 <div class="col-sm-6">
-                                    <input type="text" name="tickets[{{ $category->name }}]" class="tickets form-control" data-price="{{ $category->price }}"
-                                        value="@if( $tickets !== null){{ $tickets[$category->name] }}@endif">
+                                    <input type="text" name="tickets[{{ $category->id }}]" class="tickets form-control" data-price="{{ $category->price }}"
+                                        value="@if( $tickets !== null){{ $tickets[$category->id] }}@endif">
                                 </div>
                             </div>
                             @endforeach

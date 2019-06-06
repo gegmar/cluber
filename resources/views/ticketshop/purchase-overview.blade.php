@@ -56,7 +56,7 @@
                                 </thead>
                                 @php
                                 $prices = $event->priceList->categories;
-                                $prices = $prices->keyBy('name'); // enable us to find correct prices in the later loop
+                                $prices = $prices->keyBy('id'); // enable us to find correct prices in the later loop
                                 @endphp
                                 <tbody>
                                     @php
