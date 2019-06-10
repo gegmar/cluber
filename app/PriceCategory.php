@@ -10,4 +10,9 @@ class PriceCategory extends Model
     {
         return $this->belongsToMany('App\PriceList');
     }
+
+    public function tickets()
+    {
+        return $this->belongsToMany('App\Ticket');
+    }
 }
