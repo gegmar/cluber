@@ -4,7 +4,6 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use App\Purchase;
-use Illuminate\Support\Facades\Log;
 
 class DeleteLostOrders extends Command
 {
@@ -40,7 +39,7 @@ class DeleteLostOrders extends Command
     public function handle()
     {
         $lostOrders = Purchase::where('state', 'in_payment')
-            ->whereRaw('state_updated < DATE_SUB(NOW(),INTERVAL 15 MINUTE)')
+            ->where('state_updated', '<', (new \DateTime())->sub(new \DateInterval('PT15M')))
             ->get();
 
         foreach ($lostOrders as $purchase) {
