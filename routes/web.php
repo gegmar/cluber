@@ -46,16 +46,9 @@ Route::namespace('TicketShop')->prefix('ts')->name('ts.')->group(function () {
 
     // PaymentProvider URLs
     Route::prefix('payment')->name('payment.')->group(function () {
-        Route::get('{purchase}/successful/{secret}', 'CheckOutController@paymentSuccessful')->name('successful');
-        Route::get('{purchase}/aborted', 'CheckOutController@paymentAborted')->name('aborted');
-        Route::get('{purchase}/timedout', 'CheckOutController@paymentTimedOut')->name('timedout');
-
-        Route::name('notify.')->group(function () {
-            Route::get('{purchase}/{secret}/loss', 'CheckOutController@notifyLoss')->name('loss');
-            Route::get('{purchase}/{secret}/pending', 'CheckOutController@notifyPending')->name('pending');
-            Route::get('{purchase}/{secret}/received', 'CheckOutController@notifyReceived')->name('received');
-            Route::get('{purchase}/{secret}/refunded', 'CheckOutController@notifyRefunded')->name('refunded');
-        });
+        Route::get('{purchase}/successful/{secret}', 'PaymentProvider@paymentSuccessful')->name('successful');
+        Route::get('{purchase}/aborted', 'PaymentProvider@paymentAborted')->name('aborted');
+        Route::get('{purchase}/timedout', 'PaymentProvider@paymentTimedOut')->name('timedout');
 
         // PaymentProvider-specific URLs
         Route::get('{purchase}/{secret}/paypal/executepayment', 'PaymentProviderController@payPalExecutePayment')->name('payPalExec');

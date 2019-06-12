@@ -20,27 +20,35 @@ use PayPal\Api\PaymentExecution;
 use Illuminate\Support\Facades\App;
 
 
-
+/**
+ * Class to process requests and responses to and from PayPal
+ * 
+ * Find docs @ https://github.com/paypal/PayPal-PHP-SDK
+ */
 class PayPal
 {
+    /**
+     * API-Object; initialized by constructor
+     */
+    protected $apiContext;
+
 
     /**
-     * Generate context by supplying PayPal-Credentials
+     * @param $clientId ClientID for the shops paypal REST endpoint
+     * @param $clientSecret Secret for the shops paypal REST endpoint
+     * @return void
      */
-    private static function getApiContext(): ApiContext
+    public function __construct($clientId, $clientSecret)
     {
-        $context = new ApiContext(
-            new OAuthTokenCredential(
-                config('paymentprovider.payPalClientId'),     // ClientID
-                config('paymentprovider.payPalClientSecret')  // ClientSecret
-            )
+        $this->apiContext = new ApiContext(
+            new OAuthTokenCredential( $clientId, $clientSecret)
         );
+
         if (App::environment('prod')) {
-            $context->setConfig([
+            $this->apiContext->setConfig([
                 'mode' => 'live'
             ]);
         }
-        return $context;
     }
 
     /**
@@ -48,13 +56,10 @@ class PayPal
      * 
      * @throws PaymentProviderException on errors
      */
-    public static function getPaymentUrl(Purchase $purchase)
+    public function getPaymentUrl(Purchase $purchase)
     {
-        $apiContext = static::getApiContext();
-
         $payer = new Payer();
         $payer->setPaymentMethod('paypal');
-
 
         $amount = new Amount();
         $amount->setTotal($purchase->total());
@@ -84,7 +89,7 @@ class PayPal
             ->setRedirectUrls($redirectUrls);
 
         try {
-            $payment->create($apiContext);
+            $payment->create($this->apiContext);
             return $payment->getApprovalLink();
         } catch (PayPalConnectionException $ex) {
             // This will print the detailed information on the exception.
@@ -99,20 +104,18 @@ class PayPal
      * 
      * @throws PaymentProviderException if something goes wrong
      */
-    public static function executePayment($paymentId, $payerId)
+    public function executePayment($paymentId, $payerId)
     {
-        $apiContext = static::getApiContext();
-
-        $payment = Payment::get($paymentId, $apiContext);
+        $payment = Payment::get($paymentId, $this->apiContext);
 
         $execution = new PaymentExecution();
         $execution->setPayerId($payerId);
 
         try {
             // Execute the payment
-            $payment->execute($execution, $apiContext);
+            $payment->execute($execution, $this->apiContext);
             try {
-                $payment = Payment::get($paymentId, $apiContext);
+                $payment = Payment::get($paymentId, $this->apiContext);
             } catch (\Exception $ex) {
                 throw new PaymentProviderException('Error on getting Payment-ID.');
             }

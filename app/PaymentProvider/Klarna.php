@@ -7,61 +7,59 @@ use App\Purchase;
 use App\Exceptions\PaymentProviderException;
 use Illuminate\Support\Facades\Log;
 
+/**
+ * Class to process requests to Klarna
+ * 
+ * Find docs @ https://github.com/sofort/sofortlib-php
+ */
 class Klarna
 {
-    // Find docs @ https://github.com/sofort/sofortlib-php
+    /**
+     * API-Object; initialized by constructor
+     */
+    protected $sofortApi;
 
     /**
      * 
+     * @param $configKey Configuration key for this exact project
+     * @return void
      */
-    public static function getPaymentUrl(Purchase $purchase)
+    public function __construct($configKey)
     {
-        $configKey = config('paymentprovider.sofortConfigKey');
+        $this->sofortApi = new Sofortueberweisung($configKey);
+    }
 
-        $sofort = new Sofortueberweisung($configKey);
-
-        $sofort->setAmount($purchase->total());
-        $sofort->setCurrencyCode('EUR');
-        $sofort->setReason('Ticket purchase #' . $purchase->id);
-        $sofort->setSuccessUrl(route('ts.payment.successful', [
+    /**
+     * Generates for a given Purchase a payment request at Klarna and
+     * returns a payment url where the customer can pay the purchase
+     * 
+     * @param $purchase the customer's purchase
+     * @return string PaymentUrl to Klarna for the given purchase
+     */
+    public function getPaymentUrl(Purchase $purchase)
+    {
+        $this->sofortApi->setAmount($purchase->total());
+        $this->sofortApi->setCurrencyCode('EUR');
+        $this->sofortApi->setReason('Ticket purchase #' . $purchase->id);
+        $this->sofortApi->setSuccessUrl(route('ts.payment.successful', [
             'purchase' => $purchase->random_id,
             'secret' => $purchase->payment_secret
         ]));
-        $sofort->setAbortUrl(route('ts.payment.aborted', ['purchase' => $purchase->random_id]));
-        $sofort->setTimeoutUrl(route('ts.payment.timedout', ['purchase' => $purchase->random_id]));
-        // 
-        // NotificationUrls only work on public urls
-        // Use split-dns for testing
-        //
-        /*$sofort->setNotificationUrl(route('ts.payment.notify.loss', [
-            'purchase' => $purchase->random_id,
-            'secret' => $purchase->payment_secret
-        ]), 'loss');
-        $sofort->setNotificationUrl(route('ts.payment.notify.pending', [
-            'purchase' => $purchase->random_id,
-            'secret' => $purchase->payment_secret
-        ]), 'pending');
-        $sofort->setNotificationUrl(route('ts.payment.notify.received', [
-            'purchase' => $purchase->random_id,
-            'secret' => $purchase->payment_secret
-        ]), 'received');
-        $sofort->setNotificationUrl(route('ts.payment.notify.refunded', [
-            'purchase' => $purchase->random_id,
-            'secret' => $purchase->payment_secret
-        ]), 'refunded');*/
+        $this->sofortApi->setAbortUrl(route('ts.payment.aborted', ['purchase' => $purchase->random_id]));
+        $this->sofortApi->setTimeoutUrl(route('ts.payment.timedout', ['purchase' => $purchase->random_id]));
 
-        $sofort->sendRequest();
+        $this->sofortApi->sendRequest();
 
-        if ($sofort->isError()) {
+        if ($this->sofortApi->isError()) {
             // SOFORT-API didn't accept the data
-            Log::error($sofort->getErrors());
+            Log::error($this->sofortApi->getErrors());
             throw new PaymentProviderException("SOFORT got errors...");
         }
         // get unique transaction-ID useful for check payment status
-        $transactionId = $sofort->getTransactionId();
+        $transactionId = $this->sofortApi->getTransactionId();
         Log::info('[Klarna] TransactionId for purchase #' . $purchase->id . ' is ' . $transactionId);
         // buyer must be redirected to $paymentUrl else payment cannot be successfully completed!
-        return $sofort->getPaymentUrl();
+        return $this->sofortApi->getPaymentUrl();
     }
 
 }

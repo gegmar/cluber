@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Blade;
+use App\PaymentProvider\Klarna;
+use App\PaymentProvider\PayPal;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -29,6 +31,15 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->bind('App\PaymentProvider\Klarna', function($app) {
+            return new Klarna( config('paymentprovider.sofortConfigKey') );
+        });
+
+        $this->app->bind('App\PaymentProvider\PayPal', function($app) {
+            return new PayPal(
+                config('paymentprovider.payPalClientId'),     // ClientID
+                config('paymentprovider.payPalClientSecret')  // ClientSecret
+            );
+        });
     }
 }

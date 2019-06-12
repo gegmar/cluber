@@ -2,24 +2,19 @@
 
 namespace App\Http\Controllers\TicketShop;
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Http\Requests\PayTickets;
 use App\Http\Controllers\Controller;
-use App\PaymentProvider\PayPal;
-use App\PaymentProvider\Klarna;
-use App\Exceptions\PaymentProviderException;
 use App\Purchase;
 use App\Role;
 use App\User;
 use App\Ticket;
-use Illuminate\Support\Facades\Mail;
-use App\Mail\TicketsPaid;
 use Illuminate\Support\Str;
 
 class CheckOutController extends Controller
 {
+
     public function getOverview()
     {
         // Only allow requests for sessions with existing customer data
@@ -56,7 +51,7 @@ class CheckOutController extends Controller
         $ticketSum = array_sum($tickets);
         if ($event->freeTickets() < $ticketSum) {
             // End transaction
-            DB::rollbackTransaction();
+            DB::rollback();
             // Empty session data so user must select new tickets
             $request->session()->forget('tickets');
             // Redirect user to select a valid amount of tickets
@@ -69,7 +64,7 @@ class CheckOutController extends Controller
             $seats = session('seats');
             if (!$event->areSeatsFree($seats)) {
                 // End transaction
-                DB::rollBackTransaction();
+                DB::rollback();
                 // Empty session data in order to select new seats
                 $request->session()->forget('seats');
                 // redirect user to select a new set of seats
@@ -121,67 +116,26 @@ class CheckOutController extends Controller
             }
         }
 
-        DB::commit();
+        switch($request->validated()['paymethod'])
+        {
+            case 'Klarna':
+                $paymentProvider = resolve('App\PaymentProvider\Klarna');
+                break;
+            case 'PayPal':
+                $paymentProvider = resolve('App\PaymentProvider\PayPal');
+                break;
+            default:
+                DB::rollBack();
+                return redirect()->route('ts.overview')
+                    ->with('status', 'The selected PaymentProvider is not supported!');
+        }
 
+        DB::commit();
         // forget all session data that has been written into database
         $request->session()->forget(['customerData', 'event', 'tickets', 'seats']);
 
-        $paymentUrl = 'https://www.github.com';
-        switch ($request->validated()['paymethod']) {
-            case 'Klarna':
-                $paymentUrl = Klarna::getPaymentUrl($purchase);
-                break;
-            case 'PayPal':
-                $paymentUrl = PayPal::getPaymentUrl($purchase);
-                break;
-        }
-
-        return redirect()->away($paymentUrl);
+        return redirect()->away(
+            $paymentProvider->getPaymentUrl($purchase)
+        );
     }
-
-    /**
-     * Success-Function for users that paid at a payment provider for their purchase
-     */
-    public function paymentSuccessful(Purchase $purchase, string $secret)
-    {
-        try {
-            $purchase->setStateToPaid($secret);
-        } catch (PaymentProviderException $e) {
-            return redirect()->route('ts.overview')->with('status', $e->getMessage());
-        }
-
-        Mail::to($purchase->customer)->send(new TicketsPaid($purchase));
-
-        return redirect()->route('ticket.purchase', ['purchase' => $purchase])
-            ->with('status', 'Purchase successful - Please download your tickets.');
-    }
-
-    public function paymentAborted(Purchase $purchase)
-    {
-        $purchase->deleteWithAllData();
-        return redirect()->route('ts.events')->with('status', 'Purchase aborted - Your previously selected tickets have been deleted.');
-    }
-
-    public function paymentTimedOut(Purchase $purchase)
-    {
-        return $this->paymentAborted($purchase);
-    }
-
-
-    /*
-     *************************
-     * Methods for later use *
-     *************************
-     */
-    public function notifyLoss(Purchase $purchase, string $secret)
-    { }
-
-    public function notifyPending(Purchase $purchase, string $secret)
-    { }
-
-    public function notifyReceived(Purchase $purchase, string $secret)
-    { }
-
-    public function notifyRefunded(Purchase $purchase, string $secret)
-    { }
 }
