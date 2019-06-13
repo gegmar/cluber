@@ -17,6 +17,11 @@
                     <h2 class="no-margin-bottom">@yield('page-title')</h2>
                 </div>
             </header>
+            @if(env('SHOW_NO_SHOPPING_CART_NOTIFICATION', false))
+            @component('components.notification')
+            <strong><i class="fa fa-warning"></i></strong> Dieser Onlineshop unterstützt keinen Warenkorb. Bitte kaufen Sie Ihre Tickets je Veranstaltung.
+            @endcomponent
+            @endif
             <!-- Dashboard Counts Section-->
             @yield('content')
 
