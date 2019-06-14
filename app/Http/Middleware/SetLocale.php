@@ -16,9 +16,13 @@ class SetLocale
      */
     public function handle($request, Closure $next)
     {
-        $locale = $request->session()->get('locale', 'de');
+        $locale = $request->session()->get('locale', config('app.locale'));
         App::setLocale($locale);
-        setlocale(LC_TIME, $locale);
+        if(config('app.locale_time')) {
+            setlocale(LC_TIME, config('app.locale_time'));
+        } else {
+            setlocale(LC_TIME, $locale);
+        }
         return $next($request);
     }
 }

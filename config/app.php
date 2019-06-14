@@ -14,7 +14,7 @@ return [
  */
 
     'name' => env('APP_NAME', 'Laravel'),
-    'version' => '0.1.0',
+    'version' => '0.2.0',
     'owner' => env('APP_OWNER', 'Club'),
     'owner_webmaster' => env('APP_WEBMASTER', 'webmaster@example.com'),
     'impress_url' => env('IMPRESS_URL', 'https://example.com'),
@@ -82,7 +82,8 @@ return [
     |
      */
 
-    'locale' => 'en',
+    'locale' => env('APP_DEFAULT_LANG', 'en'),
+    'locale_time' => env('APP_LOCALE', null),
 
     /*
     |--------------------------------------------------------------------------
