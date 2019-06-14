@@ -18,7 +18,7 @@ class TicketsControllerTest extends TestCase
         $response = $this->get("/ticket/$ticket->random_id");
 
         $response->assertStatus(200);
-        $response->assertSee($ticket->purchase->customer->name);
+        $response->assertSee($ticket->purchase->total());
     }
 
     public function testShowAndDownloadPurchase()
