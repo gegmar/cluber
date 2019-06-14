@@ -63,9 +63,12 @@ class PaymentProviderController extends Controller
         } catch (PaymentProviderException $e) {
             $returnable->with('status', $e->getMessage());
         } catch (PayPalConnectionException $e) {
-            Log::warning('[PayPal] ' . $e->getMessage());
+            Log::warning('[PayPal] [paymentId='. $paymentId . '|payerId=' . $payerId . '] ' . $e->getMessage());
+            // This will print the detailed information on the exception.
+            //REALLY HELPFUL FOR DEBUGGING
+            Log::error($e->getData());
         } catch (\Exception $e) {
-            Log::warning('[General] ' . $e->getMessage());
+            Log::warning('[General] [paymentId='. $paymentId . '|payerId=' . $payerId . '] ' . $e->getMessage());
         }
         return $returnable;
     }
