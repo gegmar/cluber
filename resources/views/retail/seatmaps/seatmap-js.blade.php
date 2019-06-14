@@ -16,93 +16,102 @@
 </div>
 <section>
     <div class="container-fluid">
-            <div class="row">
-                    <div class="col-lg-4">
-        <div class="card">
-            <div class="card-header">
-                <h4>{{__('ticketshop.price-category')}}</h4>
-            </div>
-            <div class="card-body">
-                <p>{{__('ticketshop.select_number_of_tickets')}} ({{__('ticketshop.price')}}: <span id="price">0</span> <i class="fa fa-eur"></i>).</p>
-                <form id="seats_form" class="form-horizontal" action="{{ route('retail.sell.sell', ['event' => $event->id]) }}" method="POST">
-                    @csrf
-                    @foreach( $event->priceList->categories as $category)
-                    <div class="form-group row">
-                        <label class="col-sm-6 form-control-label">{{ $category->name }} ({{ $category->price }} <i class="fa fa-eur"></i>) @if($category->description)<i class="fa fa-info-circle" data-toggle="tooltip" data-placement="top" title="{{$category->description}}"></i>@endif</label>
-                        <div class="col-sm-6">
-                            <input type="text" name="tickets[{{ $category->id }}]" class="tickets form-control" data-price="{{ $category->price }}"
-                                value="0">
-                        </div>
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>{{__('ticketshop.selected_event')}}</h4>
                     </div>
-                    @endforeach
-                    <div class="form-group justify-content-center">
-                        <button type="submit" class="btn btn-primary submitters" disabled>{{__('ticketshop.sell')}}</button>
-                        @if(Auth::user()->hasPermission('RESERVE_TICKETS'))
-                        <button type="button" class="btn btn-outline-primary submitters" data-toggle="modal" data-target="#reserveModal" disabled>{{__('ticketshop.reserve')}}</button>
-                        @endif
-                        @if(Auth::user()->hasPermission('HANDLING_FREE_TICKETS'))
-                        <button type="button" class="btn btn-warning submitters" data-toggle="modal" data-target="#freeModal" disabled>{{__('ticketshop.free-tickets')}}</button>
-                        @endif
+                    <div class="card-body">
+                        <h5>{{ $event->project->name }}</h5>
+                        <h6 class="card-title">{{ $event->second_name }}</h6>
+                        <p class="card-text"><i class="fa fa-calendar"></i> @datetime($event->start_date)</p>
+                        <p class="card-text"><i class="fa fa-clock-o"></i> @time($event->start_date)</p>
                     </div>
-                    <input type="hidden" name="action" value="paid" />
-                </form>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-8">
-            <div class="card">
-                <div class="card-header">
-                    <h4>{{ $event->project->name }} | {{ $event->second_name }}</h4>
-                </div>
-                <div class="card-body">
-                    <p>{{__('ticketshop.Select_Seats')}}</p>
-                    <p><span id="selected-seats-count">0</span> / <span id="selected-persons-count">0</span></p>
-                    <div class="sc-wrapper">
-                        <div class="sc-container">
-                            <div id="seat-map">
-                                <div class="sc-front-indicator">{{__('ticketshop.stage')}}</div>
+                </div> <!-- end card -->
+                <div class="card">
+                    <div class="card-header">
+                        <h4>{{__('ticketshop.price-category')}}</h4>
+                    </div>
+                    <div class="card-body">
+                        <p>{{__('ticketshop.select_number_of_tickets')}} ({{__('ticketshop.price')}}: <span id="price">0</span> <i class="fa fa-eur"></i>).</p>
+                        <form id="seats_form" class="form-horizontal" action="{{ route('retail.sell.sell', ['event' => $event->id]) }}" method="POST">
+                            @csrf
+                            @foreach( $event->priceList->categories as $category)
+                            <div class="form-group row">
+                                <label class="col-sm-6 form-control-label">{{ $category->name }} ({{ $category->price }} <i class="fa fa-eur"></i>) @if($category->description)<i class="fa fa-info-circle" data-toggle="tooltip" data-placement="top" title="{{$category->description}}"></i>@endif</label>
+                                <div class="col-sm-6">
+                                    <input type="text" name="tickets[{{ $category->id }}]" class="tickets form-control" data-price="{{ $category->price }}"
+                                        value="0">
+                                </div>
                             </div>
-                            <div class="booking-details">
-                                <div id="legend"></div>
+                            @endforeach
+                            <div class="form-group justify-content-center">
+                                <button type="submit" class="btn btn-primary submitters" disabled>{{__('ticketshop.sell')}}</button>
+                                @if(Auth::user()->hasPermission('RESERVE_TICKETS'))
+                                <button type="button" class="btn btn-outline-primary submitters" data-toggle="modal" data-target="#reserveModal" disabled>{{__('ticketshop.reserve')}}</button>
+                                @endif
+                                @if(Auth::user()->hasPermission('HANDLING_FREE_TICKETS'))
+                                <button type="button" class="btn btn-warning submitters" data-toggle="modal" data-target="#freeModal" disabled>{{__('ticketshop.free-tickets')}}</button>
+                                @endif
+                            </div>
+                            <input type="hidden" name="action" value="paid" />
+                        </form>
+                    </div>
+                </div> <!-- end card -->
+            </div> <!-- end col -->
+            <div class="col-lg-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>{{__('ticketshop.Select_Seats')}} | <span id="selected-seats-count">0</span> / <span id="selected-persons-count">0</span></h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="sc-wrapper">
+                            <div class="sc-container">
+                                <div id="seat-map">
+                                    <div class="sc-front-indicator">{{__('ticketshop.stage')}}</div>
+                                </div>
+                                <div class="booking-details">
+                                    <div id="legend"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-</div>
+            </div> <!-- end col -->
+        </div> <!-- end row -->
+    </div> <!-- end container -->
 
-<!-- Modal:ReserveTickets -->
-<div class="modal fade" id="reserveModal" tabindex="-1" role="dialog" aria-labelledby="reserveModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="reserveModalLabel">{{__('ticketshop.customer_data')}}</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="{{__('ticketshop.cancel')}}">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form id="reservation-form">
-                    <div class="form-group row">
-                        <label class="col-sm-3 form-control-label">{{__('ticketshop.customer')}}</label>
-                        <div class="col-sm-9">
-                            <input type="text" name="customer-name" class="form-control" value="" required>
+    <!-- Modal:ReserveTickets -->
+    <div class="modal fade" id="reserveModal" tabindex="-1" role="dialog" aria-labelledby="reserveModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="reserveModalLabel">{{__('ticketshop.customer_data')}}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="{{__('ticketshop.cancel')}}">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="reservation-form">
+                        <div class="form-group row">
+                            <label class="col-sm-3 form-control-label">{{__('ticketshop.customer')}}</label>
+                            <div class="col-sm-9">
+                                <input type="text" name="customer-name" class="form-control" value="" required>
+                            </div>
                         </div>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">{{__('ticketshop.cancel')}}</button>
-                <button id="submit-reservation" type="button" class="btn btn-outline-primary">{{__('ticketshop.reserve')}}</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{{__('ticketshop.cancel')}}</button>
+                    <button id="submit-reservation" type="button" class="btn btn-outline-primary">{{__('ticketshop.reserve')}}</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<!-- Modal:FreeTickets -->
-<div class="modal fade" id="freeModal" tabindex="-1" role="dialog" aria-labelledby="freeModalLabel" aria-hidden="true">
+    <!-- Modal:FreeTickets -->
+    <div class="modal fade" id="freeModal" tabindex="-1" role="dialog" aria-labelledby="freeModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">

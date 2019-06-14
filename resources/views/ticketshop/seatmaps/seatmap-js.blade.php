@@ -20,6 +20,17 @@
             <div class="col-lg-4">
                 <div class="card">
                     <div class="card-header">
+                        <h4>{{__('ticketshop.selected_event')}}</h4>
+                    </div>
+                    <div class="card-body">
+                        <h5>{{ $event->project->name }}</h5>
+                        <h6 class="card-title">{{ $event->second_name }}</h6>
+                        <p class="card-text"><i class="fa fa-calendar"></i> @datetime($event->start_date)</p>
+                        <p class="card-text"><i class="fa fa-clock-o"></i> @time($event->start_date)</p>
+                    </div>
+                </div> <!-- end card -->
+                <div class="card">
+                    <div class="card-header">
                         <h4>{{__('ticketshop.price-category')}}</h4>
                     </div>
                     <div class="card-body">
@@ -40,16 +51,14 @@
                             </div>
                         </form>
                     </div>
-                </div>
-            </div>
+                </div> <!-- end card -->
+            </div> <!-- end col -->
             <div class="col-lg-8">
                 <div class="card">
                     <div class="card-header">
-                        <h4>{{ $event->project->name }} | {{ $event->second_name }}</h4>
+                        <h4>{{__('ticketshop.Select_Seats')}} | <span id="selected-seats-count">0</span> / <span id="selected-persons-count">0</span></h4>
                     </div>
                     <div class="card-body">
-                        <p>{{__('ticketshop.Select_Seats')}}</p>
-                        <p><span id="selected-seats-count">0</span> / <span id="selected-persons-count">0</span></p>
                         <div class="sc-wrapper">
                             <div class="sc-container">
                                 <div id="seat-map">

@@ -84,6 +84,7 @@ return [
     'select_payment_method' => 'Wählen Sie eine Bezahlmethode für diesen Einkauf aus!',
     'Select_Seats' => 'Sitzplätze wählen',
     'selected' => 'Ausgewählt',
+    'selected_event' => 'Ausgewählte Veranstaltung',
     'sell' => 'Verkaufen',
     'sell_purchase_warning' => 'Wollen Sie wirklich diesen Einkauf auf "bezahlt" setzen?',
     'sell_tickets' => 'Karten verkaufen',

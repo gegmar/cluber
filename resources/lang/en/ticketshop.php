@@ -87,6 +87,7 @@ return [
     'select_payment_method' => 'Select a payment method for this purchase!',
     'Select_Seats' => 'Select Seats',
     'selected' => 'Selected',
+    'selected_event' => 'Selected Event',
     'sell' => 'Sell',
     'sell_purchase_warning' => 'Do you really want to set this purchase to "paid"?',
     'sell_tickets' => 'Sell Tickets',
