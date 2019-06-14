@@ -3,8 +3,6 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use App\Event;
-use App\PriceCategory;
 
 class SelectTickets extends FormRequest
 {
@@ -30,11 +28,17 @@ class SelectTickets extends FormRequest
                 'required',
                 'array',
                 function ($attribute, $value, $fail) {
-                    foreach ($value as $category => $count) {
-                        if (!PriceCategory::find($category)) {
-                            $fail('Please select only offered price categories!');
-                        }
+                    // First check if the selected categories are linked
+                    // to the selected event. Else attackers could select
+                    // cheaper categories for their tickets
+                    $event = $this->route('event');
+                    $allowedPriceCategories = $event->priceList->categories->pluck('id')->toArray();
+                    $selectedCategoryIds = array_keys( $value );
+                    $notAllowedCategories = array_diff($selectedCategoryIds, $allowedPriceCategories);
+                    if(!empty($notAllowedCategories)) {
+                        $fail('Please only select offered price categories!');
                     }
+                    // Check if the ticket sum is between 1 and 8
                     $ticketSum = array_sum($value);
                     if ($ticketSum === 0) {
                         $fail('Please select at least one or up to 8 tickets!');
