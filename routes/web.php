@@ -46,9 +46,9 @@ Route::namespace('TicketShop')->prefix('ts')->name('ts.')->group(function () {
 
     // PaymentProvider URLs
     Route::prefix('payment')->name('payment.')->group(function () {
-        Route::get('{purchase}/successful/{secret}', 'PaymentProvider@paymentSuccessful')->name('successful');
-        Route::get('{purchase}/aborted', 'PaymentProvider@paymentAborted')->name('aborted');
-        Route::get('{purchase}/timedout', 'PaymentProvider@paymentTimedOut')->name('timedout');
+        Route::get('{purchase}/successful/{secret}', 'PaymentProviderController@paymentSuccessful')->name('successful');
+        Route::get('{purchase}/aborted', 'PaymentProviderController@paymentAborted')->name('aborted');
+        Route::get('{purchase}/timedout', 'PaymentProviderController@paymentTimedOut')->name('timedout');
 
         // PaymentProvider-specific URLs
         Route::get('{purchase}/{secret}/paypal/executepayment', 'PaymentProviderController@payPalExecutePayment')->name('payPalExec');
