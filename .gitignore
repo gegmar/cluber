@@ -14,3 +14,4 @@ yarn-error.log
 .phpunit.result.cache
 dev-accounts.txt
 composer.lock
+.rnd

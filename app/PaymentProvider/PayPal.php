@@ -44,7 +44,7 @@ class PayPal
             new OAuthTokenCredential( $clientId, $clientSecret)
         );
 
-        if (App::environment('prod')) {
+        if(App::environment('prod')) {
             $this->apiContext->setConfig([
                 'mode' => 'live'
             ]);
