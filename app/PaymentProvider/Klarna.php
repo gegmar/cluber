@@ -40,7 +40,7 @@ class Klarna
     {
         $this->sofortApi->setAmount($purchase->total());
         $this->sofortApi->setCurrencyCode('EUR');
-        $this->sofortApi->setReason('Ticket purchase #' . $purchase->id);
+        $this->sofortApi->setReason('#'.$purchase->id . ' Purchase');
         $this->sofortApi->setSuccessUrl(route('ts.payment.successful', [
             'purchase' => $purchase->random_id,
             'secret' => $purchase->payment_secret

@@ -71,7 +71,7 @@ class PayPal
         $transaction = new Transaction();
         $transaction->setAmount($amount);
         $transaction->setPaymentOptions($paymentOptions);
-        $transaction->setDescription('Ticket purchase #' . $purchase->id);
+        $transaction->setDescription('#' . $purchase->id . ' Ticket purchase');
         $transaction->setInvoiceNumber($purchase->id);
 
         $redirectUrls = new RedirectUrls();
