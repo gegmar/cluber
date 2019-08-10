@@ -7,6 +7,7 @@ use App\Purchase;
 use App\Ticket;
 use Spipu\Html2Pdf\Html2Pdf;
 use Spipu\Html2Pdf\Exception\Html2PdfException;
+use Illuminate\Support\Facades\Log;
 
 class TicketsController extends Controller
 {
@@ -15,6 +16,7 @@ class TicketsController extends Controller
     public function showPurchase(Purchase $purchase)
     {
         if (!in_array($purchase->state, $this->soldStates)) {
+            Log::warning('Someone tried to access unpaid tickets of purchase#' . $purchase->id);
             return redirect()->route('ts.events')->with('state', 'Error - Purchase has not been paid yet.');
         }
 
@@ -24,6 +26,7 @@ class TicketsController extends Controller
     public function download(Purchase $purchase)
     {
         if (!in_array($purchase->state, $this->soldStates)) {
+            Log::warning('Someone tried to access unpaid tickets of purchase#' . $purchase->id);
             return redirect()->route('ts.events')->with('state', 'Error - Purchase has not been paid yet.');
         }
 

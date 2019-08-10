@@ -129,6 +129,7 @@ class SellTicketsController extends Controller
 
         DB::commit();
 
+        Log::info('[Retail user#' . Auth::user()->id . '] Created purchase#' . $purchase->id . ' with state ' . $action);
         // On successful sale, redirect browser to purchase overview
         return redirect()->route('ticket.purchase', ['purchase' => $purchase->random_id])
             ->with('status', 'Purchase successful!');

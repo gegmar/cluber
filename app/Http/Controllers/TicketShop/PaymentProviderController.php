@@ -60,8 +60,10 @@ class PaymentProviderController extends Controller
             $payPal = resolve('App\PaymentProvider\PayPal');
             // Might get risky to call --> set purchase to paid, but log the error!
             $payPal->executePayment($paymentId, $payerId);
+            Log::info('[PayPal] [paymentId=' . $paymentId . '|payerId=' . $payerId . '] Payment successfully executed');
         } catch (PaymentProviderException $e) {
             $returnable->with('status', $e->getMessage());
+            Log::warning($e);
         } catch (PayPalConnectionException $e) {
             Log::warning('[PayPal] [paymentId='. $paymentId . '|payerId=' . $payerId . '] ' . $e->getMessage());
             // This will print the detailed information on the exception.

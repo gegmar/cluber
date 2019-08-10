@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Retail;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Purchase;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
 
 class SoldTicketsController extends Controller
 {
@@ -25,6 +27,7 @@ class SoldTicketsController extends Controller
             return redirect()->route('retail.sold.tickets')->with('status', 'Error: You are not authorized!');
         }
 
+        Log::info('[Retail user#' . Auth::user()->id . '] Setting state of purchase#' . $purchase->id . ' to "paid"');
         $purchase->state = 'paid';
         $purchase->save();
 
@@ -39,6 +42,7 @@ class SoldTicketsController extends Controller
             return redirect()->route('retail.sold.tickets')->with('status', 'Error: You are not authorized!');
         }
 
+        Log::info('[Retail user#' . Auth::user()->id . '] Deleting purchase#' . $purchase->id);
         $purchase->deleteWithAllData();
 
         return redirect()->route('retail.sold.tickets')->with('status', 'Purchase successfully deleted!');
