@@ -23,10 +23,17 @@ class PayTickets extends FormRequest
      */
     public function rules()
     {
+        $filter = 'in:';
+        if(env('KLARNA_CONFIG_KEY')) {
+            $filter .= 'Klarna,';
+        }
+        if(env('PAYPAL_CLIENT_SECRET')) {
+            $filter .= 'PayPal,';
+        }
         return [
             'paymethod' => [
                 'required',
-                'in:PayPal,Klarna'
+                $filter
             ]
         ];
     }

@@ -118,10 +118,14 @@
                     <form action="{{ route('ts.pay') }}" method="post">
                         @csrf
                         <ul class="list-group list-group-flush">
+                            @if(env('PAYPAL_CLIENT_SECRET'))
                             <li class="list-group-item"><input type="radio" name="paymethod" value="PayPal" required/> <img src="/img/logos/paypal.jpg"
                                     alt="PayPal" height="30px">{{-- {{__('ticketshop.or_credit_card')}} --}}</li>
+                            @endif
+                            @if(env('KLARNA_CONFIG_KEY'))
                             <li class="list-group-item"><input type="radio" name="paymethod" value="Klarna" required/> <img src="/img/logos/klarna.png"
                                     alt="Klarna" height="30px"> = SofortÜberweisung</li>
+                            @endif
                             <li class="list-group-item"><button class="btn btn-primary">{{__('ticketshop.buy')}}</button></li>
                         </ul>
                     </form>
