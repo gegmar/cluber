@@ -88,8 +88,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         });
     });
 
-    // Events routes
-    Route::middleware(['perm:SELL_TICKETS'])->namespace('Events')->prefix('events')->name('events.')->group(function () {
+    // Box Office routes
+    Route::middleware(['perm:SELL_TICKETS'])->namespace('BoxOffice')->prefix('boxoffice')->name('boxoffice.')->group(function () {
 
         Route::get('/', 'StatisticsController@dashboard')->name('dashboard');
         Route::get('/{event}/pdf-overview.pdf', 'StatisticsController@downloadOverview')->name('download-overview');

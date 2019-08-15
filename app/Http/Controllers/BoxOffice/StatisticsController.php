@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Events;
+namespace App\Http\Controllers\BoxOffice;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -25,7 +25,7 @@ class StatisticsController extends Controller
             $myTurnOver += $purchase->total();
         }
 
-        return view('events.dashboard', [
+        return view('boxoffice.dashboard', [
             'upcomingEvents' => $upcomingEvents,
             'openEvents' => $openEvents,
             'marketShare' => $marketShare,
@@ -53,7 +53,7 @@ class StatisticsController extends Controller
             $html2pdf->output('overview-event-' . $event->id . '.pdf');
         } catch (Html2PdfException $exc) {
             $html2pdf->clean();
-            return redirect()->route('events.dashboard')->with('state', $exc);
+            return redirect()->route('boxoffice.dashboard')->with('state', $exc);
         }
     }
 }

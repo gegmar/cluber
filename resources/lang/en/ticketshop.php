@@ -17,6 +17,7 @@ return [
     'back_to_start' => 'Back to Start',
     'backoffice' => 'Backoffice',
     'booked' => 'Already booked',
+    'box_office' => 'Box Office',
     'buy' => 'Buy',
     'Buy_Tickets' => 'Buy Tickets',
     'cancel' => 'Cancel',

@@ -17,6 +17,7 @@ return [
     'back_to_start' => 'Zurück zum Start',
     'backoffice' => 'Büro',
     'booked' => 'Bereits vergeben',
+    'box_office' => 'Abendkassa',
     'buy' => 'Kaufen',
     'Buy_Tickets' => 'Karten kaufen',
     'cancel' => 'Abbruch',
