@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\BoxOffice;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Event;
 use Spipu\Html2Pdf\Html2Pdf;
 use Spipu\Html2Pdf\Exception\Html2PdfException;
 use App\Purchase;
+use Illuminate\Http\Request;
 
-class StatisticsController extends Controller
+class DashboardController extends Controller
 {
     public function dashboard()
     {

@@ -37,7 +37,13 @@
                                 aria-valuemax="{{ $event->seatMap->seats }}" class="progress-bar bg-red"></div>
                         </div>
                     </div>
-                    <a class="btn btn-info pull-right" href="{{ route('boxoffice.download-overview', ['event' => $event->id]) }}" target="_blank"><i class="fa fa-file-excel-o"></i> {{__('ticketshop.download-overview')}}</a>
+                    <button data-toggle="dropdown" type="button" class="btn btn-primary dropdown-toggle pull-right">{{__('ticketshop.options')}} <span class="caret"></span></button>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="{{ route('boxoffice.online', ['event' => $event->id]) }}">{{__('ticketshop.online_box_office')}}</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{{ route('boxoffice.download-overview', ['event' => $event->id]) }}" target="_blank">{{__('ticketshop.download-overview')}}</a>
+                        {{-- <a class="dropdown-item" href="{{ route('boxoffice.upload-overview', ['event' => $event->id]) }}" target="_blank">Upload Excel</a> --}}
+                    </div>
                 </div>
             </div>
         </div>

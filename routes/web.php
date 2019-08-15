@@ -91,8 +91,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Box Office routes
     Route::middleware(['perm:SELL_TICKETS'])->namespace('BoxOffice')->prefix('boxoffice')->name('boxoffice.')->group(function () {
 
-        Route::get('/', 'StatisticsController@dashboard')->name('dashboard');
-        Route::get('/{event}/pdf-overview.pdf', 'StatisticsController@downloadOverview')->name('download-overview');
+        Route::get('/', 'DashboardController@dashboard')->name('dashboard');
+        Route::get('/{event}/download.pdf', 'DashboardController@downloadOverview')->name('download-overview');
+
+        Route::get('/{event}/online', 'OnlineController@index')->name('online');
+        Route::post('/{ticket}/invalidate', 'OnlineController@invalidateTicket')->name('invalidate-ticket');
+        Route::post('/{ticket}/noshow', 'OnlineController@noShowTicket')->name('noshow-ticket');
+        Route::post('/{event}/addBoxOfficeSale', 'OnlineController@addSale')->name('add-sale');
     });
 
     // Supervisor routes

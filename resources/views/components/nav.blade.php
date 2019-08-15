@@ -25,7 +25,8 @@
                 <li><a href="{{ route('retail.sold.tickets') }}"><i class="fa fa-history"></i>{{__('ticketshop.sold_tickets')}}</a></li>
             </ul>
         </li>
-        <li><a href="{{ route('boxoffice.dashboard') }}"> <i class="fa fa-ticket"></i>{{__('ticketshop.box_office')}} </a></li>
+        <li><a href="{{ route('boxoffice.dashboard') }}"> <i class="fa fa-ticket"></i> {{__('ticketshop.box_office')}}</a></li>
+        <li><a href="#"> <i class="fa fa-calculator"></i> {{__('ticketshop.final_bill')}}</a></li>
     </ul>
     @endif
 
@@ -33,10 +34,10 @@
     <!-- Supervision links -->
     <span class="heading">{{__('ticketshop.supervision')}}</span>
     <ul class="list-unstyled">
-        <li><a href="#analysisDropdown" aria-expanded="false" data-toggle="collapse"> <i class="fa fa-calculator"></i>{{__('ticketshop.analysis')}}
+        <li><a href="#analysisDropdown" aria-expanded="false" data-toggle="collapse"> <i class="fa fa-bar-chart"></i>{{__('ticketshop.analysis')}}
             </a>
             <ul id="analysisDropdown" class="collapse list-unstyled ">
-                <li><a href="{{ route('supervision.dashboard') }}"><i class="fa fa-bar-chart"></i>{{__('ticketshop.projects')}}</a></li>
+                <li><a href="{{ route('supervision.dashboard') }}"><i class="fa fa-tasks"></i>{{__('ticketshop.projects')}}</a></li>
             </ul>
         </li>
     </ul>
