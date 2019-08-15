@@ -25,13 +25,7 @@
                 <li><a href="{{ route('retail.sold.tickets') }}"><i class="fa fa-history"></i>{{__('ticketshop.sold_tickets')}}</a></li>
             </ul>
         </li>
-        <li><a href="#eventsDropdown" aria-expanded="false" data-toggle="collapse"> <i class="fa fa-ticket"></i>{{__('ticketshop.box_office')}}
-            </a>
-            <ul id="eventsDropdown" class="collapse list-unstyled ">
-                <li><a href="{{ route('boxoffice.dashboard') }}"> <i class="fa fa-calendar"></i>{{__('ticketshop.events')}}</a></li>
-                {{-- <li><a href="#"><i class="fa fa-th"></i>Block Seats</a></li> --}}
-            </ul>
-        </li>
+        <li><a href="{{ route('boxoffice.dashboard') }}"> <i class="fa fa-ticket"></i>{{__('ticketshop.box_office')}} </a></li>
     </ul>
     @endif
 
