@@ -117,6 +117,7 @@ return [
     'tickets-overview' => 'Ticket overview',
     'total' => 'Total',
     'total-turnover' => 'Total<br>Turnover',
+    'vendor' => 'Vendor',
     'version' => 'Version',
     'welcome' => 'Free platform for theatre clubs',
     'yes' => 'Yes',

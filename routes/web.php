@@ -95,8 +95,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/{event}/download.pdf', 'DashboardController@downloadOverview')->name('download-overview');
 
         Route::get('/{event}/online', 'OnlineController@index')->name('online');
-        Route::post('/{ticket}/invalidate', 'OnlineController@invalidateTicket')->name('invalidate-ticket');
-        Route::post('/{ticket}/noshow', 'OnlineController@noShowTicket')->name('noshow-ticket');
+        Route::post('/{ticket}/change-state', 'OnlineController@changeTicketState')->name('change-ticket-state');
         Route::post('/{event}/addBoxOfficeSale', 'OnlineController@addSale')->name('add-sale');
     });
 

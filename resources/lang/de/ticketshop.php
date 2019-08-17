@@ -114,6 +114,7 @@ return [
     'tickets-overview' => 'Kartenübersicht',
     'total' => 'Gesamtsumme',
     'total-turnover' => 'Gesamter<br>Umsatz',
+    'vendor' => 'Verkäufer',
     'version' => 'Version',
     'welcome' => 'Freie Plattform für Theatervereine',
     'yes' => 'Ja',
