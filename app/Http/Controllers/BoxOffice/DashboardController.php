@@ -12,24 +12,10 @@ class DashboardController extends Controller
 {
     public function dashboard()
     {
-        $upcomingEvents = Event::where('end_date', '>', new \DateTime())->orderBy('start_date', 'ASC')->get();
-        $openEvents = Event::where('end_date', '>', new \DateTime())->get();
-        $mySales = Purchase::where('vendor_id', auth()->user()->id)->where('state', 'paid')->get();
-        $totalSales = $mySales->count();
-        $allSales = Purchase::where('state', 'paid')->count();
-        $marketShare = round($totalSales * 100 / ($allSales > 0 ? $allSales : 1)); // Prevent a division by zero
-
-        $myTurnOver = 0;
-        foreach ($mySales as $purchase) {
-            $myTurnOver += $purchase->total();
-        }
+        $events = Event::where('state', 'open')->orderBy('start_date', 'ASC')->get();
 
         return view('boxoffice.dashboard', [
-            'upcomingEvents' => $upcomingEvents,
-            'openEvents' => $openEvents,
-            'marketShare' => $marketShare,
-            'totalSales' => $totalSales,
-            'myTurnOver' => $myTurnOver
+            'events' => $events
         ]);
     }
 

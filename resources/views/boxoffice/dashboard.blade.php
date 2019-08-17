@@ -17,7 +17,7 @@
 <section class="projects no-padding-bottom">
     <div class="container-fluid">
         <!-- Project-->
-        @foreach($upcomingEvents as $event)
+        @foreach($events as $event)
         <div class="project">
             <div class="row bg-white has-shadow">
                 <div class="left-col col-lg-6 d-flex align-items-center justify-content-between">
