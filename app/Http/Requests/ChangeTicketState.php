@@ -25,7 +25,7 @@ class ChangeTicketState extends FormRequest
     public function rules()
     {
         return [
-            'new_state' => 'required|in:open,consumed,no_show'
+            'new_state' => 'required|in:consumed,no_show'
         ];
     }
 }

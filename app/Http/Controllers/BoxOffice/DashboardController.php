@@ -7,7 +7,6 @@ use App\Event;
 use Spipu\Html2Pdf\Html2Pdf;
 use Spipu\Html2Pdf\Exception\Html2PdfException;
 use App\Purchase;
-use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {

@@ -26,7 +26,6 @@
             </ul>
         </li>
         <li><a href="{{ route('boxoffice.dashboard') }}"> <i class="fa fa-ticket"></i> {{__('ticketshop.box_office')}}</a></li>
-        <li><a href="#"> <i class="fa fa-calculator"></i> {{__('ticketshop.final_bill')}}</a></li>
     </ul>
     @endif
 

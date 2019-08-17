@@ -28,6 +28,8 @@
                                 <th>{{__('ticketshop.id')}}</th>
                                 <th>{{__('ticketshop.vendor')}}</th>
                                 <th>{{__('ticketshop.customer')}}</th>
+                                <th>{{__('ticketshop.price-category')}} ({{__('ticketshop.price')}})</th>
+                                <th>What?</th>
                                 <th>{{__('ticketshop.state')}}</th>
                                 <th>{{__('ticketshop.actions')}}</th>
                             </tr>
@@ -46,36 +48,33 @@
                                     {{__('ticketshop.shop-customer')}}
                                     @endif
                                 </td>
-                                <td>
-                                    @if($ticket->state == 'open')
-                                    <span class="badge badge-info">{{__('ticketshop.open')}}</span>
-                                    @elseif($ticket->state == 'no_show')
+                                <td>{{ $ticket->priceCategory->name }} ({{ $ticket->priceCategory->price }} <i class="fa fa-eur"></i>)</td>
+                                <td>{{ __('ticketshop.'.$ticket->purchase->state)}}</td>
+                                <td class="state">
+                                    @if($ticket->state == 'no_show')
                                     <span class="badge badge-secondary">{{__('ticketshop.no_show')}}</span>
                                     @else
                                     <span class="badge badge-success">{{__('ticketshop.consumed')}}</span>
                                     @endif
                                 </td>
-                                <td>
+                                <td class="actions">
                                     @if($ticket->state != 'consumed')
-                                    <form style="display:inline-block" action="{{ route('boxoffice.change-ticket-state', ['ticket' => $ticket->random_id]) }}" method="POST">
-                                        @csrf
-                                        <input type="hidden" name="new_state" value="consumed" />
-                                        <button type="submit" class="btn btn-success"><i class="fa fa-check"></i></button>
-                                    </form>
-                                    @endif
-                                    @if($ticket->state != 'open')
-                                    <form style="display:inline-block" action="{{ route('boxoffice.change-ticket-state', ['ticket' => $ticket->random_id]) }}" method="POST">
-                                        @csrf
-                                        <input type="hidden" name="new_state" value="open" />
-                                        <button type="submit" class="btn btn-info"><i class="fa fa-undo"></i></button>
-                                    </form>
+                                    <a
+                                        class="action-button btn btn-success"
+                                        data-id="{{ $ticket->id }}"
+                                        data-state="consumed"
+                                        data-url="{{ route('boxoffice.change-ticket-state', ['ticket' => $ticket->random_id]) }}">
+                                        <i class="fa fa-check"></i>
+                                    </a>
                                     @endif
                                     @if($ticket->state != 'no_show')
-                                    <form style="display:inline-block" action="{{ route('boxoffice.change-ticket-state', ['ticket' => $ticket->random_id]) }}" method="POST">
-                                        @csrf
-                                        <input type="hidden" name="new_state" value="no_show" />
-                                        <button type="submit" class="btn btn-secondary"><i class="fa fa-remove"></i></button>
-                                    </form>
+                                    <a
+                                        class="action-button btn btn-secondary"
+                                        data-id="{{ $ticket->id }}"
+                                        data-state="no_show"
+                                        data-url="{{ route('boxoffice.change-ticket-state', ['ticket' => $ticket->random_id]) }}">
+                                        <i class="fa fa-remove"></i>
+                                    </a>
                                     @endif
                                 </td>
                             </tr>
@@ -95,6 +94,8 @@
 <script src="/vendor/datatables.net-bs4/js/dataTables.bootstrap4.js"></script>
 <script src="/vendor/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
 <script src="/vendor/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
+<script src="/vendor/ladda/spin.min.js"></script>
+<script src="/vendor/ladda/ladda.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
     var dataTable = $('#tickets').DataTable({
@@ -110,7 +111,37 @@ $(document).ready(function() {
         dataTable.responsive.rebuild();
     });
 
+    function addEventToActionButtons() {
+        Ladda.bind('.action-button');
+        $('.action-button').click(function() {
+            var state = $(this).data('state');
+            var row = $(this).closest('tr');
+            $.post($(this).data('url'), {
+                'new_state' : state,
+                '_token'    : '{{ csrf_token() }}'
+            }, function() {
+                if (state == 'no_show') {
+                    badge = '<span class="badge badge-secondary">{{__('ticketshop.no_show')}}</span>';
+                } else {
+                    badge = '<span class="badge badge-success">{{__('ticketshop.consumed')}}</span>';
+                }
+                row.children('td.state').html(badge);
+                // Remove all action buttons and only recreate those suitable for the current state
+                // For nicer displayed buttons look above
+                row.children('td.actions').empty();
+                if(state != 'consumed') {
+                    row.children('td.actions').append('<a class="action-button btn btn-success" data-id="{{ $ticket->id }}" data-state="consumed" data-url="{{ route("boxoffice.change-ticket-state", ["ticket" => $ticket->random_id]) }}"> <i class="fa fa-check"></i> </a>');
+                }
+                if(state != 'no_show') {
+                    row.children('td.actions').append('<a class="action-button btn btn-secondary" data-id="{{ $ticket->id }}" data-state="no_show" data-url="{{ route("boxoffice.change-ticket-state", ["ticket" => $ticket->random_id]) }}"><i class="fa fa-remove"></i> </a>');
+                }
+                addEventToActionButtons();
+            });
+        });
+    }
+    addEventToActionButtons();
     
+
 });
 </script>
 @endsection

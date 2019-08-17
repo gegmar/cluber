@@ -14,7 +14,7 @@ class AddStatusToTicketsTable extends Migration
     public function up()
     {
         Schema::table('tickets', function (Blueprint $table) {
-            $table->string('state', 10)->default('open'); // possible states: 'open' (=default and the only value possible before the event), 'no_show' (= Ticket was not consumed) and 'consumed'
+            $table->string('state', 10)->default('consumed'); // possible states: 'no_show' (= Ticket was not consumed) and 'consumed'
         });
     }
 
