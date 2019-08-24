@@ -57,7 +57,7 @@
     <div class="container-fluid">
         <div class="card">
             <div class="card-header">
-                <h4>{{ $event->project->name . ' | ' . $event->second_name . ' | ' }} @datetime($event->start_date) @time($event->start_date)</h4>
+                <h4>{{ $event->project->name }} | {{ $event->second_name }} | @datetime($event->start_date) @time($event->start_date)</h4>
             </div>
             <div class="card-body">
                 <div class="table-responsive">

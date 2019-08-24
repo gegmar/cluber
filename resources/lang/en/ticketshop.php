@@ -107,6 +107,7 @@ return [
     'stage' => 'Stage',
     'Start' => 'Start',
     'state' => 'State',
+    'sums' => 'Sums',
     'supervision' => 'Supervision',
     'terms' => 'Terms and Conditions',
     'terms_agree' => 'I agree to the <a href="' . route('terms') . '" target="_blank">Terms and Conditions</a> of this online shop.',

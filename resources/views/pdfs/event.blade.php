@@ -1,31 +1,31 @@
 <style type="text/css">
-table
-{
-    width:  100%;
-    border: solid 1px #000;
-}
-th
-{
-    text-align: center;
-    /*border: solid 1px #113300;
-    background: #EEFFEE;*/
-}
-td
-{
-    text-align: left;
-    border-top: solid 1px #000;
-    border-right: solid 1px #000;
-}
-/* SeatMap-Styles */
-table.seatmap { border:dashed 1px #444444;margin-top:5mm;margin-left:10mm;}
+    table
+    {
+        width:  100%;
+        border: solid 1px #000;
+    }
+    th
+    {
+        text-align: center;
+        /*border: solid 1px #113300;
+        background: #EEFFEE;*/
+    }
+    td
+    {
+        text-align: left;
+        border-top: solid 1px #000;
+        border-right: solid 1px #000;
+    }
+    /* SeatMap-Styles */
+    table.seatmap { border:dashed 1px #444444;margin-top:5mm;margin-left:10mm;}
     table.seatmap td {
-	    font-size:15pt;
-	    font-weight:bold;
-	    border:solid 1px #000000;
-	    padding:1px;
-	    text-align:center;
-	    width:30px;
-	    height:30px;
+        font-size:15pt;
+        font-weight:bold;
+        border:solid 1px #000000;
+        padding:1px;
+        text-align:center;
+        width:30px;
+        height:30px;
     }
     td.paid { color:#0A0;}
     td.reserved { color:#A00; }
@@ -58,7 +58,7 @@ table.seatmap { border:dashed 1px #444444;margin-top:5mm;margin-left:10mm;}
             @else
             <th colspan="5" style="font-size: 16px;">
             @endif
-                {{$event->project->name}} | {{ $event->second_name }}
+                {{$event->project->name}} | {{ $event->second_name }} | @datetime($event->start_date) @time($event->start_date)
             </th>
         </tr>
         <tr>
@@ -124,3 +124,47 @@ table.seatmap { border:dashed 1px #444444;margin-top:5mm;margin-left:10mm;}
 	</table>
 </page>
 @endif
+
+<page orientation="paysage">
+    <h3>Übersicht</h3>
+    <h4>{{$event->project->name}} | {{ $event->second_name }} | @datetime($event->start_date) @time($event->start_date)</h4>
+    <table cellspacing="7px">
+        <thead>
+            <tr>
+                <th>{{__('ticketshop.shop')}}</th>
+                <th>{{__('ticketshop.price-category')}}</th>
+                <th>{{__('ticketshop.price')}} <i class="fa fa-eur"></i></th>
+                <th>{{__('ticketshop.paid')}}</th>
+                <th>{{__('ticketshop.reserved')}}</th>
+                <th>{{__('ticketshop.free-tickets')}}</th>
+                <th>{{__('ticketshop.sums')}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($overview as $row)
+            <tr>
+                <td>{{ $row->vendor }}</td>
+                <td>{{ $row->category }}</td>
+                <td>{{ $row->price }}</td>
+                <td>{{ $row->paid }}</td>
+                <td>{{ $row->reserved }}</td>
+                <td>{{ $row->free }}</td>
+                <td>{{ $row->sum }}</td>
+            </tr>
+            @endforeach
+        </tbody>
+        <tfoot>
+            @foreach($sums as $row)
+            <tr>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th>{{ $row->paid }}</th>
+                <th>{{ $row->reserved }}</th>
+                <th>{{ $row->free }}</th>
+                <th><strong>{{ $row->sum }}</strong></th>
+            </tr>
+            @endforeach
+        </tfoot>
+    </table>
+</page>

@@ -104,6 +104,7 @@ return [
     'stage' => 'Bühne',
     'Start' => 'Start',
     'state' => 'Status',
+    'sums' => 'Summen',
     'supervision' => 'Aufsicht und Auswertung',
     'terms' => 'Allgemeine Geschäftsbedingungen',
     'terms_agree' => 'Ich habe die <a href="' . route('terms') . '" target="_blank">Allgemeinen Geschäftsbedingungen (AGB)</a> gelesen und stimme diesen zu.',
