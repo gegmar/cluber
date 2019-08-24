@@ -4,7 +4,6 @@ namespace App\Http\Controllers\BoxOffice;
 
 use App\Event;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\ChangeTicketState;
 use App\Ticket;
 
 class OnlineController extends Controller
@@ -17,12 +16,17 @@ class OnlineController extends Controller
         ]);
     }
 
-    public function changeTicketState(Ticket $ticket, ChangeTicketState $request)
+    public function switchTicketState(Ticket $ticket)
     {
-        $ticket->state = $request->new_state;
+        if($ticket->state == 'no_show') {
+            $ticket->state = 'consumed';
+        } else {
+            $ticket->state = 'no_show';
+        }
         $ticket->save();
+        
         return response()->json([
-            'state' => $request->new_state
+            'state' => $ticket->state
         ]);
     }
 }
