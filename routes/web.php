@@ -96,7 +96,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         Route::get('/{event}/online', 'OnlineController@index')->name('online');
         Route::post('/{ticket}/change-state', 'OnlineController@switchTicketState')->name('switch-ticket-state');
-        Route::post('/{event}/addBoxOfficeSale', 'OnlineController@addSale')->name('add-sale');
+        Route::post('/{event}/setBoxOfficeSales', 'OnlineController@setBoxOfficeSales')->name('set-sales');
     });
 
     // Supervisor routes

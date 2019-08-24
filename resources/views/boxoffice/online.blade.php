@@ -14,6 +14,45 @@
         <li class="breadcrumb-item active">{{__('ticketshop.sold_tickets')}}</li>
     </ul>
 </div>
+
+<!-- Dashboard Counts Section-->
+<section class="dashboard-counts no-padding-bottom">
+    <div class="container-fluid">
+        <div class="row bg-white has-shadow">
+        <!-- Item -->
+        <div class="col-xl-3 col-sm-6">
+            <div class="item d-flex align-items-center">
+                <div class="icon bg-violet"><i class="icon-user"></i></div>
+                <div class="title"><span>{{__('ticketshop.occupancy')}}</span></div>
+                <div class="number"><strong>{{ round($occupancy*100, 1) }}%</strong></div>
+            </div>
+        </div>
+        <!-- Item -->
+        <div class="col-xl-3 col-sm-6">
+            <div class="item d-flex align-items-center">
+                <div class="icon bg-red"><i class="icon-padnote"></i></div>
+                <div class="title"><span>{!! __('ticketshop.available_tickets') !!}</span></div>
+                <div class="number"><strong>{{ $freeTickets }}</strong></div>
+            </div>
+        </div>
+        <!-- Item -->
+        <div class="col-xl-3 col-sm-6">
+            <div class="item d-flex align-items-center">
+                <div class="icon bg-green"><i class="icon-bill"></i></div>
+                <div class="title">{!! __('ticketshop.total-turnover') !!}</div>
+                <div class="number"><strong>{{ $turnover }} <i class="fa fa-eur"></i></strong></div>
+            </div>
+        </div>
+        <!-- Item -->
+        <div class="col-xl-3 col-sm-6">
+            <div class="item d-flex align-items-center">
+                <button class="btn btn-primary" data-toggle="modal" data-target="#boxofficeModal">{{__('ticketshop.set_box_office_sales')}}</button>
+            </div>
+        </div>
+        </div>
+    </div>
+</section>
+
 <section>
     <div class="container-fluid">
         <div class="card">
@@ -25,19 +64,23 @@
                     <table id="tickets" style="width: 100%;" class="table">
                         <thead>
                             <tr>
-                                <th>{{__('ticketshop.id')}}</th>
-                                <th>{{__('ticketshop.vendor')}}</th>
-                                <th>{{__('ticketshop.customer')}}</th>
-                                <th>{{__('ticketshop.price-category')}} ({{__('ticketshop.price')}})</th>
-                                <th>What?</th>
                                 <th>{{__('ticketshop.consumer_came')}}</th>
+                                <th>{{__('ticketshop.id')}}</th>
+                                <th>{{__('ticketshop.state')}}</th>
+                                <th>{{__('ticketshop.price-category')}} ({{__('ticketshop.price')}})</th>
+                                <th>{{__('ticketshop.customer')}}</th>
+                                <th>{{__('ticketshop.vendor')}}</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach($tickets as $ticket)
                             <tr>
+                                <td>
+                                    <input type="checkbox" class="ticket-state" data-url="{{ route('boxoffice.switch-ticket-state', [$ticket]) }}" @if($ticket->state == 'consumed') checked="checked @endif">
+                                </td>
                                 <td>{{ $ticket->id }}</td>
-                                <td>{{ $ticket->purchase->vendor->name }}</td>
+                                <td>{{ __('ticketshop.'.$ticket->purchase->state)}}</td>
+                                <td>{{ $ticket->priceCategory->name }} ({{ $ticket->priceCategory->price }} <i class="fa fa-eur"></i>)</td>
                                 <td>
                                     @if($ticket->purchase->customer_name)
                                     {{ $ticket->purchase->customer_name }}
@@ -47,11 +90,7 @@
                                     {{__('ticketshop.shop-customer')}}
                                     @endif
                                 </td>
-                                <td>{{ $ticket->priceCategory->name }} ({{ $ticket->priceCategory->price }} <i class="fa fa-eur"></i>)</td>
-                                <td>{{ __('ticketshop.'.$ticket->purchase->state)}}</td>
-                                <td>
-                                    <input type="checkbox" class="ticket-state" data-url="{{ route('boxoffice.switch-ticket-state', [$ticket]) }}" @if($ticket->state == 'consumed') checked="checked @endif">
-                                </td>
+                                <td>{{ $ticket->purchase->vendor->name }}</td>
                             </tr>
                             @endforeach
                         </tbody>
@@ -61,6 +100,8 @@
         </div>
     </div>
 </section>
+@component('components.modals.set-boxoffice-sales', ['event' => $event])
+@endcomponent
 @endsection
 
 @section('custom-js')
@@ -75,8 +116,7 @@ $(document).ready(function() {
         responsive: {
             details: false
         }
-    }
-    );
+    });
 
     $(document).on('sidebarChanged', function () {
         dataTable.columns.adjust();
@@ -89,7 +129,6 @@ $(document).ready(function() {
             '_token'    : '{{ csrf_token() }}'
         });
     });
-    
 
 });
 </script>

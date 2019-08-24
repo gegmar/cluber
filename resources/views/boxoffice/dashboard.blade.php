@@ -41,7 +41,7 @@
                     <div class="dropdown-menu">
                         <a class="dropdown-item" href="{{ route('boxoffice.download-overview', ['event' => $event->id]) }}" target="_blank">{{__('ticketshop.download-overview')}}</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="{{ route('boxoffice.online', ['event' => $event->id]) }}">{{__('ticketshop.enter_no_shows')}}</a>
+                        <a class="dropdown-item" href="{{ route('boxoffice.online', ['event' => $event->id]) }}">{{__('ticketshop.enter_boxoffice_data')}}</a>
                         {{-- <a class="dropdown-item" href="{{ route('boxoffice.upload-overview', ['event' => $event->id]) }}" target="_blank">Upload Excel</a> --}}
                     </div>
                 </div>

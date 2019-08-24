@@ -26,6 +26,24 @@ class Event extends Model
     }
 
     /**
+     * Returns the ratio of occupied seats
+     */
+    public function getOccupancy()
+    {
+        return $this->tickets->count() / $this->seatMap->seats;
+    }
+
+    /**
+     * Calculate the sum of all sold tickets
+     */
+    public function getTurnover()
+    {
+        return $this->tickets->sum(function($ticket) {
+            return $ticket->price();
+        });
+    }
+
+    /**
      * Returns true if the given array of seat ids is still free / not already booked
      */
     public function areSeatsFree(array $requestedSeats): bool
@@ -54,6 +72,11 @@ class Event extends Model
     public function tickets()
     {
         return $this->hasMany('App\Ticket');
+    }
+
+    public function boxoffice()
+    {
+        return $this->belongsTo('App\Purchase', 'boxoffice_id', 'id');
     }
 
     public function project()
