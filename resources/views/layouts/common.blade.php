@@ -7,9 +7,11 @@
     @endcomponent
     <div class="page-content d-flex align-items-stretch">
         <!-- Side Navbar -->
+        @auth
         @component('components.nav')
         @endcomponent
-        <div class="content-inner">
+        @endauth
+        <div class="content-inner" @guest style="width:100%" @endguest>
             <div id="navbar-link" data-link="@yield('nav-link')"></div>
             <!-- Page Header-->
             <header class="page-header">
