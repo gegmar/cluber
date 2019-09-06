@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Purchase;
 use App\Ticket;
 use Spipu\Html2Pdf\Html2Pdf;
@@ -13,6 +12,9 @@ class TicketsController extends Controller
 {
     protected $soldStates = ['paid', 'free', 'reserved'];
 
+    /**
+     * Show an overview of the given purchase
+     */
     public function showPurchase(Purchase $purchase)
     {
         if (!in_array($purchase->state, $this->soldStates)) {
@@ -23,6 +25,9 @@ class TicketsController extends Controller
         return view('ticketshop.purchase-success', ['purchase' => $purchase]);
     }
 
+    /**
+     * Provide a purchase's tickets as a pdf download
+     */
     public function download(Purchase $purchase)
     {
         if (!in_array($purchase->state, $this->soldStates)) {
@@ -36,11 +41,9 @@ class TicketsController extends Controller
             $html2pdf->pdf->SetAuthor(config('app.name'));
             $html2pdf->pdf->SetTitle('Purchase #' . $purchase->id);
 
-            // Add each ticket to the pdf
-            foreach ($purchase->tickets as $ticket) {
-                $content = view('pdfs.ticket', ['ticket' => $ticket])->render();
-                $html2pdf->writeHTML($content);
-            }
+            // Generate pdf-content by passing the tickets to the view
+            $content = view('pdfs.ticket-v2', ['tickets' => $purchase->tickets])->render();
+            $html2pdf->writeHTML($content);
 
             $html2pdf->output('tickets-' . $purchase->id . '.pdf');
         } catch (Html2PdfException $e) {

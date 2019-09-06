@@ -11,6 +11,7 @@ return [
     |
  */
     'actions' => 'Aktions',
+    'address' => 'Address',
     'analysis' => 'Analysis',
     'arrived' => 'Arrived?',
     'available_tickets' => 'Available<br>Tickets',
@@ -18,6 +19,7 @@ return [
     'back_to_start' => 'Back to Start',
     'backoffice' => 'Backoffice',
     'booked' => 'Already booked',
+    'bought_on' => 'Bought on',
     'box_office' => 'Box Office',
     'buy' => 'Buy',
     'Buy_Tickets' => 'Buy Tickets',
@@ -51,6 +53,7 @@ return [
     'id' => 'ID',
     'impress' => 'Impress',
     'load' => 'Load',
+    'location' => 'Location',
     'manage_purchase' => 'Manage Purchase',
     'market-share' => 'Market<br>Share',
     'my_profile' => 'My Profile',
@@ -80,6 +83,7 @@ return [
     'privacy_statement' => 'Privacy Statement',
     'profile' => 'Profile',
     'projects' => 'Projects',
+    'purchase_id' => 'Purchase-ID',
     'purchase_overview_description' => 'These are your sales. Search and select them by the "search"-Field!',
     'purchase_success' => 'Success! You can download your tickets here as pdf! Please bring them to
     the event in order to enter the location.',
@@ -123,6 +127,7 @@ return [
     'tickets-overview' => 'Ticket overview',
     'total' => 'Total',
     'total-turnover' => 'Total<br>Turnover',
+    'valid_from' => 'Valid from',
     'vendor' => 'Vendor',
     'version' => 'Version',
     'welcome' => 'Free platform for theatre clubs',
