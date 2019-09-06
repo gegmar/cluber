@@ -5,7 +5,7 @@ php:
   - '7.1'
   - '7.2'
   - '7.3'
-  - '7.4snapshot'
+#  - '7.4snapshot'
 services:
   - mysql
 # stolen from https://stackoverflow.com/questions/38924701/how-to-setup-travis-ci-with-laravel-5-invalidargumentexception
