@@ -36,7 +36,7 @@
         <li><a href="#analysisDropdown" aria-expanded="false" data-toggle="collapse"> <i class="fa fa-bar-chart"></i>{{__('ticketshop.analysis')}}
             </a>
             <ul id="analysisDropdown" class="collapse list-unstyled ">
-                <li><a href="{{ route('supervision.dashboard') }}"><i class="fa fa-tasks"></i>{{__('ticketshop.projects')}}</a></li>
+                <li><a href="{{ route('supervision.dashboard') }}"><i class="fa fa-tasks"></i> {{__('ticketshop.projects')}}</a></li>
             </ul>
         </li>
     </ul>
@@ -44,16 +44,15 @@
 
     @if(Auth::user()->hasPermission('ADMINISTRATE'))
     <!-- Admin links -->
-    <span class="heading">Admin</span>
+    <span class="heading">{{__('ticketshop.administration')}}</span>
     <ul class="list-unstyled">
-        <li><a href="#adminDropdown" aria-expanded="false" data-toggle="collapse"> <i class="fa fa-cogs"></i>Administration
+        <li><a href="#adminDropdown" aria-expanded="false" data-toggle="collapse"> <i class="fa fa-cogs"></i>{{__('ticketshop.administration')}}
             </a>
             <ul id="adminDropdown" class="collapse list-unstyled ">
-                <li><a href="#">Events & Projects</a></li>
-                <li><a href="#">SeatMaps & PriceTables</a></li>
-                <li><a href="#">Archive</a></li>
-                <li><a href="#">RightsMgmt</a></li>
-                <li><a href="#">Settings</a></li>
+                <li><a href="#">{{__('ticketshop.events_and_projects')}}</a></li>
+                <li><a href="#">{{__('ticketshop.seatmaps_and_pricetables')}}</a></li>
+                <li><a href="#">{{__('ticketshop.archive')}}</a></li>
+                <li><a href="{{ route('admin.iam.dashboard') }}"><i class="fa fa-users"></i> {{__('ticketshop.users_and_roles')}}</a></li>
             </ul>
         </li>
     </ul>

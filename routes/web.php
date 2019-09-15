@@ -107,5 +107,28 @@ Route::middleware(['auth', 'verified'])->group(function () {
     });
 
     // Admin routes
-    Route::prefix('admin')->name('admin.')->group(function () { });
+    Route::middleware(['perm:ADMINISTRATE'])->namespace('Admin')->prefix('admin')->name('admin.')->group(function () { 
+        
+        // User and Role Management (=Identity and Access Management [IAM])
+        Route::prefix('iam')->name('iam.')->group(function() {
+            Route::get('/', 'UserController@index')->name('dashboard');
+
+            Route::prefix('user')->name('user.')->group(function() {
+                Route::get('/{user}', 'UserController@displayUser')->name('manage');
+                Route::post('/{user}/update', 'UserController@updateUser')->name('update');
+            });
+
+            Route::prefix('role')->name('role.')->group(function() {
+                Route::get('/{role}', 'RoleController@displayRole')->name('manage');
+                Route::post('/add', 'RoleController@createRole')->name('create');
+                Route::post('/{role}/update', 'RoleController@updateRole')->name('update');
+                Route::delete('/{role}/delete', 'RoleController@deleteRole')->name('delete');
+
+                Route::post('/{role}/attach-users', 'RoleController@attachUsers')->name('attach-users');
+                Route::delete('/{role}/detach-user/{user}', 'RoleController@detachUser')->name('detach-user');
+            });
+            
+        });
+
+    });
 });

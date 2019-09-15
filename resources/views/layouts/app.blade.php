@@ -25,6 +25,8 @@
     <!-- DataTables CSS-->
     <link rel="stylesheet" href="/vendor/datatables.net-bs4/css/dataTables.bootstrap4.css">
     <link rel="stylesheet" href="/vendor/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css">
+    <!-- Select2 CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css" rel="stylesheet" />
     <!-- Custom stylesheet - for your changes-->
     <link rel="stylesheet" href="/css/custom.css">
     <!-- Favicon-->
