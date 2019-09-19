@@ -84,6 +84,16 @@ $(document).ready(function() {
     }
 
     var prev_val;
+    // Also preserve state when the value gets changed by the touchspin buttons
+    $(".bootstrap-touchspin-up").click(function(){
+        // 1.Parent = span-element, 2.Parent = div-element containing the two touchspin-span-buttons and the actual input-element
+        prev_val = $(this).parent().parent().children("input.tickets").val();
+    });
+    $(".bootstrap-touchspin-down").click(function(){
+        // 1.Parent = span-element, 2.Parent = div-element containing the two touchspin-span-buttons and the actual input-element
+        prev_val = $(this).parent().parent().children("input.tickets").val();
+    });
+
     $(".tickets").focus(function() {
         prev_val = $(this).val();
     }).change(function() {
