@@ -13,10 +13,8 @@
  */
 Auth::routes(['verify' => true]);
 
-Route::get('setlang/{locale}', function ($locale) {
-    session(['locale' => $locale]);
-    return redirect()->back();
-})->name('set-locale');
+Route::get('/setlang/{locale}', 'StartController@changeLocale')->name('set-locale');
+Route::get('/logo', 'StartController@getLogo')->name('logo');
 
 Route::get('/', 'StartController@index')->name('start');
 
@@ -128,6 +126,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
                 Route::delete('/{role}/detach-user/{user}', 'RoleController@detachUser')->name('detach-user');
             });
             
+        });
+
+        Route::prefix('settings')->name('settings.')->group(function(){
+            Route::get('/', 'SettingsController@index')->name('dashboard');
+            Route::post('/terms-and-conditions/update', 'SettingsController@updateTerms')->name('update-terms');
+            Route::post('/privacy-statement/update', 'SettingsController@updatePrivacy')->name('update-privacy');
+            Route::post('/logo/update', 'SettingsController@updateLogo')->name('update-logo');
+            Route::get('/logo/test-ticket', 'SettingsController@testTicket')->name('test-ticket');
         });
 
     });

@@ -5,7 +5,8 @@
     @endcomponent
 --}}
 @php
-$logoPath = Storage::path('images/logo-fw.png');
+$logo = App\Setting::where('name', 'logo')->first();
+$logoPath = $logo ? Storage::path($logo->value) : false; // if a logo object exists, set the path. Else just set it to false
 @endphp
 <style>
     /* Remove the margin. Else texts won't fit */
@@ -21,9 +22,14 @@ $logoPath = Storage::path('images/logo-fw.png');
 <div style="position: absolute; left: 30mm; width: 150mm; height: 70mm; top: {{ $topOffset }}mm;">
     
     {{-- Print the logo (quadratic!) into the left top corner --}}
-    <div style="position: absolute; left: 0mm; top: 0mm;">
+    <div style="position: absolute; left: 0mm; top: 0mm; width: 20mm; height: 20mm;">
+        @if($logo)
         <img src="{{ $logoPath }}" alt="logo" style="height: 20mm;">
+        @else
+        <h3>{{ config('app.name') }}</h3>
+        @endif
     </div>
+
 
     {{-- Beside the Logo core facts of the event are displayed --}}
     <div style="position: absolute; left: 40mm; top: 0mm;">

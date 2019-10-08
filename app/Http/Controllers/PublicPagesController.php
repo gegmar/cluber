@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Setting;
+use Illuminate\Support\Facades\App;
 
 class PublicPagesController extends Controller
 {
@@ -13,11 +14,21 @@ class PublicPagesController extends Controller
 
     public function termsAndConditions()
     {
-        return view('public.terms');
+        $terms = Setting::where('name', 'terms')->where('lang', App::getLocale())->first();
+        $termsHtml = $terms ? $terms->value : view('components.default-texts.terms')->render();
+
+        return view('public.terms', [
+            'terms' => $termsHtml
+        ]);
     }
 
     public function privacyStatement()
     {
-        return view('public.privacy');
+        $privacy = Setting::where('name', 'privacy')->where('lang', App::getLocale())->first();
+        $privHtml = $privacy ? $privacy->value : view('components.default-texts.privacy')->render();
+
+        return view('public.privacy', [
+            'privacy' => $privHtml
+        ]);
     }
 }

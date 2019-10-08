@@ -53,6 +53,7 @@
                 <li><a href="#">{{__('ticketshop.seatmaps_and_pricetables')}}</a></li>
                 <li><a href="#">{{__('ticketshop.archive')}}</a></li>
                 <li><a href="{{ route('admin.iam.dashboard') }}"><i class="fa fa-users"></i> {{__('ticketshop.users_and_roles')}}</a></li>
+                <li><a href="{{ route('admin.settings.dashboard') }}"><i class="fa fa-wrench"></i> {{__('ticketshop.settings')}}</a></li>
             </ul>
         </li>
     </ul>

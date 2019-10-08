@@ -20,6 +20,8 @@
     <link rel="stylesheet" href="/vendor/jquery.seat-charts/css/jquery.seat-charts.css">
     <!-- Google fonts - Poppins -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,700">
+    <!-- Summernote CSS-->
+    <link rel="stylesheet" href="/vendor/summernote/summernote-bs4.css">
     <!-- theme stylesheet-->
     <link rel="stylesheet" href="/css/style.{{ env('COLOR_SCHEMA', 'default') }}.premium.css" id="theme-stylesheet">
     <!-- DataTables CSS-->
