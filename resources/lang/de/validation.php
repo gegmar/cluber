@@ -92,6 +92,7 @@ return [
     'not_in' => 'Das ausgewählte :attribute ist ungültig.',
     'not_regex' => 'Das Format von :attribute ist ungültig.',
     'numeric' => ':attribute muss eine Nummer sein.',
+    'password' => 'Das Passwort ist nicht korrekt.',
     'present' => ':attribute muss vorhanden sein.',
     'regex' => 'Das Format von :attribute ist ungültig.',
     'required' => ':attribute wird vorausgesetzt.',
