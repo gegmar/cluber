@@ -41,8 +41,7 @@ class UserController extends TestCase
 
         $response = $this->actingAs($admin)->get('/admin/iam');
         $response->assertStatus(200);
-        $response->assertSee($userToSee->name);
-        $response->assertSee($userToSee->name);
+        $response->assertSee(htmlentities($userToSee->name));
         $response->assertDontSee($userNotToSee->name);
 
     }
