@@ -10,6 +10,8 @@ use App\User;
 
 class RoleController extends TestCase
 {
+    use DatabaseTransactions;
+    use WithFaker;
 
     /**
      * Create an administrative account to access the protected routes
