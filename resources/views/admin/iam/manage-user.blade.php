@@ -57,5 +57,5 @@
     $(document).ready(function() {
         $('.selectable-multiple').select2();
     });
-    </script>
+</script>
 @endsection

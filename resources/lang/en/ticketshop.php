@@ -66,6 +66,7 @@ return [
     'load' => 'Load',
     'location' => 'Location',
     'logo' => 'Logo',
+    'manage_event' => 'Manage Event',
     'manage_project' => 'Manage Project',
     'manage_purchase' => 'Manage Purchase',
     'manage_role' => 'Manage Role',
@@ -96,6 +97,7 @@ return [
     'permissions' => 'Permissions',
     'price' => 'Price',
     'price-category' => 'Price Category',
+    'price_list' => 'Price List',
     'privacy' => 'Privacy',
     'privacy_agree' => 'I agree that my data is processed as it is stated in the <a href="' . route('privacy') . '" target="_blank">privacy section</a>.',
     'privacy_final' => 'This information will be used to send your tickets via mail and track it
@@ -117,6 +119,7 @@ return [
     'sales_overview' => 'Overview over my sales',
     'save' => 'Save',
     'seat' => 'Seat',
+    'seatmap' => 'Seat Map',
     'seatmaps_and_pricetables' => 'Seat Maps & Price Tables',
     'select_number_of_tickets' => 'Please select required amounts of tickets',
     'select_payment_method' => 'Select a payment method for this purchase!',

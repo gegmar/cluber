@@ -111,6 +111,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::prefix('events')->name('events.')->group(function() {
             Route::get('/', 'EventController@index')->name('dashboard');
             
+            Route::get('/create', 'EventController@showCreate')->name('show-create');
             Route::post('/create', 'EventController@create')->name('create');
             Route::get('/{event}', 'EventController@get')->name('get');
             Route::post('/{event}/update', 'EventController@update')->name('update');
