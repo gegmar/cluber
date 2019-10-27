@@ -1,6 +1,13 @@
 /* your styles go here */
 
 /*
+ * Repair select2 span-conflict with template
+ */
+.select2-container > span {
+	display: inline;
+}
+
+/*
  * Seat-Charts.js styles
  */
 #seat-map {
