@@ -49,9 +49,8 @@
         <li><a href="#adminDropdown" aria-expanded="false" data-toggle="collapse"> <i class="fa fa-cogs"></i>{{__('ticketshop.administration')}}
             </a>
             <ul id="adminDropdown" class="collapse list-unstyled ">
-                <li><a href="#">{{__('ticketshop.events_and_projects')}}</a></li>
-                <li><a href="#">{{__('ticketshop.seatmaps_and_pricetables')}}</a></li>
-                <li><a href="#">{{__('ticketshop.archive')}}</a></li>
+                <li><a href="{{ route('admin.events.dashboard') }}"><i class="fa fa-calendar"></i> {{__('ticketshop.events_and_projects')}}</a></li>
+                <li><a href="{{ route('admin.dependencies.dashboard')}}"><i class="fa fa-cubes"></i> {{__('ticketshop.seatmaps_and_pricetables')}}</a></li>
                 <li><a href="{{ route('admin.iam.dashboard') }}"><i class="fa fa-users"></i> {{__('ticketshop.users_and_roles')}}</a></li>
                 <li><a href="{{ route('admin.settings.dashboard') }}"><i class="fa fa-wrench"></i> {{__('ticketshop.settings')}}</a></li>
             </ul>

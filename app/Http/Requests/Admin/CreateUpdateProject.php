@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Auth;
 
-class CreateRole extends FormRequest
+class CreateUpdateProject extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -14,7 +13,8 @@ class CreateRole extends FormRequest
      */
     public function authorize()
     {
-        return Auth::user()->hasPermission('ADMINISTRATE');
+        // always true since requests are authorized in routes-file
+        return true;
     }
 
     /**
@@ -25,7 +25,8 @@ class CreateRole extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|max:255'
+            'name' => 'required|string|max:255',
+            'description' => 'required|string|max:1000'
         ];
     }
 }

@@ -107,6 +107,30 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Admin routes
     Route::middleware(['perm:ADMINISTRATE'])->namespace('Admin')->prefix('admin')->name('admin.')->group(function () { 
         
+        // Manage projects and events
+        Route::prefix('events')->name('events.')->group(function() {
+            Route::get('/', 'EventController@index')->name('dashboard');
+            
+            Route::post('/create', 'EventController@create')->name('create');
+            Route::get('/{event}', 'EventController@get')->name('get');
+            Route::post('/{event}/update', 'EventController@update')->name('update');
+            Route::post('/{event}/delete', 'EventController@delete')->name('delete');
+
+            Route::prefix('project')->name('project.')->group(function() {
+                Route::post('/create', 'ProjectController@create')->name('create');
+                Route::get('/{project}', 'ProjectController@get')->name('get');
+                Route::post('/{project}/update', 'ProjectController@update')->name('update');
+                Route::post('/{project}/delete', 'ProjectController@delete')->name('delete');
+                Route::post('/{project}/archive', 'ProjectController@archive')->name('archive');
+                Route::post('/{project}/restore', 'ProjectController@restore')->name('restore');
+            });
+        });
+
+        // Manage seatmaps, pricelists and locations
+        Route::prefix('dependencies')->name('dependencies.')->group(function() {
+            Route::get('/', 'SeatMapController@index')->name('dashboard');
+        });
+
         // User and Role Management (=Identity and Access Management [IAM])
         Route::prefix('iam')->name('iam.')->group(function() {
             Route::get('/', 'UserController@index')->name('dashboard');

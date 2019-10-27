@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\AttachUsers;
-use App\Http\Requests\CreateRole;
-use App\Http\Requests\UpdateRole;
+use App\Http\Requests\Admin\AttachUsers;
+use App\Http\Requests\Admin\CreateRole;
+use App\Http\Requests\Admin\UpdateRole;
 use App\Permission;
 use App\Role;
 use App\User;

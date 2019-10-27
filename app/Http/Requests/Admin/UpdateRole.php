@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
-class AttachUsers extends FormRequest
+class UpdateRole extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,7 +25,8 @@ class AttachUsers extends FormRequest
     public function rules()
     {
         return [
-            'id' => 'required|array|exists:users'
+            'name'  => 'required|max:255|string',
+            'permissions' => 'array|exists:permissions,id'
         ];
     }
 }

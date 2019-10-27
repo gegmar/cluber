@@ -55,8 +55,6 @@ class Event extends Model
     /**
      * Local scopes & relations
      */
-
-
     public function scopeEnded($query)
     {
         return $query->where('end_date', '<', new \DateTime());

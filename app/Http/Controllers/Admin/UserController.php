@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\UpdateUser;
+use App\Http\Requests\Admin\UpdateUser;
 use App\Role;
 use App\User;
 use Illuminate\Support\Facades\Log;
