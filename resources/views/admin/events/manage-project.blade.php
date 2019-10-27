@@ -22,7 +22,7 @@
                 <h4>{{__('ticketshop.manage_project')}}</h4>
             </div>
             <div class="card-body">
-                <form class="form-validate" action="{{ route('admin.iam.user.update', $project) }}" method="POST">
+                <form class="form-validate" action="{{ route('admin.events.project.update', $project) }}" method="POST">
                     @csrf
                     <div class="form-group">
                         <label>{{__('ticketshop.name')}}</label>

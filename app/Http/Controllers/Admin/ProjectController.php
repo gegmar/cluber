@@ -30,7 +30,7 @@ class ProjectController extends Controller
         $project->name = $request->name;
         $project->description = $request->description;
         $project->save();
-        return redirect()->route('admin.events.dashboard')
+        return redirect()->route('admin.events.project.get', $project)
                         ->with('status', 'Updated Project successfully!');
     }
 
