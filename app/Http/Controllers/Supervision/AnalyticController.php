@@ -14,9 +14,9 @@ class AnalyticController extends Controller
 
     public function dashboard()
     {
-        $projects = Project::get();
+        $projects = Project::where('is_archived', 0)->get();
 
-        $events = Event::get();
+        $events = Event::whereIn('project_id', $projects->pluck('id'))->get();
         $totalEvents = $events->count();
 
         $totalSeats = 0;

@@ -2,18 +2,30 @@
 
 namespace App\Http\Controllers\Retail;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Purchase;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class SoldTicketsController extends Controller
 {
     public function getPurchases()
     {
+        // not the nicest way to do it, but it works
+        // Get a list of not already archived purchases by getting the archived projects
+        $preFilteredPurchaseIds = DB::table('projects')
+            ->join('events', 'projects.id', '=', 'events.project_id')
+            ->join('tickets', 'events.id', '=', 'tickets.event_id')
+            ->where('projects.is_archived', 0)
+            ->distinct('tickets.purchase_id')
+            ->pluck('tickets.purchase_id');
+
+        // Use the previously fetched array of not archived purchase ids and
+        // get the purchase models with additional filters applied
         $purchases = Purchase::where('vendor_id', auth()->user()->id)
             ->whereIn('state', ['paid', 'free', 'reserved'])
+            ->whereIn('id', $preFilteredPurchaseIds)
             ->orderBy('state_updated', 'DESC')
             ->get();
         return view('retail.purchases', ['purchases' => $purchases]);

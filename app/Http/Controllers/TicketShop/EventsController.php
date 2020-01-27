@@ -29,7 +29,7 @@ class EventsController extends Controller
         $deadline = new \DateTime();
         $deadline->add(new \DateInterval('PT2H'));
 
-        $projects = Project::with(['events' => function ($query) use ($deadline) {
+        $projects = Project::where('is_archived', 0)->with(['events' => function ($query) use ($deadline) {
             $query->where('start_date', '>=', $deadline)->orderBy('start_date', 'ASC');
         }, 'events.location'])->get();
 

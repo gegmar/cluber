@@ -23,7 +23,7 @@ class SellTicketsController extends Controller
      */
     public function events()
     {
-        $projects = Project::with(['events' => function ($query) {
+        $projects = Project::where('is_archived', 0)->with(['events' => function ($query) {
             $query->where('end_date', '>=', new \DateTime())->orderBy('start_date', 'ASC');
         }, 'events.location'])->get();
 

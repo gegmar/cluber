@@ -4,6 +4,7 @@ namespace App\Http\Controllers\BoxOffice;
 
 use App\Http\Controllers\Controller;
 use App\Event;
+use App\Project;
 use Illuminate\Support\Facades\DB;
 use Spipu\Html2Pdf\Html2Pdf;
 use Spipu\Html2Pdf\Exception\Html2PdfException;
@@ -12,7 +13,8 @@ class DashboardController extends Controller
 {
     public function dashboard()
     {
-        $events = Event::where('state', 'open')->orderBy('start_date', 'ASC')->get();
+        $activeProjectIds = Project::where('is_archived', 0)->pluck('id');
+        $events = Event::whereIn('project_id', $activeProjectIds)->where('state', 'open')->orderBy('start_date', 'ASC')->get();
 
         return view('boxoffice.dashboard', [
             'events' => $events
