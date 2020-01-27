@@ -39,8 +39,9 @@
 <table>
     <colgroup>
         <col style="width: 5%" class="col1">
+        <col style="width: 5%">
         <col style="width: 20%">
-        <col style="width: 25%">
+        <col style="width: 20%">
         @if($event->seatMap->layout)
         <col style="width: 20%">
         <col style="width: 10%">
@@ -52,6 +53,7 @@
     </colgroup>
     <thead>
         <tr>
+            <th rowspan="2">#</th>
             <th rowspan="2">ID</th>
             @if($event->seatMap->layout)
             <th colspan="6" style="font-size: 16px;">
@@ -73,8 +75,18 @@
         </tr>
     </thead>
     <tbody>
+        {{-- Add an index in the first row to give a better overview --}}
+        @php
+            $index = 0;
+        @endphp
+
+        {{-- List all tickets from pre-event sales (onlineshop and shop customers) --}}
         @foreach($tickets as $ticket)
+        @php
+            $index++;
+        @endphp
         <tr class="border-bottom">
+            <td>{{ $index }}</td>
             <td>{{ $ticket->id }}</td>
             <td>{{ $ticket->purchase->vendor->name }}</td>
             <td>@if($ticket->purchase->customer_name) {{ $ticket->purchase->customer_name }} @elseif($ticket->purchase->customer){{ $ticket->purchase->customer->name}} @else {{__('ticketshop.shop-customer')}} @endif</td>
@@ -86,6 +98,27 @@
             <td></td>
         </tr>
         @endforeach
+
+        {{--
+            Add empty lines to allow box office entering their sales.
+            This shall also grant that they always have an overview on
+            how many tickets are still available. Also print 10% more
+            additional lines than available for possible overbookings.
+        --}}
+        @for (; $index <= ($event->seatMap->seats * 1.1); $index++)
+        <tr class="border-bottom">
+            <td>{{ $index }}</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            @if($event->seatMap->layout)
+            <td></td>
+            @endif
+            <td></td>
+            <td></td>
+        </tr>
+        @endfor
     </tbody>
     <tfoot>
         <tr>
