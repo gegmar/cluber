@@ -23,10 +23,15 @@ class AnalyticController extends Controller
         foreach ($events as $event) {
             $totalSeats += $event->seatMap->seats;
         }
-        $soldTickets = Ticket::get()->count();
+        // Only fetch the purchase_ids for filtering the later query for relevant purchases
+        $tickets = Ticket::whereIn('event_id', $events->pluck('id'))->pluck('purchase_id');
+        $soldTickets = $tickets->count();
         $load = round(($soldTickets / $totalSeats) * 100, 0);
 
-        $sales = Purchase::where('state', 'paid')->get();
+        // Prefilter the purchases on the filtered tickets
+        $distinctPurchaseIds = $tickets->toArray();
+        $distinctPurchaseIds = array_unique($distinctPurchaseIds, SORT_NUMERIC);
+        $sales = Purchase::whereIn('id', $tickets)->where('state', 'paid')->get();
         $totalSales = $sales->count();
 
         $turnover = 0;
