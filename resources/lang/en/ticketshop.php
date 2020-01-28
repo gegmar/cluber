@@ -10,6 +10,7 @@ return [
     | Used by the public and admin frontend
     |
     */
+    'abort' => 'Abort',
     'actions' => 'Aktions',
     'add_users' => 'Add Users',
     'address' => 'Address',

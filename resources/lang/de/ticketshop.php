@@ -10,6 +10,7 @@ return [
     | Used by the public and admin frontend
     |
     */
+    'abort' => 'Abbrechen',
     'actions' => 'Aktionen',
     'add_users' => 'Benutzer hinzufügen',
     'address' => 'Adresse',
