@@ -10,7 +10,7 @@ services:
 # stolen from https://stackoverflow.com/questions/38924701/how-to-setup-travis-ci-with-laravel-5-invalidargumentexception
 before_script:
   - npm install -g snyk
-#  - snyk auth $SNYK_TOKEN
+  - snyk auth $SNYK_TOKEN
   - chmod 777 -R storage
   - cp .env.travis .env
   - mysql -e 'create database homestead;'
@@ -25,10 +25,10 @@ script:
   - php artisan route:list
   # Run phpunit test suites
   - vendor/bin/phpunit
-#  - rm package.json # else snyk scan will test npm and not composer
-#  - snyk test
+  - rm package.json # else snyk scan will test npm and not composer
+  - snyk test
 
 after_script:
-#  - snyk monitor
+  - snyk monitor
 
 # snyk config stolen from: https://blog.travis-ci.com/2017-04-20-continuous-security-snyk-travis-ci/
