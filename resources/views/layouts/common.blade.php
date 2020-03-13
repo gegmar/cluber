@@ -19,9 +19,14 @@
                     <h2 class="no-margin-bottom">@yield('page-title')</h2>
                 </div>
             </header>
-            @if(env('SHOW_NO_SHOPPING_CART_NOTIFICATION', false))
+            @if(env('SHOW_SHOPPING_CART_NOTIFICATION', false))
             @component('components.notification')
             <strong><i class="fa fa-info-circle"></i></strong> Dieser Onlineshop unterstützt keinen Warenkorb. Bitte kaufen Sie Ihre Tickets je Veranstaltung.
+            @endcomponent
+            @endif
+            @if(env('SHOW_CORONA_NOTIFICATION', false))
+            @component('components.notification')
+            <strong><i class="fa fa-info-circle"></i></strong> Sehr geehrte Theaterfreunde, aufgrund der aktuellen Geschehnisse und Bestimmung im Kontext des Coronavirus haben wir uns dazu entschlossen unsere Veranstaltungsreihe "Corpus delicti" in den Herbst zu verschieben. Informationen zur Rückerstattung von bereits erworbenen Karten und das weitere Vorgehen finden Sie auf unsere Website unter <a href="https://www.theater-kirchdorf.at">www.theater-kirchdorf.at</a>.
             @endcomponent
             @endif
             <!-- Dashboard Counts Section-->
