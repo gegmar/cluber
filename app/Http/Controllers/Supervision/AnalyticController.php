@@ -54,4 +54,11 @@ class AnalyticController extends Controller
             echo view('csvs.tickets', ['events' => $project->events])->render();
         }, 'export.csv');
     }
+
+    public function downloadHelgaMetrics(Project $project)
+    {
+        return response()->streamDownload(function() use ($project) {
+            echo view('csvs.helga-metrics', ['data' => $project->getHelgaMetrics()])->render();
+        }, 'helgaMetrics.csv');
+    }
 }

@@ -83,7 +83,10 @@
                     @endphp
                     <div class="time"><i class="fa fa-eur"></i>{{ $projectSales }}</div>
                     <div class="comments"><i class="fa fa-ticket"></i>{{ $soldTicketsCount }} / {{ $allTicketsCount }}</div>
+                    <hr>
                     <a class="btn btn-info pull-right" href="{{ route('supervision.export-csv', ['project' => $project->id]) }}" target="_blank"><i class="fa fa-table"></i> {{__('ticketshop.csv-export')}}</a>
+                    &nbsp;
+                    <a class="btn btn-info pull-right" href="{{ route('supervision.export-helga-metrics', ['project' => $project->id]) }}" target="_blank"><i class="fa fa-table"></i> {{__('ticketshop.helga_metrics')}}</a>
                 </div>
             </div>
         </div>

@@ -60,6 +60,7 @@ return [
     'final_bill' => 'Abrechnung',
     'free' => 'Frei',
     'free-tickets' => 'Freikarten',
+    'helga_metrics' => '"Helga"-Metriken',
     'iam' => 'Identity & Access Management',
     'id' => 'ID',
     'impress' => 'Impressum',

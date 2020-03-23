@@ -61,6 +61,7 @@ return [
     'final_bill' => 'Final Bill',
     'free' => 'Free',
     'free-tickets' => 'Free Tickets',
+    'helga_metrics' => '"Helga"-Metrics',
     'iam' => 'Identity & Access Management',
     'id' => 'ID',
     'impress' => 'Impress',

@@ -102,6 +102,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         Route::get('/', 'AnalyticController@dashboard')->name('dashboard');
         Route::get('/{project}/export.csv', 'AnalyticController@downloadCSV')->name('export-csv');
+        Route::get('/{project}/helgametrics.csv', 'AnalyticController@downloadHelgaMetrics')->name('export-helga-metrics');
     });
 
     // Admin routes
