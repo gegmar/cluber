@@ -31,11 +31,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind('App\PaymentProvider\Klarna', function($app) {
+        $this->app->bind('App\PaymentProvider\Klarna', function() {
             return new Klarna( config('paymentprovider.sofortConfigKey') );
         });
 
-        $this->app->bind('App\PaymentProvider\PayPal', function($app) {
+        $this->app->bind('App\PaymentProvider\PayPal', function() {
             return new PayPal(
                 config('paymentprovider.payPalClientId'),     // ClientID
                 config('paymentprovider.payPalClientSecret')  // ClientSecret

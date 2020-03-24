@@ -2,16 +2,13 @@
 
 namespace App\Http\Controllers\Retail;
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SellTickets;
 use App\Project;
 use App\Purchase;
 use App\Ticket;
 use App\Event;
-use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
@@ -37,7 +34,7 @@ class SellTicketsController extends Controller
     /**
      * Display available price categories for the selected event
      */
-    public function seats(Request $request, Event $event)
+    public function seats(Event $event)
     {
         $seatMapView = 'retail.seatmaps.seatmap-js';
         if ($event->seatMap->layout === null) {

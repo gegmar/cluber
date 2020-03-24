@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Setting;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
@@ -12,7 +11,7 @@ class StartController extends Controller
     /**
      * Redirect the browser to the appropriate shop site
      */
-    public function index(Request $request)
+    public function index()
     {
         if (Auth::user() != null && Auth::user()->hasPermission('SELL_TICKETS')) {
             return redirect()->route('retail.sell.events');

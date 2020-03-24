@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\TicketShop;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SetCustomerData;
 
@@ -12,7 +11,7 @@ class CustomerDataController extends Controller
      * After the users selected some tickets, they must enter their
      * contact information to receive them after payment
      */
-    public function getData(Request $request)
+    public function getData()
     {
         // Check if all required previous inputs are present
         // Else sent user back to where he has to start/comence
