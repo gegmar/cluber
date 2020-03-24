@@ -52,7 +52,9 @@ class Klarna
 
         if ($this->sofortApi->isError()) {
             // SOFORT-API didn't accept the data
-            Log::error($this->sofortApi->getErrors());
+            foreach($this->sofortApi->getErrors() as $error) {
+                Log::error($error);
+            }
             throw new PaymentProviderException("SOFORT got errors...");
         }
         // get unique transaction-ID useful for check payment status
