@@ -10,6 +10,17 @@ jobs:
   laravel-tests:
 
     runs-on: ubuntu-latest
+
+    services:
+      mariadb:
+        image: mariadb
+        env:
+          MYSQL_ROOT_PASSWORD: secret
+          MYSQL_DATABASE: homestead
+          MYSQL_USER: homestead
+          MYSQL_PASSWORD: secret
+        ports:
+        - 3306:3306
     
     steps:
     - uses: actions/checkout@v2
@@ -22,16 +33,8 @@ jobs:
     - name: Directory Permissions
       run: chmod -R 777 storage bootstrap/cache
     - name: Create Database
-      run: |
-        mkdir -p database
-        touch database/database.sqlite
+      run: mysql -e 'create database homestead;'
     - name: Perform migrations
       run: php artisan migrate
-      env:
-        DB_CONNECTION: sqlite
-        DB_DATABASE: database/database.sqlite
     - name: Execute tests (Unit and Feature tests) via PHPUnit
-      env:
-        DB_CONNECTION: sqlite
-        DB_DATABASE: database/database.sqlite
       run: vendor/bin/phpunit
