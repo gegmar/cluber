@@ -12,8 +12,8 @@ build:
                         use_website_config: true
                     - js-scrutinizer-run
         tests: true
-        php:
-            version: "7.3"
+    environment:
+        php: 7.3.0
     services:
         mariadb: 10
     project_setup:
