@@ -24,7 +24,6 @@ script:
   - php artisan route:list
   # Run phpunit test suites
   - vendor/bin/phpunit
-  - rm package.json # else snyk scan will test npm and not composer
   - snyk test
 
 after_script:
