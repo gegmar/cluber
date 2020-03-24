@@ -40,8 +40,8 @@ class OnlineController extends Controller
      * This function sets the box office sales for an event. The sales are stored as a normal purchase
      * that is directly linked to this event object. Only this function should modify this purchase!
      * 
-     * @param $event Is set by the route.
-     * @param $request post parameters containing the new amount of sold tickets per category
+     * @param Event $event Is set by the route.
+     * @param SetBoxOfficeSales $request post parameters containing the new amount of sold tickets per category
      */
     public function setBoxOfficeSales(Event $event, SetBoxOfficeSales $request)
     {

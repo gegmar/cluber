@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Supervision;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Event;
 use App\Purchase;
@@ -29,8 +28,6 @@ class AnalyticController extends Controller
         $load = round(($soldTickets / $totalSeats) * 100, 0);
 
         // Prefilter the purchases on the filtered tickets
-        $distinctPurchaseIds = $tickets->toArray();
-        $distinctPurchaseIds = array_unique($distinctPurchaseIds, SORT_NUMERIC);
         $sales = Purchase::whereIn('id', $tickets)->where('state', 'paid')->get();
         $totalSales = $sales->count();
 

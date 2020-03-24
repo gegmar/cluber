@@ -34,8 +34,8 @@ class PayPal
 
 
     /**
-     * @param $clientId ClientID for the shops paypal REST endpoint
-     * @param $clientSecret Secret for the shops paypal REST endpoint
+     * @param string $clientId ClientID for the shops paypal REST endpoint
+     * @param string $clientSecret Secret for the shops paypal REST endpoint
      * @return void
      */
     public function __construct($clientId, $clientSecret)

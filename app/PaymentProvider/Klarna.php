@@ -21,7 +21,7 @@ class Klarna
 
     /**
      * 
-     * @param $configKey Configuration key for this exact project
+     * @param string $configKey Configuration key for this exact project
      * @return void
      */
     public function __construct($configKey)
@@ -33,7 +33,7 @@ class Klarna
      * Generates for a given Purchase a payment request at Klarna and
      * returns a payment url where the customer can pay the purchase
      * 
-     * @param $purchase the customer's purchase
+     * @param Purchase $purchase the customer's purchase
      * @return string PaymentUrl to Klarna for the given purchase
      */
     public function getPaymentUrl(Purchase $purchase)
