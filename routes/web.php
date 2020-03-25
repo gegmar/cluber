@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -131,6 +133,24 @@ Route::middleware(['auth', 'verified'])->group(function () {
         // Manage seatmaps, pricelists and locations
         Route::prefix('dependencies')->name('dependencies.')->group(function() {
             Route::get('/', 'SeatMapController@index')->name('dashboard');
+
+            Route::prefix('seatmap')->name('seatmap.')->group(function() {
+                Route::get('/create', 'SeatMapController@showCreate')->name('show-create');
+                Route::get('/{seatmap}', 'SeatMapController@get')->name('get');
+            });
+
+            Route::prefix('location')->name('location.')->group(function() {
+                Route::get('/create', 'LocationController@showCreate')->name('show-create');
+                Route::get('/{location}', 'LocationController@get')->name('get');
+            });
+
+            Route::prefix('prices')->name('prices.')->group(function() {
+                Route::get('/create-category', 'PriceCategoryController@showCreate')->name('show-create-category');
+                Route::get('/{category}', 'PriceCategoryController@get')->name('get-category');
+
+                Route::get('/create-list', 'PriceCategoryController@showCreate')->name('show-create-list');
+                Route::get('/list/{list}', 'PriceCategoryController@get')->name('get-list');
+            });
         });
 
         // User and Role Management (=Identity and Access Management [IAM])
