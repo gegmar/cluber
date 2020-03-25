@@ -17,8 +17,7 @@ jobs:
         env:
           MYSQL_ROOT_PASSWORD: secret
           MYSQL_DATABASE: homestead
-          MYSQL_USER: homestead
-          MYSQL_PASSWORD: secret
+          MYSQL_ALLOW_EMPTY_PASSWORD: yes
         ports:
         - 3306:3306
     
