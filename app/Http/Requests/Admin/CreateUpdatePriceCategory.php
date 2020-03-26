@@ -27,7 +27,7 @@ class CreateUpdatePriceCategory extends FormRequest
         return [
             'name'          => 'required|string|max:255',
             'description'   => 'required|string|max:255',
-            'price'         => 'required|regex:/[\d]{1,7}.[\d]{2}/' // Only accept positiv decimals from 0,00 to 9999999,99
+            'price'         => 'required|regex:/[\d]{1,7}.[\d]{2}/' // Only accept positiv decimals from 0.00 to 9999999.99
         ];
     }
 }
