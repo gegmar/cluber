@@ -11,7 +11,7 @@
 <div class="breadcrumb-holder container-fluid">
     <ul class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ route('admin.dependencies.dashboard') }}">{{__('ticketshop.seatmaps_and_pricetables')}}</a></li>
-        <li class="breadcrumb-item active">{{__('ticketshop.manage_location')}}</li>
+        <li class="breadcrumb-item active">{{__('ticketshop.manage_price_category')}}</li>
     </ul>
 </div>
 
