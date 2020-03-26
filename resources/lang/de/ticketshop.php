@@ -71,6 +71,7 @@ return [
     'locations' => 'Veranstaltungsorte',
     'logo' => 'Logo',
     'manage_event' => 'Veranstaltung verwalten',
+    'manage_location' => 'Ort verwalten',
     'manage_project' => 'Projekt verwalten',
     'manage_purchase' => 'Einkauf verwalten',
     'manage_role' => 'Rolle verwalten',

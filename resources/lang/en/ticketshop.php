@@ -72,6 +72,7 @@ return [
     'locations' => 'Event Locations',
     'logo' => 'Logo',
     'manage_event' => 'Manage Event',
+    'manage_location' => 'Manage Location',
     'manage_project' => 'Manage Project',
     'manage_purchase' => 'Manage Purchase',
     'manage_role' => 'Manage Role',

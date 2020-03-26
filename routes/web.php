@@ -140,8 +140,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
             });
 
             Route::prefix('location')->name('location.')->group(function() {
-                Route::get('/create', 'LocationController@showCreate')->name('show-create');
+                Route::post('/create', 'LocationController@create')->name('create');
                 Route::get('/{location}', 'LocationController@get')->name('get');
+                Route::post('/{location}/update', 'LocationController@update')->name('update');
+                Route::delete('/{location}/delete', 'LocationController@delete')->name('delete');
             });
 
             Route::prefix('prices')->name('prices.')->group(function() {
