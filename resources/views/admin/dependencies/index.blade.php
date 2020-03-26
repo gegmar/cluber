@@ -24,7 +24,7 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-lg-6" style="padding-bottom: 10px">
-                        <a href="{{ route('admin.dependencies.seatmap.show-create') }}" class="btn btn-primary"><i class="fa fa-plus"></i> {{__('ticketshop.new_seatmap')}}</a>
+                        <button class="btn btn-primary" data-toggle="modal" data-target="#createSeatMapModal"><i class="fa fa-plus"></i> {{__('ticketshop.new_seatmap')}}</button>
                     </div>
                     <div class="col-lg-6">
                         <p></p>
@@ -60,6 +60,47 @@
         </div>
     </div>
 </section>
+
+<!-- SeatMapModal -->
+<div class="modal fade" id="createSeatMapModal" tabindex="-1" role="dialog" aria-labelledby="createSeatMapModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form action="{{ route('admin.dependencies.seatmap.create') }}" method="POST">
+                @csrf
+                <div class="modal-header">
+                    <h5 class="modal-title" id="createSeatMapModalLabel">{{__('ticketshop.new_seatmap')}}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group row">
+                        <label class="col-sm-3 form-control-label">{{__('ticketshop.name')}}</label>
+                        <div class="col-sm-9">
+                            <input type="text" name="name" class="form-control" placeholder="Enter new seatmap name" required="required"/>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 form-control-label">{{__('ticketshop.description')}}</label>
+                        <div class="col-sm-9">
+                            <input type="text" name="description" class="form-control" placeholder="Enter seatmap description" required="required"/>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 form-control-label">{{__('ticketshop.seats')}}</label>
+                        <div class="col-sm-9">
+                            <input type="number" name="seats" class="form-control" value="0" step="1" min="0" required="required"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{{__('ticketshop.cancel')}}</button>
+                    <button type="submit" class="btn btn-primary">{{__('ticketshop.create')}}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 <!-- Prices Section -->
 <section class="no-padding-bottom">

@@ -135,8 +135,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::get('/', 'SeatMapController@index')->name('dashboard');
 
             Route::prefix('seatmap')->name('seatmap.')->group(function() {
-                Route::get('/create', 'SeatMapController@showCreate')->name('show-create');
+                Route::post('/create', 'SeatMapController@create')->name('create');
                 Route::get('/{seatmap}', 'SeatMapController@get')->name('get');
+                Route::post('/{seatmap}/update', 'SeatMapController@update')->name('update');
+                Route::delete('/{seatmap}/delete', 'SeatMapController@delete')->name('delete');
             });
 
             Route::prefix('location')->name('location.')->group(function() {

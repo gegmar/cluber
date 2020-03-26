@@ -78,6 +78,7 @@ return [
     'manage_project' => 'Projekt verwalten',
     'manage_purchase' => 'Einkauf verwalten',
     'manage_role' => 'Rolle verwalten',
+    'manage_seatmap' => 'Sitzplan verwalten',
     'manage_user' => 'Benutzer verwalten',
     'market-share' => 'Markt-<br>anteil',
     'my_profile' => 'Mein Profil',

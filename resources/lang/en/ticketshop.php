@@ -79,6 +79,7 @@ return [
     'manage_project' => 'Manage Project',
     'manage_purchase' => 'Manage Purchase',
     'manage_role' => 'Manage Role',
+    'manage_seatmap' => 'Manage Seat Map',
     'manage_user' => 'Manage User',
     'market-share' => 'Market<br>Share',
     'my_profile' => 'My Profile',
