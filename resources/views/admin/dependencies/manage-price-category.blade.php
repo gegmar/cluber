@@ -15,30 +15,34 @@
     </ul>
 </div>
 
-<!-- Managing the location -->
+<!-- Managing the price category -->
 <section class="no-padding-bottom">
     <div class="container-fluid">
         <div class="card">
             <div class="card-header">
-                <h4>{{__('ticketshop.manage_location')}}</h4>
+                <h4>{{__('ticketshop.manage_price_category')}}</h4>
             </div>
             <div class="card-body">
-                <form class="form-validate" action="{{ route('admin.dependencies.location.update', $location) }}" method="POST">
+                <form class="form-validate" action="{{ route('admin.dependencies.prices.category.update', $category) }}" method="POST">
                     @csrf
                     <div class="form-group">
                         <label>{{__('ticketshop.name')}}</label>
-                        <input name="name" type="text" required data-msg="Please enter location's name" class="form-control" value="{{ $location->name }}">
+                        <input name="name" type="text" required data-msg="Please enter category's name" class="form-control" value="{{ $category->name }}">
                     </div>
                     <div class="form-group">
-                        <label>{{__('ticketshop.address')}}</label>
-                        <input name="address" type="text" required data-msg="Please enter location's address" class="form-control" value="{{ $location->address }}">
+                        <label>{{__('ticketshop.description')}}</label>
+                        <input name="description" type="text" required data-msg="Please enter category's description" class="form-control" value="{{ $category->description }}">
+                    </div>
+                    <div class="form-group">
+                        <label>{{__('ticketshop.price')}}</label>
+                        <input name="price" type="text" step="0.01" pattern="/[\d]{1-7}.[\d]{2}/" required data-msg="Please enter category's price" class="form-control" value="{{ $category->price }}">
                     </div>
                     <div class="form-group">
                         <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> {{__('ticketshop.save')}}</button>
                     </div>
                 </form>
                 <hr/>
-                <form style="display:inline-block" action="{{ route('admin.dependencies.location.delete', [$location]) }}" method="POST">
+                <form style="display:inline-block" action="{{ route('admin.dependencies.prices.category.delete', [$category]) }}" method="POST">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn btn-danger"><i class="fa fa-remove"></i> {{__('ticketshop.delete')}}</button>

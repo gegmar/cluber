@@ -147,11 +147,19 @@ Route::middleware(['auth', 'verified'])->group(function () {
             });
 
             Route::prefix('prices')->name('prices.')->group(function() {
-                Route::get('/create-category', 'PriceCategoryController@showCreate')->name('show-create-category');
-                Route::get('/{category}', 'PriceCategoryController@get')->name('get-category');
-
-                Route::get('/create-list', 'PriceCategoryController@showCreate')->name('show-create-list');
-                Route::get('/list/{list}', 'PriceCategoryController@get')->name('get-list');
+                Route::prefix('category')->name('category.')->group(function() {
+                    Route::post('/create', 'PriceCategoryController@create')->name('create');
+                    Route::get('/{category}', 'PriceCategoryController@get')->name('get');
+                    Route::post('/{category}/update', 'PriceCategoryController@update')->name('update');
+                    Route::delete('/{category}/delete', 'PriceCategoryController@delete')->name('delete');
+                });
+                
+                Route::prefix('list')->name('list.')->group(function() {
+                    Route::post('/create', 'PriceListController@create')->name('create');
+                    Route::get('/{list}', 'PriceListController@get')->name('get');
+                    Route::post('/{list}/update', 'PriceListController@update')->name('update');
+                    Route::delete('/{list}/delete', 'PriceListController@delete')->name('delete');
+                });
             });
         });
 

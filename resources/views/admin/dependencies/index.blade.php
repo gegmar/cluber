@@ -74,7 +74,7 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-lg-6" style="padding-bottom: 10px">
-                                <a href="{{ route('admin.dependencies.prices.show-create-category') }}" class="btn btn-primary"><i class="fa fa-plus"></i> {{__('ticketshop.new_category')}}</a>
+                                <button class="btn btn-primary" data-toggle="modal" data-target="#createPriceCategoryModal"><i class="fa fa-plus"></i> {{__('ticketshop.new_category')}}</button>
                             </div>
                             <div class="col-lg-6">
                                 <p></p>
@@ -98,7 +98,7 @@
                                         <td>{{ $category->name }}</td>
                                         <td>{{ $category->description }}</td>
                                         <td>{{ $category->price }}</td>
-                                        <td><a class="btn btn-primary" href="{{ route('admin.dependencies.prices.get-category', $category) }}"><i class="fa fa-edit"></i></a></td>
+                                        <td><a class="btn btn-primary" href="{{ route('admin.dependencies.prices.category.get', $category) }}"><i class="fa fa-edit"></i></a></td>
                                     </tr>
                                     @endforeach
                                 </tbody>
@@ -117,7 +117,7 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-lg-6" style="padding-bottom: 10px">
-                                <a href="{{ route('admin.dependencies.prices.show-create-list') }}" class="btn btn-primary"><i class="fa fa-plus"></i> {{__('ticketshop.new_list')}}</a>
+                                <button class="btn btn-primary" data-toggle="modal" data-target="#createPriceListModal"><i class="fa fa-plus"></i> {{__('ticketshop.new_list')}}</button>
                             </div>
                             <div class="col-lg-6">
                                 <p></p>
@@ -139,7 +139,7 @@
                                         <td>{{ $list->id }}</td>
                                         <td>{{ $list->name }}</td>
                                         <td>@foreach($list->categories as $category) <div class="badge badge-info">{{ $category->name }} ({{ $category->price }} <i class="fa fa-eur"></i> )</div> @endforeach</td>
-                                        <td><a class="btn btn-primary" href="{{ route('admin.dependencies.prices.get-list', $list) }}"><i class="fa fa-edit"></i></a></td>
+                                        <td><a class="btn btn-primary" href="{{ route('admin.dependencies.prices.list.get', $list) }}"><i class="fa fa-edit"></i></a></td>
                                     </tr>
                                     @endforeach
                                 </tbody>
@@ -151,6 +151,76 @@
         </div> <!-- End row-div -->
     </div>
 </section>
+
+<!-- PriceCategoryModal -->
+<div class="modal fade" id="createPriceCategoryModal" tabindex="-1" role="dialog" aria-labelledby="createPriceCategoryModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form action="{{ route('admin.dependencies.prices.category.create') }}" method="POST">
+                @csrf
+                <div class="modal-header">
+                    <h5 class="modal-title" id="createPriceCategoryModalLabel">{{__('ticketshop.new_price_category')}}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group row">
+                        <label class="col-sm-3 form-control-label">{{__('ticketshop.name')}}</label>
+                        <div class="col-sm-9">
+                            <input type="text" name="name" class="form-control" placeholder="Enter new category name" required="required"/>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 form-control-label">{{__('ticketshop.description')}}</label>
+                        <div class="col-sm-9">
+                            <input type="text" name="description" class="form-control" placeholder="Enter category description" required="required"/>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 form-control-label">{{__('ticketshop.price')}}</label>
+                        <div class="col-sm-9">
+                            <input type="number" name="price" class="form-control" step="0.01" pattern="/[\d]{1-7}.[\d]{2}/" value="0.00" required="required"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{{__('ticketshop.cancel')}}</button>
+                    <button type="submit" class="btn btn-primary">{{__('ticketshop.create')}}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- PriceListModal -->
+<div class="modal fade" id="createPriceListModal" tabindex="-1" role="dialog" aria-labelledby="createPriceListModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form action="{{ route('admin.dependencies.prices.list.create') }}" method="POST">
+                @csrf
+                <div class="modal-header">
+                    <h5 class="modal-title" id="createPriceListModalLabel">{{__('ticketshop.new_price_list')}}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group row">
+                        <label class="col-sm-3 form-control-label">{{__('ticketshop.name')}}</label>
+                        <div class="col-sm-9">
+                            <input type="text" name="name" class="form-control" placeholder="Enter new list name" required="required"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{{__('ticketshop.cancel')}}</button>
+                    <button type="submit" class="btn btn-primary">{{__('ticketshop.create')}}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 <!-- Locations Section -->
 <section class="no-padding-bottom">
