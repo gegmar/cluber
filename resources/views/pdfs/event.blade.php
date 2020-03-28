@@ -38,9 +38,13 @@
         width:30px;
         height:30px;
     }
-    td.paid { color:#0A0;}
-    td.no-seat {
+    td.paid {
         color:#A00;
+    }
+    td.free {
+        color:#0A0;
+    }
+    td.no-seat {
         border: medium none #000;
     }
     td.rownumber {
@@ -170,11 +174,15 @@
             @foreach(str_split($row) as $colId => $character)
                 @if($character === 'a')
                     @php
-                    $seatCounter++;
-                    $idCounter++;
-                    $ticket = $event->tickets()->where('seat_number', $idCounter)->first();
+                        $seatCounter++;
+                        $idCounter++;
+                        $ticket = $event->tickets()->where('seat_number', $idCounter)->first();
                     @endphp
-                    <td class="paid">@if($ticket) {{ $ticket->id }} @else &nbsp; @endif</td>
+                    @if($ticket)
+                        <td class="paid">X</td>
+                    @else
+                        <td class="free">{{ $seatCounter }}</td>
+                    @endif
                 @else
                     <td class="no-seat"></td>
                 @endif
