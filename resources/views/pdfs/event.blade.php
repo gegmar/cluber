@@ -16,8 +16,19 @@
         border-top: solid 1px #000;
         border-right: solid 1px #000;
     }
+    div.stage
+    {
+        text-align: center;
+        line-height: 20px;
+        font-size: 15pt;
+        border: medium 1px #000;
+        background-color: darkgray;
+    }
     /* SeatMap-Styles */
-    table.seatmap { border:dashed 1px #444444;margin-top:5mm;margin-left:10mm;}
+    table.seatmap {
+        border:dashed 1px #444444;
+        margin-top:5mm;
+    }
     table.seatmap td {
         font-size:15pt;
         font-weight:bold;
@@ -28,10 +39,13 @@
         height:30px;
     }
     td.paid { color:#0A0;}
-    td.reserved { color:#A00; }
-    td.cstummer { background-color:#123; }
-    rownumber { border:solid 1px #000000;width:10mm; }
-    seatnumber { border:solid 1px #000000;width:50px; }
+    td.no-seat {
+        color:#A00;
+        border: medium none #000;
+    }
+    td.rownumber {
+        border:medium none #000000;
+        width:10mm; }
 </style>
 <span style="font-size: 20px; font-weight: bold;">{{__('ticketshop.tickets-overview')}}<br></span>
 <br>
@@ -92,7 +106,10 @@
             <td>@if($ticket->purchase->customer_name) {{ $ticket->purchase->customer_name }} @elseif($ticket->purchase->customer){{ $ticket->purchase->customer->name}} @else {{__('ticketshop.shop-customer')}} @endif</td>
             <td>{{$ticket->priceCategory->name}} ({{ $ticket->priceCategory->price}} €)</td>
             @if($event->seatMap->layout)
-            <td>{{ (int)ceil($ticket->seat_number / 18)  }} | {{ 19- ( $ticket->seat_number % 18 != 0 ? $ticket->seat_number % 18 : 18) }}</td>
+            @php
+                $rowAndSeat = $ticket->getRowAndSeat();
+            @endphp
+            <td>{{ $rowAndSeat['row']  }} | {{ $rowAndSeat['seat'] }}</td>
             @endif
             <td>{{ __('ticketshop.'.$ticket->purchase->state)}}</td>
             <td></td>
@@ -131,35 +148,54 @@
 
 @if($event->seatMap->layout)
 <!-- 
-	Event Seatmap
+    Event Seatmap
 -->
-<page orientation="paysage">
-    <div class="stage"><span>B&uuml;hne</span></div>
-	<table class="seatmap" cellspacing="7px">
-		@for($row = 1; $row < 8; $row++)
-		<tr>
-			<td class="rownumber">R {{ $row }}</td>
-            @for ($seatInRow = 1; $seatInRow < 19 ; $seatInRow++)
+@php
+    $rowsAndColumns = $event->seatMap->getRowsAndColumns();
+    $rows = json_decode($event->seatMap->layout);
+@endphp
+<page orientation="L">
+    <div class="stage"><span>{{__('ticketshop.stage')}}</span></div>
+    <table class="seatmap" cellspacing="7px">
+        @php
+            $seatCounter = 0; // will be reset at the start of a new row
+            $idCounter = 0;   // counts the past seat_numbers
+        @endphp
+        @foreach($rows as $rowId => $row)
+        <tr>
+            <td class="rownumber">{{ $rowId + 1 }}</td>
             @php
-            $seatNumber = $seatInRow + ($row - 1) *18;
-            $ticket = $event->tickets()->where('seat_number', $seatNumber)->first();
+                $seatCounter = 0;
             @endphp
-            <td class="@if($ticket) paid @endif">@if($ticket) {{ $ticket->id }} @else &nbsp; @endif</td>
-			@endfor
-		</tr>
-		@endfor
-		<tr class="seatnumber">
-			<td>&nbsp;</td>
-			@for($seatInRow = 18; $seatInRow > 0; $seatInRow--)
-			<td> {{ $seatInRow }}</td>
-			@endfor
-		</tr>
-	</table>
+            @foreach(str_split($row) as $colId => $character)
+                @if($character === 'a')
+                    @php
+                    $seatCounter++;
+                    $idCounter++;
+                    $ticket = $event->tickets()->where('seat_number', $idCounter)->first();
+                    @endphp
+                    <td class="paid">@if($ticket) {{ $ticket->id }} @else &nbsp; @endif</td>
+                @else
+                    <td class="no-seat"></td>
+                @endif
+            @endforeach
+            {{--
+                fill in blank td-elements if the first row is not the largest one 
+                --> table width is calculated by the first row)
+            --}}
+            @if($rowId === 0 && strlen($row) < $rowsAndColumns['columns'])
+            @for($i=0; $i < $rowsAndColumns['columns'] - strlen($row); $i++)
+                <td class="no-seat"></td>
+            @endfor
+            @endif
+        </tr>
+        @endforeach
+    </table>
 </page>
 @endif
 
-<page orientation="paysage">
-    <h3>Übersicht</h3>
+<page orientation="L">
+    <h3>{{__('ticketshop.overview')}}</h3>
     <h4>{{$event->project->name}} | {{ $event->second_name }} | @datetime($event->start_date) @time($event->start_date)</h4>
     <table cellspacing="7px">
         <thead>
