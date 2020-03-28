@@ -13,21 +13,21 @@ class SeatMapLayout implements Rule
      */
     public function __construct()
     {
-        $name = 'my_layout-validation';
-        $this->name = $name;
+        //
     }
 
     /**
      * Determine if the validation rule passes.
-     * Only allow structures like...
+     * Only allow json structures like...
      * 
-     * 'aaaaaaa______aaaaaaa',
-     * 'aaaaaaaaa____aaaaaaa',
-     * 'aaaaaaaaa____aaaaaaa',
-     * 'aaaaaaaaa____aaaaaaa',
-     * 'aaaaaaaaa____aaaaaa',
-     * 'aaaaaaaaaa__aaaaaa',
-     * 'aaaaaaaaaaaaaaaaaa',
+     * [
+     *      "aaaaaaa______aaaaaaa",
+     *      "aaaaaaa______aaaaaaa",
+     *      "aaaaaaa_____aaaaaaa",
+     *      "aaaaaaa____aaaaaaa",
+     *      "aaaaaaa___aaaaaaa",
+     *      ...
+     * ]
      *
      * @param  string  $attribute name of the validated field
      * @param  mixed  $value of the validated field
@@ -35,7 +35,36 @@ class SeatMapLayout implements Rule
      */
     public function passes($attribute, $value)
     {
-        // Only 
+        if($value === NULL || $value === "") {
+            // it is allowed for the value to be empty
+            return true;
+        }
+
+        // try to decode the json array with the expected format
+        $rows = json_decode($value);
+
+        // if json_decode result is falsy, then json object could
+        // not be decoded and therefore the input is invalid
+        if(!$rows) {
+            return false;
+        }
+
+        // iterate over all rows to check that only valid
+        // characters ('a' and '_') have been submitted
+        foreach( $rows as $row ) {
+            // explanation for regex ^[a_]*$
+            //  ^     = Start of string
+            //  [a_]  = Only characters "a" and "_" allowed
+            //  *     = zero or more characters
+            //  $     = End of string
+            // Complete: Only match strings that contain from start to end only zero or more characters on the whitelist of a and _
+            if( !preg_match('/^[a_]*$/', $row) ) {
+                return false;
+            }
+        }
+
+        // finally return true for a valid input,
+        // since no previous check proved the contrary
         return true;
     }
 

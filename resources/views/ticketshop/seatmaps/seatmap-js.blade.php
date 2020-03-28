@@ -60,7 +60,7 @@
                     </div>
                     <div class="card-body">
                         <div class="sc-wrapper">
-                            <div class="sc-container">
+                            <div class="sc-container" id="seat-container">
                                 <div id="seat-map">
                                     <div class="sc-front-indicator">{{__('ticketshop.stage')}}</div>
                                 </div>
@@ -148,11 +148,15 @@ $(document).ready(function() {
         return true;
     });
 
+    var layout = {{ $event->seatMap->layout }};
+    var rowCounter = 0;
+    var columnCounter = 1;
+    var maxColumnTracker = 5;
+    var undefinesCounter = 0;
+    var maxUndefinesTracker = 0;
     // docs @ https://github.com/mateuszmarkowski/jQuery-Seat-Charts
     var sc = $('#seat-map').seatCharts({
-        map: [
-            {!! $event->seatMap->layout !!}
-        ], 
+        map: layout, 
         seats: {
             a: {
                 price: 100,
@@ -164,7 +168,26 @@ $(document).ready(function() {
         naming: {
             top: false,
             getLabel: function(character, row, column) {
-                return 19 - column;
+                if(row > rowCounter) {
+                    columnCounter = 0;
+                    undefinesCounter = 0;
+                    rowCounter++;
+                }
+                if(character == 'a') {
+                    columnCounter++;
+                }
+                if(!column) { // happens if column is undefined due to exceed the columns of the first row
+                    undefinesCounter++;
+                }
+                if(undefinesCounter > maxUndefinesTracker) {
+                    maxUndefinesTracker = undefinesCounter;
+                    $('#seat-container').css('width', 50 + 40*maxColumnTracker + 40*maxUndefinesTracker);
+                }
+                if(column > maxColumnTracker) {
+                    maxColumnTracker = column;
+                    $('#seat-container').css('width', 50 + 40*maxColumnTracker + 40*maxUndefinesTracker);
+                }
+                return columnCounter;
             },
             getId: function(character, row, column) {
                 return firstSeatLabel++;

@@ -22,8 +22,11 @@
                         --}}
                         Eindeutige ID: <b>{{ $ticket->id }}</b>
                         @if( $ticket->event->seatMap->layout !== null)
+                        @php
+                            $rowAndSeat = $ticket->getRowAndSeat();
+                        @endphp
                         <br>
-                        Reihe <b>{{ (int)ceil($ticket->seat_number / 18)  }}</b>, Platz <b>{{ 19- ( $ticket->seat_number % 18 != 0 ? $ticket->seat_number % 18 : 18) }}</b> ({{ $ticket->seat_number}})
+                        Reihe <b>{{ $rowAndSeat['row']  }}</b>, Platz <b>{{ $rowAndSeat['seat'] }}</b> ({{ $ticket->seat_number}})
                         @endif
                         <br>
                         Preis: <b>{{ $ticket->priceCategory->price }} € ({{ $ticket->priceCategory->name }})</b>

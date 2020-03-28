@@ -20,13 +20,13 @@ class TheaterFreiWildVerteidigungSeeder extends Seeder
             'seats' => 126,
             'name' => 'Atrium, NPZ (Verteidigung von Molln)',
             'description' => 'Standard-Tribüne mit 7 Reihen zu je 18 Sitzplätzen',
-            'layout' => "'aaaaaaaaaaaaaaaaaa',
-            'aaaaaaaaaaaaaaaaaa',
-            'aaaaaaaaaaaaaaaaaa',
-            'aaaaaaaaaaaaaaaaaa',
-            'aaaaaaaaaaaaaaaaaa',
-            'aaaaaaaaaaaaaaaaaa',
-            'aaaaaaaaaaaaaaaaaa',"
+            'layout' => '["aaaaaaaaaaaaaaaaaa",
+            "aaaaaaaaaaaaaaaaaa",
+            "aaaaaaaaaaaaaaaaaa",
+            "aaaaaaaaaaaaaaaaaa",
+            "aaaaaaaaaaaaaaaaaa",
+            "aaaaaaaaaaaaaaaaaa",
+            "aaaaaaaaaaaaaaaaaa"]'
         ]);
 
         $seatMapPreEventOnly = App\SeatMap::create([

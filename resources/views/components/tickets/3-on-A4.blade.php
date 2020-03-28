@@ -37,8 +37,11 @@ $logoPath = $logo ? Storage::path($logo->value) : false; // if a logo object exi
         <h2>{{ $ticket->event->second_name }}</h2>
         <p><b>@datetime($ticket->event->start_date) @time($ticket->event->start_date)</b></p>
         @if( $ticket->event->seatMap->layout !== null)
+        @php
+            $rowAndSeat = $ticket->getRowAndSeat();
+        @endphp
         <p>
-            {{__('ticketshop.row')}} <b>{{ (int)ceil($ticket->seat_number / 18)  }}</b>, {{__('ticketshop.seat')}} <b>{{ 19- ( $ticket->seat_number % 18 != 0 ? $ticket->seat_number % 18 : 18) }}</b> ({{ $ticket->seat_number}})
+            {{__('ticketshop.row')}} <b>{{ $rowAndSeat['row']  }}</b>, {{__('ticketshop.seat')}} <b>{{ $rowAndSeat['seat'] }}</b> ({{ $ticket->seat_number}})
         </p>
         @endif
     </div>

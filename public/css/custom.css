@@ -8,6 +8,13 @@
 }
 
 /*
+ * Class to hide elements
+ */
+.hidden {
+	display: none;
+}
+
+/*
  * Seat-Charts.js styles
  */
 #seat-map {

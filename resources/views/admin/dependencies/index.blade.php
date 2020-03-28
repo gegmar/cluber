@@ -146,7 +146,7 @@
                             </table>
                         </div>
                     </div>
-                </div> <!-- End projects card -->
+                </div> <!-- End categories card -->
             </div> <!-- End PriceCategories col-div -->
 
             <!-- PriceList column -->
@@ -187,7 +187,7 @@
                             </table>
                         </div>
                     </div>
-                </div> <!-- End archive card -->
+                </div> <!-- End lists card -->
             </div> <!-- End PriceList col-div -->
         </div> <!-- End row-div -->
     </div>

@@ -38,4 +38,28 @@ class Ticket extends Model
     {
         return $this->belongsTo('App\PriceCategory');
     }
+
+    public function getRowAndSeat()
+    {
+        if( !$this->event->seatMap->layout ) {
+            return null;
+        }
+
+        $counter = 0;
+        $result = [];
+        $rows = json_decode($this->event->seatMap->layout);
+        foreach( $rows as $rowId => $row ) {
+            foreach( str_split($row) as $charId => $char) {
+                if($char === 'a') {
+                    $counter++;
+                }
+                if($counter === $this->seat_number) {
+                    $result['row'] = $rowId;
+                    $result['seat'] = $charId;
+                break;
+                }
+            }
+        }
+        return $result;
+    }
 }
