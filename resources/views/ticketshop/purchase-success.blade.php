@@ -204,10 +204,10 @@
         naming: {
             top: false,
             getLabel: function(character, row, column) {
-                if(row > rowCounter) {
+                if(row > rowCounter) { // reset counter in a new row
                     columnCounter = 0;
                     undefinesCounter = 0;
-                    rowCounter++;
+                    rowCounter = row;
                 }
                 if(character == 'a') {
                     columnCounter++;
