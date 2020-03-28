@@ -46,16 +46,19 @@ class Ticket extends Model
         }
 
         $counter = 0;
+        $columnCounter = 0;
         $result = [];
         $rows = json_decode($this->event->seatMap->layout);
         foreach( $rows as $rowId => $row ) {
+            $columnCounter = 0;
             foreach( str_split($row) as $charId => $char) {
                 if($char === 'a') {
                     $counter++;
+                    $columnCounter++;
                 }
                 if($counter === $this->seat_number) {
-                    $result['row'] = $rowId;
-                    $result['seat'] = $charId;
+                    $result['row'] = $rowId+1;
+                    $result['seat'] = $columnCounter;
                 break;
                 }
             }

@@ -224,7 +224,7 @@ $(document).ready(function() {
         return true;
     });
 
-    var layout = {{ $event->seatMap->layout }};
+    var layout = {!! $event->seatMap->layout !!};
     var rowCounter = 0;
     var columnCounter = 1;
     var maxColumnTracker = 5;
@@ -257,11 +257,11 @@ $(document).ready(function() {
                 }
                 if(undefinesCounter > maxUndefinesTracker) {
                     maxUndefinesTracker = undefinesCounter;
-                    $('#seat-container').css('width', 50 + 40*maxColumnTracker + 40*maxUndefinesTracker);
+                    $('#seat-container').css('width', 100 + 40*maxColumnTracker + 40*maxUndefinesTracker);
                 }
                 if(column > maxColumnTracker) {
                     maxColumnTracker = column;
-                    $('#seat-container').css('width', 50 + 40*maxColumnTracker + 40*maxUndefinesTracker);
+                    $('#seat-container').css('width', 100 + 40*maxColumnTracker + 40*maxUndefinesTracker);
                 }
                 return columnCounter;
             },
