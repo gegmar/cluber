@@ -1,7 +1,7 @@
-<h2>Allgemeine Geschäftsbedingungen von {{ env('APP_OWNER') }}</h2>
+<h2>Allgemeine Geschäftsbedingungen von {{ config('app.owner') }}</h2>
 <h3>1. Geltung der AGBs</h3>
 <ol>
-    <li>Der Vertrag zwischen {{ env('APP_OWNER') }} und TheaterbesucherInnen über den Besuch einer Vorstellung wird mit der Aushändigung der Eintrittskarte an die TheaterbesucherInnen abgeschlossen. Mit der Erklärung, eine Eintrittskarte erwerben zu wollen, unterwirft sich der/die BesucherIn diesen Allgemeinen Geschäftsbedingungen (,,AGB"). Dies gilt auch für den Fall, dass der/die BesucherIn die Eintrittskarte telefonisch, per Internet oder per anderen Kommunikationstechniken bestellt.</li>
+    <li>Der Vertrag zwischen {{ config('app.owner') }} und TheaterbesucherInnen über den Besuch einer Vorstellung wird mit der Aushändigung der Eintrittskarte an die TheaterbesucherInnen abgeschlossen. Mit der Erklärung, eine Eintrittskarte erwerben zu wollen, unterwirft sich der/die BesucherIn diesen Allgemeinen Geschäftsbedingungen (,,AGB"). Dies gilt auch für den Fall, dass der/die BesucherIn die Eintrittskarte telefonisch, per Internet oder per anderen Kommunikationstechniken bestellt.</li>
     <li>Mit der Übertragung der Theaterkarte auf eine/n Dritte/n, wird das Vertragsverhältnis unter Anwendung dieser AGB auf den/die ErwerberIn übertragen. Der/die Veräußerer/in der Theaterkarte ist verpflichtet, den/die ErwerberIn auf die Geltung dieser AGB hinzuweisen.</li>
     <li>Für Personen, die sich in den Theaterräumlichkeiten aufhalten, ohne dass diese AGB im Wege eines Vertragsabschlusses wirksam werden, gelten diese AGB als Hausordnung.</li>
 </ol>

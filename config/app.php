@@ -18,6 +18,11 @@ return [
     'owner' => env('APP_OWNER', 'Club'),
     'owner_webmaster' => env('APP_WEBMASTER', 'webmaster@example.com'),
     'impress_url' => env('IMPRESS_URL', 'https://example.com'),
+    'color_schema' => env('COLOR_SCHEMA', 'default'),
+    'shopping_cart_notification' => env('SHOW_SHOPPING_CART_NOTIFICATION', false),
+    'corona_notification' => env('SHOW_CORONA_NOTIFICATION', false),
+    'show_ticket_count_on_events' => env('SHOW_TICKET_COUNT_ON_EVENTS', false),
+
 
     /*
     |--------------------------------------------------------------------------

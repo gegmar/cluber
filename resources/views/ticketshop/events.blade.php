@@ -28,7 +28,7 @@
                         <p class="card-text"><i class="fa fa-clock-o"></i> @time($event->start_date)</p>
                         <a href="{{ route('ts.seatmap', ['event' => $event->id]) }}" class="btn btn-primary">{{__('ticketshop.Buy_Tickets')}}</a>
                     </div>
-                    <div class="card-footer text-muted">@if(env('SHOW_TICKET_COUNT_ON_EVENTS', false)){{ $event->freeTickets() }} @endif{{__('ticketshop.tickets_still_available')}}</div>
+                    <div class="card-footer text-muted">@if(config('app.show_ticket_count_on_events')){{ $event->freeTickets() }} @endif{{__('ticketshop.tickets_still_available')}}</div>
                 </div>
                 @else
                 <div class="card">

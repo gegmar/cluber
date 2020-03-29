@@ -23,7 +23,7 @@
     <!-- Summernote CSS-->
     <link rel="stylesheet" href="/vendor/summernote/summernote-bs4.css">
     <!-- theme stylesheet-->
-    <link rel="stylesheet" href="/css/style.{{ env('COLOR_SCHEMA', 'default') }}.premium.css" id="theme-stylesheet">
+    <link rel="stylesheet" href="/css/style.{{ config('app.color_schema') }}.premium.css" id="theme-stylesheet">
     <!-- DataTables CSS-->
     <link rel="stylesheet" href="/vendor/datatables.net-bs4/css/dataTables.bootstrap4.css">
     <link rel="stylesheet" href="/vendor/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css">
