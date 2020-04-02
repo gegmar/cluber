@@ -1,8 +1,7 @@
-[![Build Status](https://travis-ci.org/gegmar/cluber.svg?branch=master)](https://travis-ci.org/gegmar/cluber)
+[![Travis Build Status](https://travis-ci.org/gegmar/cluber.svg?branch=master)](https://travis-ci.org/gegmar/cluber)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/gegmar/cluber/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/gegmar/cluber/?branch=master)
-[![Code Coverage](https://scrutinizer-ci.com/g/gegmar/cluber/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/gegmar/cluber/?branch=master)
-[![Build Status](https://scrutinizer-ci.com/g/gegmar/cluber/badges/build.png?b=master)](https://scrutinizer-ci.com/g/gegmar/cluber/build-status/master)
-[![Code Intelligence Status](https://scrutinizer-ci.com/g/gegmar/cluber/badges/code-intelligence.svg?b=master)](https://scrutinizer-ci.com/code-intelligence)
+[![Scrutinizer Build Status](https://scrutinizer-ci.com/g/gegmar/cluber/badges/build.png?b=master)](https://scrutinizer-ci.com/g/gegmar/cluber/build-status/master)
+![GitHub Build Status](https://github.com/gegmar/cluber/workflows/Laravel/badge.svg?branch=master)
 
 ## About Cluber
 
