@@ -1,0 +1,30 @@
+version: '2.1'
+
+# This service collection can be used for local development
+# It is meant to run cluber locally via php artisan serve and configure the local php with xdebug
+
+services:
+  db:
+    image: mariadb:latest
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_DATABASE=homestead
+      - MYSQL_USER=homestead
+      - MYSQL_PASSWORD=secret
+      - MYSQL_ROOT_PASSWORD=secret
+    #volumes: 
+      #- db_data:/var/lib/mysql
+  myadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    ports:
+      - 8080:80
+
+  smtp4dev:
+    image: rnwood/smtp4dev:linux-amd64-v3
+    ports:
+      - 3000:80
+      - "2525:25"
+
+#volumes: 
+  # db_data:

@@ -1,30 +1,39 @@
 version: '2.1'
 services:
 
-  mysql:
-    image: mysql:5.7
+  app:
+    build: .
     ports:
-      - 3306:3306
+      - 8000:80
+    depends_on:
+      - db
+    # For available environment variables take a look into ./.env.example
+    environment:
+      # Please change APP_KEY to your custom application key and keep it secret. This is just a dummy value for quick tests.
+      - APP_KEY=base64:S8cxTwi8mPZkRLpS5ysOoaxYFZ1laoaI9YZdkA+itRI=
+    volumes:
+      - app_data:/var/www/html/storage
+
+  db:
+    image: mariadb:latest
+    expose:
+      - 3306
     environment:
       - MYSQL_DATABASE=homestead
       - MYSQL_USER=homestead
       - MYSQL_PASSWORD=secret
       - MYSQL_ROOT_PASSWORD=secret
-    #volumes: 
-      #- mysql_data:/var/lib/mysql
+    volumes:
+      - db_data:/var/lib/mysql
 
-  myadmin:
-    image: phpmyadmin/phpmyadmin:latest
-    ports:
-      - 8080:80
-    external_links:
-      - mysql:db
-
+  # Dummy-Mailserver. Goto localhost:3000 to watch outgoing mails by cluber
   smtp4dev:
     image: rnwood/smtp4dev:linux-amd64-v3
     ports:
       - 3000:80
-      - "2525:25"
+    expose:
+      - 25
 
-#volumes: 
-  # mysql_data:
+volumes:
+  db_data:
+  app_data:
