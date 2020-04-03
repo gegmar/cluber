@@ -43,4 +43,7 @@ RUN php artisan optimize \
 # Change owner of apache/php writable dirs to www-data 
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/public /var/www/html/bootstrap/cache
 
+# Allow execution of startup script for builds done on linux
+RUN chmod +x docker/startup-script.sh
+
 CMD [ "./docker/startup-script.sh" ]
