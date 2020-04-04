@@ -14,21 +14,21 @@ class RolesAndPermissionsSeeder extends Seeder
         /**
          * Create default roles and permissions required for the app to work
          */
-        $pem_paymentProvider = App\Permission::create(['name' => 'PAYMENT_PROVIDER']);          // Allowed to perform online payments
-        $pem_sellTickets = App\Permission::create(['name' => 'SELL_TICKETS']);                  // Allowed to sell tickets
-        $pem_reserveTickets = App\Permission::create(['name' => 'RESERVE_TICKETS']);            // Allowed to reserve tickets
-        $pem_handoutFreeTickets = App\Permission::create(['name' => 'HANDLING_FREE_TICKETS']);  // Allow to hand out free tickets
-        $pem_getNewsletter = App\Permission::create(['name' => 'RECEIVE_NEWSLETTER']);          // Wants to receive newsletters
-        $pem_administrate = App\Permission::create(['name' => 'ADMINISTRATE']);                 // Can administrate application
-        $pem_supervise = App\Permission::create(['name' => 'SUPERVISE']);                       // Can view all details of events, evaluate statistics
+        $pem_paymentProvider = App\Permission::firstOrCreate(['name' => 'PAYMENT_PROVIDER']);          // Allowed to perform online payments
+        $pem_sellTickets = App\Permission::firstOrCreate(['name' => 'SELL_TICKETS']);                  // Allowed to sell tickets
+        $pem_reserveTickets = App\Permission::firstOrCreate(['name' => 'RESERVE_TICKETS']);            // Allowed to reserve tickets
+        $pem_handoutFreeTickets = App\Permission::firstOrCreate(['name' => 'HANDLING_FREE_TICKETS']);  // Allow to hand out free tickets
+        $pem_getNewsletter = App\Permission::firstOrCreate(['name' => 'RECEIVE_NEWSLETTER']);          // Wants to receive newsletters
+        $pem_administrate = App\Permission::firstOrCreate(['name' => 'ADMINISTRATE']);                 // Can administrate application
+        $pem_supervise = App\Permission::firstOrCreate(['name' => 'SUPERVISE']);                       // Can view all details of events, evaluate statistics
 
-        $role_retailer = App\Role::create(['name' => 'Retailer']);
-        $role_reservation = App\Role::create(['name' => 'Reservation']);
-        $role_freeTicketHandler = App\Role::create(['name' => 'FreeTicketHandler']);
-        $role_supervisor = App\Role::create(['name' => 'Supervisor']);
-        $role_admin = App\Role::create(['name' => 'Administrator']);
-        $role_newsletterReceiver = App\Role::create(['name' => 'NewsletterReceiver']);
-        $role_paymentProvider = App\Role::create(['name' => 'PaymentProvider']);
+        $role_retailer = App\Role::firstOrCreate(['name' => 'Retailer']);
+        $role_reservation = App\Role::firstOrCreate(['name' => 'Reservation']);
+        $role_freeTicketHandler = App\Role::firstOrCreate(['name' => 'FreeTicketHandler']);
+        $role_supervisor = App\Role::firstOrCreate(['name' => 'Supervisor']);
+        $role_admin = App\Role::firstOrCreate(['name' => 'Administrator']);
+        $role_newsletterReceiver = App\Role::firstOrCreate(['name' => 'NewsletterReceiver']);
+        $role_paymentProvider = App\Role::firstOrCreate(['name' => 'PaymentProvider']);
 
         $role_newsletterReceiver->permissions()->attach($pem_getNewsletter);
         $role_paymentProvider->permissions()->attach($pem_paymentProvider);
