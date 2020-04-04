@@ -30,7 +30,7 @@ until php artisan app:check-db-connection; do
 done
 
 # Run migrations
-php artisan migrate
+php artisan migrate --seed
 
 # startup apache2
 apache2-foreground
