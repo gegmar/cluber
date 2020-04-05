@@ -30,12 +30,12 @@ class RolesAndPermissionsSeeder extends Seeder
         $role_newsletterReceiver = App\Role::firstOrCreate(['name' => 'NewsletterReceiver']);
         $role_paymentProvider = App\Role::firstOrCreate(['name' => 'PaymentProvider']);
 
-        $role_newsletterReceiver->permissions()->attach($pem_getNewsletter);
-        $role_paymentProvider->permissions()->attach($pem_paymentProvider);
-        $role_admin->permissions()->attach($pem_administrate);
-        $role_retailer->permissions()->attach($pem_sellTickets);
-        $role_reservation->permissions()->attach($pem_reserveTickets);
-        $role_supervisor->permissions()->attach($pem_supervise);
-        $role_freeTicketHandler->permissions()->attach($pem_handoutFreeTickets);
+        $role_newsletterReceiver->permissions()->sync($pem_getNewsletter);
+        $role_paymentProvider->permissions()->sync($pem_paymentProvider);
+        $role_admin->permissions()->sync($pem_administrate);
+        $role_retailer->permissions()->sync($pem_sellTickets);
+        $role_reservation->permissions()->sync($pem_reserveTickets);
+        $role_supervisor->permissions()->sync($pem_supervise);
+        $role_freeTicketHandler->permissions()->sync($pem_handoutFreeTickets);
     }
 }
