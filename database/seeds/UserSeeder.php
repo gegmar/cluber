@@ -33,9 +33,17 @@ class UserSeeder extends Seeder
         ]);
         $klarna->save();
 
+        $mollie = App\User::firstOrNew(['email' => 'mollie@system.local'], [
+            'name' => 'Mollie',
+            'email_verified_at' => null,
+            'password' => '',
+        ]);
+        $mollie->save();
+
         $paymentProvider = App\Role::where('name', 'PaymentProvider')->first();
 
-        $paypal->roles()->attach($paymentProvider);
-        $klarna->roles()->attach($paymentProvider);
+        $paypal->roles()->sync($paymentProvider);
+        $klarna->roles()->sync($paymentProvider);
+        $mollie->roles()->sync($paymentProvider);
     }
 }

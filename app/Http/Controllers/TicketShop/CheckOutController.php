@@ -124,6 +124,9 @@ class CheckOutController extends Controller
             case 'PayPal':
                 $paymentProvider = resolve('App\PaymentProvider\PayPal');
                 break;
+            case 'Mollie':
+                $paymentProvider = resolve('App\PaymentProvider\Mollie');
+                break;
             default:
                 DB::rollBack();
                 return redirect()->route('ts.overview')

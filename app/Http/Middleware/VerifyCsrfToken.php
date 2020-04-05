@@ -19,6 +19,6 @@ class VerifyCsrfToken extends Middleware
      * @var array
      */
     protected $except = [
-        //
+        'ts/payment/mollie/webhook', // Except the Mollie Webhool-Url for requests sent via POST
     ];
 }

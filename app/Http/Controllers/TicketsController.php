@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Purchase;
 use App\Ticket;
+use App\User;
 use Spipu\Html2Pdf\Html2Pdf;
 use Spipu\Html2Pdf\Exception\Html2PdfException;
 use Illuminate\Support\Facades\Log;
@@ -17,12 +18,11 @@ class TicketsController extends Controller
      */
     public function showPurchase(Purchase $purchase)
     {
-        if (!in_array($purchase->state, $this->soldStates)) {
-            Log::warning('Someone tried to access unpaid tickets of purchase#' . $purchase->id);
-            return redirect()->route('ts.events')->with('state', 'Error - Purchase has not been paid yet.');
-        }
-
-        return view('ticketshop.purchase-success', ['purchase' => $purchase]);
+        $mollie = User::firstWhere('email', 'mollie@system.local');
+        return view('ticketshop.purchase-success', [
+            'purchase' => $purchase,
+            'mollie'   => $mollie->id
+        ]);
     }
 
     /**

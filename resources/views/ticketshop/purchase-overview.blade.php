@@ -118,6 +118,10 @@
                     <form action="{{ route('ts.pay') }}" method="post">
                         @csrf
                         <ul class="list-group list-group-flush">
+                            @if(config('paymentprovider.mollieApiKey'))
+                            <li class="list-group-item"><input type="radio" name="paymethod" value="Mollie" required/> <img src="/img/logos/mollie.com_small.png"
+                                    alt="Mollie" height="30px"></li>
+                            @endif
                             @if(config('paymentprovider.payPalClientSecret'))
                             <li class="list-group-item"><input type="radio" name="paymethod" value="PayPal" required/> <img src="/img/logos/paypal.jpg"
                                     alt="PayPal" height="30px">{{-- {{__('ticketshop.or_credit_card')}} --}}</li>

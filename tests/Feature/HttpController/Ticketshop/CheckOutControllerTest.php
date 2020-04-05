@@ -6,7 +6,7 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use App\Event;
-use App\PaymentProvider\Klarna;
+use App\PaymentProvider\Mollie;
 
 class CheckOutControllerTest extends TestCase
 {
@@ -65,10 +65,10 @@ class CheckOutControllerTest extends TestCase
             $tickets[$category->id] = 1;
         }
 
-        $this->mock(Klarna::class, function ($mock) {
+        $this->mock(Mollie::class, function ($mock) {
             $mock->shouldReceive('getPaymentUrl')
                 ->once()
-                ->andReturn('http://localhost/mockKlarna');
+                ->andReturn('http://localhost/mockMollie');
         });
 
         $response = $this->withSession([
@@ -76,7 +76,7 @@ class CheckOutControllerTest extends TestCase
             'event' => $event,
             'tickets' => $tickets
         ])->post('/ts/pay', [
-            'paymethod' => 'Klarna'
+            'paymethod' => 'Mollie'
         ]);
         $response->assertRedirect();
     }

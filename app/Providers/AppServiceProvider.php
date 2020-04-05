@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Blade;
 use App\PaymentProvider\Klarna;
+use App\PaymentProvider\Mollie;
 use App\PaymentProvider\PayPal;
 
 class AppServiceProvider extends ServiceProvider
@@ -40,6 +41,10 @@ class AppServiceProvider extends ServiceProvider
                 config('paymentprovider.payPalClientId'),     // ClientID
                 config('paymentprovider.payPalClientSecret')  // ClientSecret
             );
+        });
+
+        $this->app->bind('App\PaymentProvider\Mollie', function() {
+            return new Mollie( config('paymentprovider.mollieApiKey') );
         });
     }
 }

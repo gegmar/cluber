@@ -104,7 +104,8 @@
             </div>
             @endif
 
-            @if($purchase->state != 'reserved')
+            {{-- Only show the download link to the pdf tickets, when they are paid --}}
+            @if( $purchase->state == 'paid' || $purchase->state == 'free' )
             <div class="col-md-4">
                 <div class="card">
                     <div class="card-header d-flex align-items-center">
@@ -115,6 +116,22 @@
                     </div>
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item"><a target="_blank" href="{{ route('ticket.download', ['purchase' => $purchase->random_id]) }}">{{__('ticketshop.tickets')}}</a></li>
+                    </ul>
+                </div>
+            </div>
+            {{-- Only show an update button to the state for mollie purchases --}}
+            @elseif( $purchase->vendor && $purchase->vendor->id == $mollie )
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header d-flex align-items-center">
+                        <h3 class="h4">{{__('ticketshop.purchase_state')}}</h3>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">{{__('ticketshop.purchase_state_description')}}</p>
+                        <p class="card-text">{{__('ticketshop.purchase_state')}} ({{ $purchase->state_updated }}): <div id="purchase-state-badge" class="badge badge-info">{{ $purchase->state }}</div></p>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><button class="btn btn-primary" id="update-purchase">{{__('ticketshop.purchase_state_refresh')}}</button></li>
                     </ul>
                 </div>
             </div>
@@ -182,67 +199,83 @@
 @section('custom-js')
 <script type="text/javascript">
     $(document).ready(function() {
+        
+        $('#update-purchase').click(function() {
+            $(this).prop('disabled', true);
+            $.get("{{ route('ts.payment.mollie.purchase-update', $purchase) }}", function(data) {
+                $(this).prop('disabled', false);
+                if(data == 'paid') {
+                    // If the purchase's state changed to "paid",
+                    // reload the page to get the ticket-download-link from the server
+                    location.reload(true);
+                } else {
+                    // Update the state badge with the current purchase-state
+                    // received from the server
+                    $('#purchase-state-badge').text(data);
+                }
+            });
+        });
+
         @foreach($purchase->events() as $event)
         @if($event->seatMap->layout)
-    var firstSeatLabel = 1;
-    var layout = {!! $event->seatMap->layout !!};
-    var rowCounter = 0;
-    var columnCounter = 1;
-    var maxColumnTracker = 5;
-    var undefinesCounter = 0;
-    var maxUndefinesTracker = 0;
-    var sc = $('#seat-map-{{ $event->id }}').seatCharts({
-        map: layout, 
-        seats: {
-            a: {
-                price: 100,
-                classes: 'first-class', //your custom CSS class
-                category: 'First Class'
-            },
+            var firstSeatLabel = 1;
+            var layout = {!! $event->seatMap->layout !!};
+            var rowCounter = 0;
+            var columnCounter = 1;
+            var maxColumnTracker = 5;
+            var undefinesCounter = 0;
+            var maxUndefinesTracker = 0;
+            var sc = $('#seat-map-{{ $event->id }}').seatCharts({
+                map: layout, 
+                seats: {
+                    a: {
+                        price: 100,
+                        classes: 'first-class', //your custom CSS class
+                        category: 'First Class'
+                    },
+                },
+                naming: {
+                    top: false,
+                    getLabel: function(character, row, column) {
+                        if(row > rowCounter) { // reset counter in a new row
+                            columnCounter = 0;
+                            undefinesCounter = 0;
+                            rowCounter = row;
+                        }
+                        if(character == 'a') {
+                            columnCounter++;
+                        }
+                        if(!column) { // happens if column is undefined due to exceed the columns of the first row
+                            undefinesCounter++;
+                        }
+                        if(undefinesCounter > maxUndefinesTracker) {
+                            maxUndefinesTracker = undefinesCounter;
+                            $('#seat-container').css('width', 100 + 40*maxColumnTracker + 40*maxUndefinesTracker);
+                        }
+                        if(column > maxColumnTracker) {
+                            maxColumnTracker = column;
+                            $('#seat-container').css('width', 100 + 40*maxColumnTracker + 40*maxUndefinesTracker);
+                        }
+                        return columnCounter;
+                    },
+                    getId: function(character, row, column) {
+                        return firstSeatLabel++;
+                    }
+                },
+                legend: {
+                    node: $('#legend'),
+                    items: [
+                        ['a', 'selected', "{{__('ticketshop.selected')}}"]
+                    ]
+                },
+                click: function() {
+                    return this.status();
+                }
+            });
 
-        },
-        naming: {
-            top: false,
-            getLabel: function(character, row, column) {
-                if(row > rowCounter) { // reset counter in a new row
-                    columnCounter = 0;
-                    undefinesCounter = 0;
-                    rowCounter = row;
-                }
-                if(character == 'a') {
-                    columnCounter++;
-                }
-                if(!column) { // happens if column is undefined due to exceed the columns of the first row
-                    undefinesCounter++;
-                }
-                if(undefinesCounter > maxUndefinesTracker) {
-                    maxUndefinesTracker = undefinesCounter;
-                    $('#seat-container').css('width', 100 + 40*maxColumnTracker + 40*maxUndefinesTracker);
-                }
-                if(column > maxColumnTracker) {
-                    maxColumnTracker = column;
-                    $('#seat-container').css('width', 100 + 40*maxColumnTracker + 40*maxUndefinesTracker);
-                }
-                return columnCounter;
-            },
-            getId: function(character, row, column) {
-                return firstSeatLabel++;
-            }
-        },
-        legend: {
-            node: $('#legend'),
-            items: [
-                ['a', 'selected', "{{__('ticketshop.selected')}}"]
-            ]
-        },
-        click: function() {
-            return this.status();
-        }
-    });
-
-    // Set booked seats as unavailable
-    var bookedSeats = {{ json_encode( $event->tickets()->where('purchase_id', $purchase->id)->pluck('seat_number')->toArray() ) }};
-    sc.get(bookedSeats).status('selected');
+            // Set booked seats as unavailable
+            var bookedSeats = {{ json_encode( $event->tickets()->where('purchase_id', $purchase->id)->pluck('seat_number')->toArray() ) }};
+            sc.get(bookedSeats).status('selected');
         @endif
         @endforeach
     });

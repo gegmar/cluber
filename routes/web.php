@@ -51,7 +51,14 @@ Route::namespace('TicketShop')->prefix('ts')->name('ts.')->group(function () {
         Route::get('{purchase}/timedout', 'PaymentProviderController@paymentTimedOut')->name('timedout');
 
         // PaymentProvider-specific URLs
+        // PayPal
         Route::get('{purchase}/{secret}/paypal/executepayment', 'PaymentProviderController@payPalExecutePayment')->name('payPalExec');
+
+        // Mollie
+        Route::prefix('mollie')->name('mollie.')->group( function() {
+            Route::post('/webhook', 'MollieController@processWebhook')->name('webhook');
+            Route::get('/{purchase}/update', 'MollieController@getPaymentUpdate')->name('purchase-update');
+        });
     });
 });
 

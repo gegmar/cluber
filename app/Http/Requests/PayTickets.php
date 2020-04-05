@@ -30,6 +30,9 @@ class PayTickets extends FormRequest
         if(config('paymentprovider.payPalClientSecret')) {
             $filter .= 'PayPal,';
         }
+        if(config('paymentprovider.mollieApiKey')) {
+            $filter .= 'Mollie';
+        }
         return [
             'paymethod' => [
                 'required',

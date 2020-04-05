@@ -4,13 +4,24 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Mollie
+    |--------------------------------------------------------------------------
+    |
+    | Get credentials by creating an account @ mollie.com . Enter the api key
+    | into the .env-file.
+    |
+     */
+    'mollieApiKey' => env('MOLLIE_API_KEY', ''),
+
+    /*
+    |--------------------------------------------------------------------------
     | Sofortueberweisung
     |--------------------------------------------------------------------------
     |
     | You need an own SOFORT Gateway-Project, where you can create a Gateway-Project
     | to receive an API-Key.
     |
- */
+    */
 
     'sofortConfigKey' => env('KLARNA_CONFIG_KEY', ''),
 
