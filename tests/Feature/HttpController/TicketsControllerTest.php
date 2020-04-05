@@ -35,7 +35,8 @@ class TicketsControllerTest extends TestCase
         $soldStates = ['paid', 'free', 'reserved'];
 
         $response = $this->get("/ticket/$purchase->random_id/all");
-        $response->assertRedirect('/ts');
+        $response->assertStatus(200);
+        $response->assertDontSee("/ticket/$purchase->random_id/download");
 
         $response = $this->get("/ticket/$purchase->random_id/download");
         $response->assertRedirect('/ts');
