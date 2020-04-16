@@ -119,6 +119,21 @@
                     </ul>
                 </div>
             </div>
+            {{-- Show a link back to the ticketshop if the purchase has already been deleted (reasons could be failed/outdated/timedout payments) --}}
+            @elseif( $purchase->state == 'deleted' )
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header d-flex align-items-center">
+                        <h3 class="h4">{{__('ticketshop.purchase_state')}}</h3>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">{{__('ticketshop.purchase_state_deleted_description')}}</p>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><a href="{{ route('ts.events') }}">{{__('ticketshop.back_to_events')}}</a></li>
+                    </ul>
+                </div>
+            </div>
             {{-- Only show an update button to the state for mollie purchases --}}
             @elseif( $purchase->vendor && $purchase->vendor->id == $mollie )
             <div class="col-md-4">

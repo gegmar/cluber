@@ -129,6 +129,7 @@ return [
     'purchase_overview_description' => 'Das sind Ihre Verkäufe. Sie können diese über das "Suchen/Search" Feld durchsuchen!',
     'purchase_success' => 'Vielen Dank! Sie können Ihre Tickets hier als PDF-Datei herunterladen! Bitte bringen Sie diese zur Veranstaltung mit, um eingelassen zu werden.',
     'purchase_state' => 'Einkaufstatus',
+    'purchase_state_deleted_description' => 'Dieser Einkauf wurde gelöscht. Das kann passieren, wenn die Zahlung nicht zeitgerecht durchgeführt oder abgebrochen wurde oder ungültig war. Bitte gehen Sie zurück zur Veranstaltungsübersicht und starten Sie einen neuen Einkauf!',
     'purchase_state_description' => 'Die folgende Information zeigt den aktuellen Status Ihres Einkaufs an. Durch drücken des unteren Buttons, können Sie diesen neu laden.',
     'purchase_state_refresh' => 'Status erneut laden',
     'purchases' => 'Verkäufe',

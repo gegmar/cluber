@@ -132,6 +132,7 @@ return [
     'purchase_success' => 'Success! You can download your tickets here as pdf! Please bring them to
     the event in order to enter the location.',
     'purchase_state' => 'Purchase state',
+    'purchase_state_deleted_description' => 'This purchase has been deleted. It might be caused by a timed out, failed or invalid payment. Please go back to the events and try again purchasing your tickets!',
     'purchase_state_description' => 'The following information shows the currently known status of the ticketshop. By clicking the button below you can refresh the status.',
     'purchase_state_refresh' => 'Refresh state',
     'purchases' => 'Purchases',
