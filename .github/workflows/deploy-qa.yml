@@ -16,15 +16,56 @@ jobs:
     runs-on: ubuntu-latest
     # The following steps must be performed in order to have a working deployment on the given environment
     steps:
-    - name: Deploy with SSH on remote environment
+    - name: 'Deploy with SSH on remote environment #1'
       uses: JimCronqvist/action-ssh@master
       with:
         hosts: ${{ secrets.ENV_1_USER_AT_HOST }}
         privateKey: ${{ secrets.SSH_KEY }}
         debug: false
+        # Run the following commands on the remote environment
+        # 1. Pull latest changes from github
+        # 2. Update composer
+        # 3. Install dependencies with composer
+        # 4. (Re)Create caches
+        # 5. Perform migrations and required seedings
         command: |
           cd ${{ secrets.ENV_1_DIR }}
-          cd qa
+          git pull
+          php73 ../composer.phar self-update
+          php73 ../composer.phar install --no-dev --optimize-autoloader
+          php73 artisan optimize
+          php73 artisan route:cache
+          php73 artisan view:cache
+          php73 artisan config:cache
+          php73 artisan migrate --seed
+
+  deploy-2:
+    - name: 'Deploy with SSH on remote environment #2'
+      uses: JimCronqvist/action-ssh@master
+      with:
+        hosts: ${{ secrets.ENV_2_USER_AT_HOST }}
+        privateKey: ${{ secrets.SSH_KEY }}
+        debug: false
+        command: |
+          cd ${{ secrets.ENV_2_DIR }}
+          git pull
+          php73 ../composer.phar self-update
+          php73 ../composer.phar install --no-dev --optimize-autoloader
+          php73 artisan optimize
+          php73 artisan route:cache
+          php73 artisan view:cache
+          php73 artisan config:cache
+          php73 artisan migrate --seed
+
+  deploy-3:
+    - name: 'Deploy with SSH on remote environment #3'
+      uses: JimCronqvist/action-ssh@master
+      with:
+        hosts: ${{ secrets.ENV_3_USER_AT_HOST }}
+        privateKey: ${{ secrets.SSH_KEY }}
+        debug: false
+        command: |
+          cd ${{ secrets.ENV_3_DIR }}
           git pull
           php73 ../composer.phar self-update
           php73 ../composer.phar install --no-dev --optimize-autoloader
