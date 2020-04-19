@@ -26,6 +26,7 @@ jobs:
           cd ${{ secrets.ENV_1_DIR }}
           cd qa
           git pull
+          php73 ../composer.phar self-update
           php73 ../composer.phar install --no-dev --optimize-autoloader
           php73 artisan optimize
           php73 artisan route:cache
