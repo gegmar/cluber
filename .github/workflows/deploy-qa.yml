@@ -19,7 +19,7 @@ jobs:
     - name: Deploy with SSH on remote environment
       uses: appleboy/ssh-action@v0.0.2
       with:
-        host: ${{ secrets.HOST }}
+        host: ${{ secrets.ENV_1_HOST }}
         username: ${{ secrets.ENV_1_USERNAME }}
         key: ${{ secrets.DEPLOY_KEY }}
         port: ${{ secrets.ENV_1_PORT }}
