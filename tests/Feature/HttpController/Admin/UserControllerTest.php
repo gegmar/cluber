@@ -8,7 +8,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use App\User;
 
-class UserController extends TestCase
+class UserControllerTest extends TestCase
 {
     use DatabaseTransactions;
     use WithFaker;

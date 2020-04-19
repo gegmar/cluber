@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Ticketshop;
+namespace App\Http\Controllers\TicketShop;
 
 use App\Exceptions\PaymentProviderException;
 use App\Http\Controllers\Controller;

@@ -8,7 +8,7 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 use App\Role;
 use App\User;
 
-class RoleController extends TestCase
+class RoleControllerTest extends TestCase
 {
     use DatabaseTransactions;
     use WithFaker;
