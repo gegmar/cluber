@@ -23,13 +23,31 @@ jobs:
         privateKey: ${{ secrets.SSH_KEY }}
         debug: false
         # Run the following commands on the remote environment
-        # 1. Pull latest changes from github
-        # 2. Update composer
-        # 3. Install dependencies with composer
-        # 4. (Re)Create caches
-        # 5. Perform migrations and required seedings
+        # 01. Change into the shop directory containing a prod and qa 
+        # 02. Create SQL-Dump of PROD-DB
+        # 03. Drop all tables from QA-DB. Must be done by small hack, because a "DROP DATABASE"-Statement is not possible
+        # 04. Restore the PROD-DB-Dump in the QA-DB
+        # 05. Backup QA-.env-file with secrets
+        # 06. Delete full QA-directory
+        # 07. Copy the current PROD-directory as new QA-directory
+        # 08. Restore the QA-.env.file
+        # 09. Change into the new QA-directory
+        # 10. Pull latest changes from github
+        # 11. Update composer
+        # 12. Install dependencies with composer
+        # 13. (Re)Create caches
+        # 14. Perform migrations and required seedings
+        # 15. QA-Environment is ready for manual tests!
         command: |
           cd ${{ secrets.ENV_1_DIR }}
+          mysqldump ${{ secrets.ENV_1_PROD_DB_AUTH }} > prod_backup.sql
+          mysql -B ${{ secrets.ENV_2_QA_DB_AUTH }} -e 'SELECT "SET FOREIGN_KEY_CHECKS = 0;" AS "SHOW TABLES;" UNION SELECT concat("DROP TABLE IF EXISTS `", table_name, "`;") AS "SHOW TABLES;" FROM information_schema.tables WHERE table_schema = "${{ secrets.ENV_1_QA_DB_NAME }}" UNION SELECT "SET FOREIGN_KEY_CHECKS = 1;" AS "SHOW TABLES;";' | mysql ${{ secrets.ENV_2_QA_DB_AUTH }}
+          mysql ${{ secrets.ENV_2_QA_DB_AUTH }} < prod_backup.sql
+          cp qa/.env .
+          rm -rf qa
+          cp -r prod qa
+          cp .env qa/
+          cd qa
           git pull
           php73 ../composer.phar self-update
           php73 ../composer.phar install --no-dev --optimize-autoloader
