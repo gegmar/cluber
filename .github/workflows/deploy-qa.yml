@@ -16,27 +16,13 @@ jobs:
     runs-on: ubuntu-latest
     # The following steps must be performed in order to have a working deployment on the given environment
     steps:
-    - name: Execute SSH commmands on remote server
+    - name: Deploy with SSH on remote environment
       uses: JimCronqvist/action-ssh@master
-      env:
-        NAME: "Root"
       with:
         hosts: ${{ secrets.ENV_1_USER_AT_HOST }}
         privateKey: ${{ secrets.SSH_KEY }}
         debug: false
         command: |
-          cd ${{ secrets.ENV_1_DIR }}
-          ls -lah
-          echo "I am $NAME"
-    - name: Deploy with SSH on remote environment
-      uses: appleboy/ssh-action@v0.0.2
-      with:
-        host: ${{ secrets.ENV_1_HOST }}
-        username: ${{ secrets.ENV_1_USERNAME }}
-        key: ${{ secrets.DEPLOY_KEY }}
-        port: ${{ secrets.ENV_1_PORT }}
-        passphrase: ${{ secrets.DEPLOY_KEY_PASSPHRASE }}
-        script: |
           cd ${{ secrets.ENV_1_DIR }}
           cd qa
           git pull
