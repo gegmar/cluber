@@ -41,8 +41,8 @@ jobs:
         command: |
           cd ${{ secrets.ENV_1_DIR }}
           mysqldump ${{ secrets.ENV_1_PROD_DB_AUTH }} > prod_backup.sql
-          mysql -B ${{ secrets.ENV_2_QA_DB_AUTH }} -e 'SELECT "SET FOREIGN_KEY_CHECKS = 0;" AS "SHOW TABLES;" UNION SELECT concat("DROP TABLE IF EXISTS `", table_name, "`;") AS "SHOW TABLES;" FROM information_schema.tables WHERE table_schema = "${{ secrets.ENV_1_QA_DB_NAME }}" UNION SELECT "SET FOREIGN_KEY_CHECKS = 1;" AS "SHOW TABLES;";' | mysql ${{ secrets.ENV_2_QA_DB_AUTH }}
-          mysql ${{ secrets.ENV_2_QA_DB_AUTH }} < prod_backup.sql
+          mysql -B ${{ secrets.ENV_1_QA_DB_AUTH }} -e 'SELECT "SET FOREIGN_KEY_CHECKS = 0;" AS "SHOW TABLES;" UNION SELECT concat("DROP TABLE IF EXISTS `", table_name, "`;") AS "SHOW TABLES;" FROM information_schema.tables WHERE table_schema = "${{ secrets.ENV_1_QA_DB_NAME }}" UNION SELECT "SET FOREIGN_KEY_CHECKS = 1;" AS "SHOW TABLES;";' | mysql ${{ secrets.ENV_1_QA_DB_AUTH }}
+          mysql ${{ secrets.ENV_1_QA_DB_AUTH }} < prod_backup.sql
           cp qa/.env .
           rm -rf qa
           cp -r prod qa
