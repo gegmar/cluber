@@ -15,11 +15,8 @@ jobs:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
     # The following steps must be performed in order to have a working deployment on the given environment
-    steps:
-    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-    - uses: actions/checkout@v2
-    
-    - name: Deploy by SSH from remote environment
+    steps:    
+    - name: Deploy with SSH on remote environment
       uses: appleboy/ssh-action@v0.0.2
       with:
         host: ${{ secrets.ENV_1_HOST }}
