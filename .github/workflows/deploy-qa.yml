@@ -40,6 +40,8 @@ jobs:
           php73 artisan migrate --seed
 
   deploy-2:
+    runs-on: ubuntu-latest
+    steps:
     - name: 'Deploy with SSH on remote environment #2'
       uses: JimCronqvist/action-ssh@master
       with:
@@ -58,6 +60,8 @@ jobs:
           php73 artisan migrate --seed
 
   deploy-3:
+    runs-on: ubuntu-latest
+    steps:
     - name: 'Deploy with SSH on remote environment #3'
       uses: JimCronqvist/action-ssh@master
       with:
