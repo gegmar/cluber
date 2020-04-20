@@ -22,7 +22,8 @@ jobs:
         hosts: ${{ secrets.ENV_1_USER_AT_HOST }}
         privateKey: ${{ secrets.SSH_KEY }}
         debug: false
-        # Run the following commands on the remote environment
+        # Run the following commands on the remote environment and
+        # log the output to $LOG to minimize data leakage about the server environment
         # 01. Change into the shop directory containing a prod and qa 
         # 02. Create SQL-Dump of PROD-DB
         # 03. Drop all tables from QA-DB. Must be done by small hack, because a "DROP DATABASE"-Statement is not possible
@@ -39,23 +40,35 @@ jobs:
         # 14. Perform migrations and required seedings
         # 15. QA-Environment is ready for manual tests!
         command: |
+          BCK_FILE=${{ secrets.ENV_1_DIR }}/prod_backup_$(date +%F_%T).sql
+          LOG_FILE=${{ secrets.ENV_1_DIR }}/deployment_${{ github.sha }}_$(date +%F_%T).log
+          echo "=== Changing into deployment-dir ===" >> $LOG_FILE
           cd ${{ secrets.ENV_1_DIR }}
-          mysqldump ${{ secrets.ENV_1_PROD_DB_AUTH }} > prod_backup.sql
-          mysql -B ${{ secrets.ENV_1_QA_DB_AUTH }} -e 'SELECT "SET FOREIGN_KEY_CHECKS = 0;" AS "SHOW TABLES;" UNION SELECT concat("DROP TABLE IF EXISTS `", table_name, "`;") AS "SHOW TABLES;" FROM information_schema.tables WHERE table_schema = "${{ secrets.ENV_1_QA_DB_NAME }}" UNION SELECT "SET FOREIGN_KEY_CHECKS = 1;" AS "SHOW TABLES;";' | mysql ${{ secrets.ENV_1_QA_DB_AUTH }}
-          mysql ${{ secrets.ENV_1_QA_DB_AUTH }} < prod_backup.sql
-          cp qa/.env .
-          rm -rf qa
-          cp -r prod qa
-          cp .env qa/
+          echo "=== [DB] Creating sql-backup from PROD-DB ===" >> $LOG_FILE
+          mysqldump ${{ secrets.ENV_1_PROD_DB_AUTH }} 2>> $LOG_FILE > $BCK_FILE
+          echo "=== [DB] Delete all tables from QA-DB ===" >> $LOG_FILE
+          mysql -B ${{ secrets.ENV_1_QA_DB_AUTH }} -e 'SELECT "SET FOREIGN_KEY_CHECKS = 0;" AS "SHOW TABLES;" UNION SELECT concat("DROP TABLE IF EXISTS `", table_name, "`;") AS "SHOW TABLES;" FROM information_schema.tables WHERE table_schema = "${{ secrets.ENV_1_QA_DB_NAME }}" UNION SELECT "SET FOREIGN_KEY_CHECKS = 1;" AS "SHOW TABLES;";' | mysql ${{ secrets.ENV_1_QA_DB_AUTH }} >> $LOG_FILE 2>&1
+          echo "=== [DB] Restore PROD content to QA-DB ===" >> $LOG_FILE
+          mysql ${{ secrets.ENV_1_QA_DB_AUTH }} < $BCK_FILE >> $LOG_FILE 2>&1
+          echo "=== [FS] Backup QA-.env-file and set current PROD files as new QA files ===" >> $LOG_FILE
+          cp qa/.env . >> $LOG_FILE 2>&1
+          rm -rf qa >> $LOG_FILE 2>&1
+          cp -r prod qa >> $LOG_FILE 2>&1
+          cp .env qa/ >> $LOG_FILE 2>&1
+          echo "=== Change into QA dir ===" >> $LOG_FILE
           cd qa
-          git pull
-          php73 ../composer.phar self-update
-          php73 ../composer.phar install --no-dev --optimize-autoloader --no-suggest --no-progress
-          php73 artisan optimize
-          php73 artisan route:cache
-          php73 artisan view:cache
-          php73 artisan config:cache
-          php73 artisan migrate --seed
+          echo "=== [GIT] Pull newest changes from Repository ===" >> $LOG_FILE
+          git pull >> $LOG_FILE 2>&1
+          echo "=== [Composer] Update composer and install dependencies ===" >> $LOG_FILE
+          php73 ../composer.phar self-update >> $LOG_FILE 2>&1
+          php73 ../composer.phar install --no-dev --optimize-autoloader --no-suggest --no-progress >> $LOG_FILE 2>&1
+          echo "=== [Artisan] Create caches from routes, views and config ===" >> $LOG_FILE
+          php73 artisan optimize >> $LOG_FILE 2>&1
+          php73 artisan route:cache >> $LOG_FILE 2>&1
+          php73 artisan view:cache >> $LOG_FILE 2>&1
+          php73 artisan config:cache >> $LOG_FILE 2>&1
+          echo "=== [Artisan|DB] Perform database migrations ===" >> $LOG_FILE
+          php73 artisan migrate --seed >> $LOG_FILE 2>&1
 
   deploy-2:
     runs-on: ubuntu-latest
