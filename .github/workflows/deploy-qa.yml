@@ -40,8 +40,8 @@ jobs:
         # 14. Perform migrations and required seedings
         # 15. QA-Environment is ready for manual tests!
         command: |
-          BCK_FILE=${{ secrets.ENV_1_DIR }}/prod_backup_$(date +%F_%T).sql
-          LOG_FILE=${{ secrets.ENV_1_DIR }}/deployment_${{ github.sha }}_$(date +%F_%T).log
+          BCK_FILE=${{ secrets.ENV_1_DIR }}/deployments/prod-db_$(date +%F_%T).sql
+          LOG_FILE=${{ secrets.ENV_1_DIR }}/deployments/qa_${{ github.sha }}_$(date +%F_%T).log
           echo "=== Changing into deployment-dir ===" >> $LOG_FILE
           cd ${{ secrets.ENV_1_DIR }}
           echo "=== [DB] Creating sql-backup from PROD-DB ===" >> $LOG_FILE
