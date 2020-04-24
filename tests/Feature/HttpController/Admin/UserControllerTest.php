@@ -16,7 +16,7 @@ class UserControllerTest extends TestCase
     /**
      * Create an administrative account to access the protected routes
      */
-    protected function createAdminAccount() : User
+    protected function createAdminAccount(): User
     {
         $admin = factory(User::class)->create([
             'email_verified_at' => new \DateTime()
@@ -41,9 +41,8 @@ class UserControllerTest extends TestCase
 
         $response = $this->actingAs($admin)->get('/admin/iam');
         $response->assertStatus(200);
-        $response->assertSee(htmlentities($userToSee->name));
-        $response->assertDontSee($userNotToSee->name);
-
+        $response->assertSee($userToSee->email);
+        $response->assertDontSee($userNotToSee->email);
     }
 
     /**
@@ -61,7 +60,7 @@ class UserControllerTest extends TestCase
     public function testUpdateUser()
     {
         $admin = $this->createAdminAccount();
-        
+
 
         $user = factory(User::class)->create([
             'email_verified_at' => new \DateTime()
