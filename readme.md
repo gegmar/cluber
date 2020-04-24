@@ -1,19 +1,14 @@
+![CI](https://github.com/gegmar/cluber/workflows/CI/badge.svg)
 [![Travis Build Status](https://travis-ci.org/gegmar/cluber.svg?branch=master)](https://travis-ci.org/gegmar/cluber)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/gegmar/cluber/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/gegmar/cluber/?branch=master)
 [![Scrutinizer Build Status](https://scrutinizer-ci.com/g/gegmar/cluber/badges/build.png?b=master)](https://scrutinizer-ci.com/g/gegmar/cluber/build-status/master)
-![GitHub Build Status](https://github.com/gegmar/cluber/workflows/Laravel/badge.svg?branch=master)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/gegmar/cluber/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/gegmar/cluber/?branch=master)
+
 
 ## About Cluber
 
-Cluber shall provide as a first use case a simple user interface to sell online tickets for the events organized by the clubs. The software builds on the popular Laravel project and aims to run on all conventional webhosters that provide PHP-Webspace and databases.
+Cluber provides a simple user interface to sell online tickets for the events organized by the clubs. The software builds on the popular Laravel project and aims to run on all conventional webhosters that provide PHP-Webspace and databases.
 
-## Goals for future development
-
-On the long run the tool shall not only provide online tickets but should also host tools for sending newsletters, use an interface build on Angular (not on the quick-n-dirty static views) and a comprehensive admin interface.
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Martin via [martin@gegenleitner.eu](mailto:martin@gegenleitner.eu). All security vulnerabilities will be promptly addressed.
+For selling tickets the project uses Mollie.com as its primary payment provider. So make sure to have an (free) account there to test transactions.
 
 ## License
 
