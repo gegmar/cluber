@@ -153,6 +153,8 @@ return [
     'selected_event' => 'Ausgewählte Veranstaltung',
     'sell' => 'Verkaufen',
     'sell_purchase_warning' => 'Wollen Sie wirklich diesen Einkauf auf "bezahlt" setzen?',
+    'sell_stop_customer' => 'Verkaufsstop für Kunden',
+    'sell_stop_retailer' => 'Verkaufsstop für Verkäufer',
     'sell_tickets' => 'Karten verkaufen',
     'set_box_office_sales' => 'Erträge der Abendkassa eintragen',
     'settings' => 'Einstellungen',

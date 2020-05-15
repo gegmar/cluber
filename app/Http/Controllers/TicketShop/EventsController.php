@@ -26,11 +26,8 @@ class EventsController extends Controller
             Cache::put('deletedLostOrders', '1', $expiresAt);
         }
 
-        $deadline = new \DateTime();
-        $deadline->add(new \DateInterval('PT2H'));
-
-        $projects = Project::where('is_archived', 0)->with(['events' => function ($query) use ($deadline) {
-            $query->where('start_date', '>=', $deadline)->orderBy('start_date', 'ASC');
+        $projects = Project::where('is_archived', 0)->with(['events' => function ($query) {
+            $query->where('customer_sell_stop', '>=', new \DateTime())->orderBy('start_date', 'ASC');
         }, 'events.location'])->get();
 
         $currentProjects = $projects->filter(function ($project) {

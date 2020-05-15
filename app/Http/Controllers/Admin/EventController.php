@@ -63,6 +63,8 @@ class EventController extends Controller
         $event->second_name = $request->name;
         $event->start_date = $request->start;
         $event->end_date = $request->end;
+        $event->retailer_sell_stop = $request->retailer_sell_stop;
+        $event->customer_sell_stop = $request->customer_sell_stop;
         $event->location_id = $request->location;
         $event->seat_map_id = $request->seatmap;
         $event->price_list_id = $request->pricelist;
@@ -97,6 +99,8 @@ class EventController extends Controller
         $event->second_name = $request->name;
         $event->start_date = $request->start;
         $event->end_date = $request->end;
+        $event->retailer_sell_stop = $request->retailer_sell_stop;
+        $event->customer_sell_stop = $request->customer_sell_stop;
         $event->location_id = $request->location;
         $event->seat_map_id = $request->seatmap;
         $event->price_list_id = $request->pricelist;

@@ -25,13 +25,15 @@ class CreateUpdateEvent extends FormRequest
     public function rules()
     {
         return [
-            'project'   => 'required|exists:projects,id',
-            'name'      => 'required|string|max:255',
-            'start'     => 'required|date_format:Y-m-d H:i:s',
-            'end'       => 'required|date_format:Y-m-d H:i:s|after:start',
-            'location'  => 'required|exists:locations,id',
-            'seatmap'   => 'required|exists:seat_maps,id',
-            'pricelist' => 'required|exists:price_lists,id'
+            'project'            => 'required|exists:projects,id',
+            'name'               => 'required|string|max:255',
+            'start'              => 'required|date_format:Y-m-d H:i:s',
+            'end'                => 'required|date_format:Y-m-d H:i:s|after:start',
+            'retailer_sell_stop' => 'required|date_format:Y-m-d H:i:s|before:end',
+            'customer_sell_stop' => 'required|date_format:Y-m-d H:i:s|before:end',
+            'location'           => 'required|exists:locations,id',
+            'seatmap'            => 'required|exists:seat_maps,id',
+            'pricelist'          => 'required|exists:price_lists,id'
         ];
     }
 }

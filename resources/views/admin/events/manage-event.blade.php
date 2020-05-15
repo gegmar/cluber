@@ -49,6 +49,14 @@
                         <input name="start" type="datetime" required class="col-sm-9 form-control" value="@if(!$create){{ $event->start_date }}@endif">
                     </div>
                     <div class="form-group row">
+                        <label class="col-sm-3 form-control-label">{{__('ticketshop.sell_stop_customer')}}</label>
+                        <input name="customer_sell_stop" type="datetime" required class="col-sm-9 form-control" value="@if(!$create){{ $event->customer_sell_stop }}@endif">
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 form-control-label">{{__('ticketshop.sell_stop_retailer')}}</label>
+                        <input name="retailer_sell_stop" type="datetime" required class="col-sm-9 form-control" value="@if(!$create){{ $event->retailer_sell_stop }}@endif">
+                    </div>
+                    <div class="form-group row">
                         <label class="col-sm-3 form-control-label">{{__('ticketshop.end')}}</label>
                         <input name="end" type="datetime" required class="col-sm-9 form-control" value="@if(!$create){{ $event->end_date }}@endif">
                     </div>

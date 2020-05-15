@@ -21,7 +21,7 @@ class SellTicketsController extends Controller
     public function events()
     {
         $projects = Project::where('is_archived', 0)->with(['events' => function ($query) {
-            $query->where('end_date', '>=', new \DateTime())->orderBy('start_date', 'ASC');
+            $query->where('retailer_sell_stop', '>=', new \DateTime())->orderBy('start_date', 'ASC');
         }, 'events.location'])->get();
 
         $currentProjects = $projects->filter(function ($project) {
@@ -49,6 +49,13 @@ class SellTicketsController extends Controller
      */
     public function sellTickets(SellTickets $request, Event $event)
     {
+        if( new \DateTime($event->retailer_sell_stop) < new \DateTime() ) {
+            Log::warning('Tickets-Sell-Action after retailer_sell_stop by user#' . Auth::user()->id . ' failed');
+            // Redirect user to select a valid amount of tickets
+            return redirect()->route('retail.sell.seats', [$event])
+                ->with('status', 'Sell stop for this event has already been reached!');
+        }
+
         $validated = $request->validated();
         $tickets = $validated['tickets'];
         $action = $validated['action'];

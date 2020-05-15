@@ -156,6 +156,8 @@ return [
     'selected_event' => 'Selected Event',
     'sell' => 'Sell',
     'sell_purchase_warning' => 'Do you really want to set this purchase to "paid"?',
+    'sell_stop_customer' => 'Sell Stop (for Customers)',
+    'sell_stop_retailer' => 'Sell Stop (for Retailers)',
     'sell_tickets' => 'Sell Tickets',
     'set_box_office_sales' => 'Set Box Office Sales',
     'settings' => 'Settings',
