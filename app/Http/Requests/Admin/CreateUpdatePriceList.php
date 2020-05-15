@@ -25,8 +25,9 @@ class CreateUpdatePriceList extends FormRequest
     public function rules()
     {
         return [
-            'name'       => 'required|max:255|string',
-            'categories' => 'array|exists:price_categories,id'
+            'name'                  => 'required|max:255|string',
+            'categories.*.id'       => 'required|exists:price_categories,id',
+            'categories.*.priority' => 'required|numeric',
         ];
     }
 }

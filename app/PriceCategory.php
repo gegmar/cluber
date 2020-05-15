@@ -11,7 +11,7 @@ class PriceCategory extends Model
 
     public function priceLists()
     {
-        return $this->belongsToMany('App\PriceList');
+        return $this->belongsToMany('App\PriceList')->withPivot('priority');
     }
 
     public function tickets()

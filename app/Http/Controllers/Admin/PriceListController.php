@@ -25,7 +25,7 @@ class PriceListController extends Controller
     {
         return view('admin.dependencies.manage-price-list', [
             'list' => $list,
-            'categories' => PriceCategory::all()
+            'categories' => PriceCategory::orderBy('name', 'ASC')->get()
         ]);
     }
 
@@ -40,8 +40,14 @@ class PriceListController extends Controller
         // Detach all categories from the list
         $list->categories()->detach();
 
-        // Attach only the given categories to the list
-        $list->categories()->attach($validated['categories']);
+        // Only attach categories if submitted (not required)
+        if($validated['categories']) {
+            foreach( $validated['categories'] as $category )
+            {
+                // Attach only the given categories to the list
+                $list->categories()->attach( $category['id'], ['priority' => $category['priority']] );
+            }
+        }
 
         // On successfull update redirect the browser to the list object
         return redirect()

@@ -31,11 +31,20 @@
                     </div>
                     <div class="form-group">
                         <label>{{__('ticketshop.categories')}}</label>
-                        <select class="selectable-multiple form-control" name="categories[]" multiple="multiple">
+                        <select class="selectable-multiple form-control" multiple="multiple">
                         @foreach ($categories as $category)
                             <option value="{{ $category->id }}" @if( $list->categories->contains($category->id) ) selected="selected" @endif>{{ $category->name }}</option>
                         @endforeach
                         </select>
+                    </div>
+                    <div id="selected-categories" class="container">
+                    @foreach ($list->categories()->orderBy('pivot_priority', 'ASC')->get() as $selectedCategory)
+                        <div class="form-group row" id="selected-category-{{ $selectedCategory->id }}">
+                            <input type="hidden" name="categories[{{ $selectedCategory->id }}][id]" value="{{ $selectedCategory->id }}">
+                            <label class="col-sm-6 col-md-4 col-lg-2 col-xl-2">{{ $selectedCategory->name }}</label>
+                            <input type="number" name="categories[{{ $selectedCategory->id }}][priority]" value="{{ $selectedCategory->pivot->priority }}" required data-msg="Please enter price list's name" class="form-control col-sm-1" >
+                        </div>
+                    @endforeach
                     </div>
                     <div class="form-group">
                         <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> {{__('ticketshop.save')}}</button>
@@ -62,6 +71,14 @@
 <script type="text/javascript">
     $(document).ready(function() {
         $('.selectable-multiple').select2();
+
+        $('.selectable-multiple').on('select2:select', function(e) {
+            $('#selected-categories').append('<div class="form-group row" id="selected-category-'+ e.params.data.id + '"><input type="hidden" name="categories[' + e.params.data.id + '][id]" value="' + e.params.data.id + '"><label class="col-sm-6 col-md-4 col-lg-2 col-xl-2">' + e.params.data.text + '</label><input type="number" name="categories[' + e.params.data.id + '][priority]" value="0" required data-msg="Please enter price list\'s name" class="form-control col-sm-1" ></div>');
+        });
+
+        $('.selectable-multiple').on('select2:unselect', function(e) {
+            $('#selected-category-' + e.params.data.id).remove();
+        });
     });
     </script>
 @endsection

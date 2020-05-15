@@ -37,7 +37,7 @@
                         <p>{{__('ticketshop.select_number_of_tickets')}} ({{__('ticketshop.price')}}: <span id="price">0</span> <i class="fa fa-eur"></i>).</p>
                         <form id="seats_form" class="form-horizontal" action="{{ route('ts.setSeatMap', ['event' => $event->id]) }}" method="POST">
                             @csrf
-                            @foreach( $event->priceList->categories as $category)
+                            @foreach( $event->priceList->categories()->orderBy('pivot_priority', 'ASC')->get() as $category)
                             <div class="form-group row">
                                 <label class="col-sm-6 form-control-label">{{ $category->name }} ({{ $category->price }} <i class="fa fa-eur"></i>) @if($category->description)<i class="fa fa-info-circle" data-toggle="tooltip" data-placement="top" title="{{$category->description}}"></i>@endif</label>
                                 <div class="col-sm-6">

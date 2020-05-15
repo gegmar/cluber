@@ -55,24 +55,24 @@
                                     </tr>
                                 </thead>
                                 @php
-                                $prices = $event->priceList->categories;
-                                $prices = $prices->keyBy('id'); // enable us to find correct prices in the later loop
+                                $categories = $event->priceList->categories()->orderBy('pivot_priority', 'ASC')->get();
+                                $categories = $categories->keyBy('id'); // enable us to find correct prices in the later loop
                                 @endphp
                                 <tbody>
                                     @php
                                         $sumTickets = 0;
                                         $sumPrice = 0;
                                     @endphp
-                                    @foreach( $tickets as $label => $count )
+                                    @foreach( $tickets as $categoryId => $count )
                                     @if( $count > 0 )
                                     @php
                                         $sumTickets += $count;
-                                        $sumPrice += $count * $prices[$label]->price;
+                                        $sumPrice += $count * $categories[$categoryId]->price;
                                     @endphp
                                     <tr>
-                                        <td>{{ $label }}</td>
+                                        <td>{{ $categories[$categoryId]->name }}</td>
                                         <td>{{ $count }}</td>
-                                        <td>{{ $prices[$label]->price }} <i class="fa fa-eur"></i></td>
+                                        <td>{{ $categories[$categoryId]->price }} <i class="fa fa-eur"></i></td>
                                     </tr>
                                     @endif
                                     @endforeach
