@@ -168,7 +168,7 @@ class EventController extends Controller
             $ticket->event_id          = $event->id;
             $ticket->purchase_id       = $purchase->id;
             // If the event already has a pricelist attached use the first item of it. Else use the backup price category
-            $ticket->price_category_id = $event->priceList->priceCategories ? $event->priceList->priceCategories[0]->id : $backupPriceCategory->id;
+            $ticket->price_category_id = $event->priceList->categories ? $event->priceList->categories[0]->id : $backupPriceCategory->id;
             $ticket->state             = 'consumed';
             $ticket->save();
         }
