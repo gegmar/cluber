@@ -4,12 +4,19 @@ namespace App\Http\Controllers\Admin;
 
 use App\Event;
 use App\Http\Controllers\Controller;
+use App\Location;
+use App\PriceCategory;
+use App\PriceList;
+use App\Project;
 use App\Purchase;
+use App\SeatMap;
 use App\Setting;
 use App\Ticket;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use Mews\Purifier\Facades\Purifier;
 use Spipu\Html2Pdf\Exception\Html2PdfException;
 use Spipu\Html2Pdf\Html2Pdf;
@@ -91,14 +98,82 @@ class SettingsController extends Controller
     public function testTicket()
     {
         // Wrap dummy data creation in a transaction in order
-        // to not actually store it in the production database
+        // to not actually store it in the production database.
+        //
+        // We have to use eloquent models and cannot use factories,
+        // because factories are not available on prod installations.
         DB::beginTransaction();
-        $purchase = factory(Purchase::class)->create();
-        $event = factory(Event::class)->create();
-        factory(Ticket::class, 7)->create([
-            'event_id' => $event->id,
-            'purchase_id' => $purchase->id
+        $vendor = User::create([
+            'name'     => 'TestVendor FamilynameOfVendor',
+            'email'    => 'vendor@testing.local',
+            'password' => ''
         ]);
+        $customer = User::create([
+            'name'     => 'Avery LongName ButItShouldWork',
+            'email'    => 'alsoverylong.nameforamail@testing.local',
+            'password' => ''
+        ]);
+        
+        $priceList = PriceList::create([
+            'name' => 'Testlist'
+        ]);
+        $priceCategory = PriceCategory::create([
+            'name'        => 'TestCategory',
+            'price'       => 450,
+            'description' => 'Just for testing the ticket layout'
+        ]);
+        $priceList->categories()->save($priceCategory);
+
+        $location = Location::create([
+            'name'    => 'Some Test Location anywhere',
+            'address' => 'Somewhere over the rainbox street 42, 424242 Kummerland, Wilde13'
+        ]);
+        $project = Project::create([
+            'name'        => 'A Test project',
+            'description' => 'Something something testing',
+            'is_archived' => false
+        ]);
+        $seatMap = SeatMap::create([
+            'name'        => 'TestSeatMap',
+            'seats'       => 2000,
+            'description' => 'Some test description that does not really matter',
+            'layout'      => null
+        ]);
+        $now = now();
+
+        $purchase = new Purchase();
+        $purchase->state = 'paid';
+        $purchase->state_updated = $now;
+        $purchase->random_id = Str::random(20);
+        $purchase->payment_secret = Str::random(20);
+        $purchase->customer_id = $customer->id;
+        $purchase->vendor_id = $vendor->id;
+        $purchase->payment_id = 'dummy-reference';
+        $purchase->save();
+
+        $event = new Event();
+        $event->second_name        = 'First event';
+        $event->customer_sell_stop = $now->add(1, 'day');
+        $event->retailer_sell_stop = $now->add(2, 'day');
+        $event->start_date         = $now->add(1, 'day');
+        $event->end_date           = $now->add(10, 'day');
+        $event->project_id         = $project->id;
+        $event->location_id        = $location->id;
+        $event->seat_map_id        = $seatMap->id;
+        $event->price_list_id      = $priceList->id;
+        $event->state              = 'open';
+        $event->save();
+        
+        for($i = 0; $i < 8; $i++) {
+            $ticket = new Ticket();
+            $ticket->random_id         = Str::random(20);
+            $ticket->seat_number       = $i + 1000;
+            $ticket->event_id          = $event->id;
+            $ticket->purchase_id       = $purchase->id;
+            $ticket->price_category_id = $priceCategory->id;
+            $ticket->state             = 'consumed';
+            $ticket->save();
+        }
         try {
             $html2pdf = new HTML2PDF('P', 'A4', 'de', true, 'UTF-8', 0);
             $html2pdf->pdf->SetDisplayMode('fullpage');

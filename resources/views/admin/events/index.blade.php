@@ -48,7 +48,10 @@
                                 <td>{{ $event->project->name }}</td>
                                 <td>{{ $event->second_name }}</td>
                                 <td>{{ $event->start_date }}</td>
-                                <td><a class="btn btn-primary" href="{{ route('admin.events.get', $event) }}"><i class="fa fa-edit"></i></a></td>
+                                <td>
+                                    <a class="btn btn-primary" href="{{ route('admin.events.get', $event) }}"><i class="fa fa-edit"></i></a>
+                                    <a class="btn btn-secondary" href="{{ route('admin.events.test-ticket', $event) }}" target="_blank"><i class="fa fa-ticket"></i></a>
+                                </td>
                             </tr>
                             @endforeach
                         </tbody>

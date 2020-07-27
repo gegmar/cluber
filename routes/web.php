@@ -126,6 +126,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::get('/{event}', 'EventController@get')->name('get');
             Route::post('/{event}/update', 'EventController@update')->name('update');
             Route::post('/{event}/delete', 'EventController@delete')->name('delete');
+            Route::get('/{event}/test-ticket', 'EventController@testTicket')->name('test-ticket');
 
             Route::prefix('project')->name('project.')->group(function() {
                 Route::post('/create', 'ProjectController@create')->name('create');

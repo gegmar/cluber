@@ -6,10 +6,19 @@ use App\Event;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\CreateUpdateEvent;
 use App\Location;
+use App\PriceCategory;
 use App\PriceList;
 use App\Project;
+use App\Purchase;
 use App\SeatMap;
+use App\Ticket;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Str;
+use Spipu\Html2Pdf\Exception\Html2PdfException;
+use Spipu\Html2Pdf\Html2Pdf;
 
 class EventController extends Controller
 {
@@ -120,5 +129,65 @@ class EventController extends Controller
         $event->delete();
         return redirect()->route('admin.events.dashboard')
                         ->with('status', 'Deleted Event successfully!');
+    }
+
+    /**
+     * Returns a ticket filled with dummy data to check the
+     * correct processing of the logo in the layout
+     */
+    public function testTicket(Event $event, Request $request)
+    {
+        // Wrap dummy data creation in a transaction in order
+        // to not actually store it in the production database.
+        //
+        // We have to use eloquent models and cannot use factories,
+        // because factories are not available on prod installations.
+        DB::beginTransaction();
+        $now = now();
+
+        $purchase = new Purchase();
+        $purchase->state = 'paid';
+        $purchase->state_updated = $now;
+        $purchase->random_id = Str::random(20);
+        $purchase->payment_secret = Str::random(20);
+        $purchase->customer_id = Auth::user()->id;
+        $purchase->vendor_id = Auth::user()->id;
+        $purchase->payment_id = 'dummy-reference';
+        $purchase->save();
+
+        $backupPriceCategory = PriceCategory::create([
+            'name'        => 'StandardPrice',
+            'price'       => 40,
+            'description' => 'Default Standard pricing'
+        ]);
+        
+        for($i = 0; $i < 8; $i++) {
+            $ticket = new Ticket();
+            $ticket->random_id         = Str::random(20);
+            $ticket->seat_number       = $i + 1000;
+            $ticket->event_id          = $event->id;
+            $ticket->purchase_id       = $purchase->id;
+            // If the event already has a pricelist attached use the first item of it. Else use the backup price category
+            $ticket->price_category_id = $event->priceList->priceCategories ? $event->priceList->priceCategories[0]->id : $backupPriceCategory->id;
+            $ticket->state             = 'consumed';
+            $ticket->save();
+        }
+        try {
+            $html2pdf = new HTML2PDF('P', 'A4', 'de', true, 'UTF-8', 0);
+            $html2pdf->pdf->SetDisplayMode('fullpage');
+            $html2pdf->pdf->SetAuthor(config('app.name'));
+            $html2pdf->pdf->SetTitle('Purchase #' . $purchase->id);
+
+            // Generate pdf-content by passing the tickets to the view
+            $content = view('pdfs.ticket-v2', ['tickets' => $purchase->tickets])->render();
+            $html2pdf->writeHTML($content);
+
+            $html2pdf->output('tickets-' . $purchase->id . '.pdf');
+        } catch (Html2PdfException $e) {
+            $html2pdf->clean();
+            DB::rollBack();
+            return redirect()->route('ticket.purchase', ['purchase' => $purchase])->with('state', $e->getMessage());
+        }
+        DB::rollBack();
     }
 }
