@@ -22,6 +22,8 @@ return [
     'shopping_cart_notification' => env('SHOW_SHOPPING_CART_NOTIFICATION', false),
     'corona_notification' => env('SHOW_CORONA_NOTIFICATION', false),
     'show_ticket_count_on_events' => env('SHOW_TICKET_COUNT_ON_EVENTS', false),
+    // Enlarges font of Location on tickets
+    'focus_location' => env('FOCUS_LOCATION', false),
 
 
     /*

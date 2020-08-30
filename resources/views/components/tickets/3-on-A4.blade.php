@@ -52,7 +52,11 @@ $logoPath = $logo ? Storage::path($logo->value) : false; // if a logo object exi
     </div>
 
     {{-- Display information about the location in the left bottom corner --}}
+    @if (config('app.focus_location'))
+    <div style="position:absolute; left: 0mm; bottom: 0mm; width: 40mm; font-size: 14pt;">
+    @else
     <div style="position:absolute; left: 0mm; bottom: 0mm; width: 40mm;">
+    @endif
         <p>{{__('ticketshop.location')}}: <b>{{ $ticket->event->location->name }}</b></p>
         <p>{{__('ticketshop.address')}}: <b>{{ $ticket->event->location->address }}</b></p>
     </div>
