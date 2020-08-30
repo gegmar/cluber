@@ -91,6 +91,12 @@
                     </div>
                     <div class="col-xl-4">
                         <a class="btn btn-primary" href="{{ route('admin.settings.test-ticket') }}" target="_blank">{{__('ticketshop.test_ticket')}}</a>
+                        <hr>
+                        <form style="display:inline-block" action="{{ route('admin.settings.delete-logo') }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger"><i class="fa fa-remove"></i> {{__('ticketshop.delete_logo')}}</button>
+                        </form>
                     </div>
                 </div>
             </div>

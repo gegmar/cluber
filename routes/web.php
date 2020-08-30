@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
  */
+
 Auth::routes(['verify' => true]);
 
 Route::get('/setlang/{locale}', 'StartController@changeLocale')->name('set-locale');
@@ -55,7 +56,7 @@ Route::namespace('TicketShop')->prefix('ts')->name('ts.')->group(function () {
         Route::get('{purchase}/{secret}/paypal/executepayment', 'PaymentProviderController@payPalExecutePayment')->name('payPalExec');
 
         // Mollie
-        Route::prefix('mollie')->name('mollie.')->group( function() {
+        Route::prefix('mollie')->name('mollie.')->group(function () {
             Route::post('/webhook', 'MollieController@processWebhook')->name('webhook');
             Route::get('/{purchase}/update', 'MollieController@getPaymentUpdate')->name('purchase-update');
         });
@@ -115,12 +116,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
     });
 
     // Admin routes
-    Route::middleware(['perm:ADMINISTRATE'])->namespace('Admin')->prefix('admin')->name('admin.')->group(function () { 
-        
+    Route::middleware(['perm:ADMINISTRATE'])->namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
+
         // Manage projects and events
-        Route::prefix('events')->name('events.')->group(function() {
+        Route::prefix('events')->name('events.')->group(function () {
             Route::get('/', 'EventController@index')->name('dashboard');
-            
+
             Route::get('/create', 'EventController@showCreate')->name('show-create');
             Route::post('/create', 'EventController@create')->name('create');
             Route::get('/{event}', 'EventController@get')->name('get');
@@ -128,7 +129,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::post('/{event}/delete', 'EventController@delete')->name('delete');
             Route::get('/{event}/test-ticket', 'EventController@testTicket')->name('test-ticket');
 
-            Route::prefix('project')->name('project.')->group(function() {
+            Route::prefix('project')->name('project.')->group(function () {
                 Route::post('/create', 'ProjectController@create')->name('create');
                 Route::get('/{project}', 'ProjectController@get')->name('get');
                 Route::post('/{project}/update', 'ProjectController@update')->name('update');
@@ -139,32 +140,32 @@ Route::middleware(['auth', 'verified'])->group(function () {
         });
 
         // Manage seatmaps, pricelists and locations
-        Route::prefix('dependencies')->name('dependencies.')->group(function() {
+        Route::prefix('dependencies')->name('dependencies.')->group(function () {
             Route::get('/', 'SeatMapController@index')->name('dashboard');
 
-            Route::prefix('seatmap')->name('seatmap.')->group(function() {
+            Route::prefix('seatmap')->name('seatmap.')->group(function () {
                 Route::post('/create', 'SeatMapController@create')->name('create');
                 Route::get('/{seatMap}', 'SeatMapController@get')->name('get');
                 Route::post('/{seatMap}/update', 'SeatMapController@update')->name('update');
                 Route::delete('/{seatMap}/delete', 'SeatMapController@delete')->name('delete');
             });
 
-            Route::prefix('location')->name('location.')->group(function() {
+            Route::prefix('location')->name('location.')->group(function () {
                 Route::post('/create', 'LocationController@create')->name('create');
                 Route::get('/{location}', 'LocationController@get')->name('get');
                 Route::post('/{location}/update', 'LocationController@update')->name('update');
                 Route::delete('/{location}/delete', 'LocationController@delete')->name('delete');
             });
 
-            Route::prefix('prices')->name('prices.')->group(function() {
-                Route::prefix('category')->name('category.')->group(function() {
+            Route::prefix('prices')->name('prices.')->group(function () {
+                Route::prefix('category')->name('category.')->group(function () {
                     Route::post('/create', 'PriceCategoryController@create')->name('create');
                     Route::get('/{category}', 'PriceCategoryController@get')->name('get');
                     Route::post('/{category}/update', 'PriceCategoryController@update')->name('update');
                     Route::delete('/{category}/delete', 'PriceCategoryController@delete')->name('delete');
                 });
-                
-                Route::prefix('list')->name('list.')->group(function() {
+
+                Route::prefix('list')->name('list.')->group(function () {
                     Route::post('/create', 'PriceListController@create')->name('create');
                     Route::get('/{list}', 'PriceListController@get')->name('get');
                     Route::post('/{list}/update', 'PriceListController@update')->name('update');
@@ -174,15 +175,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
         });
 
         // User and Role Management (=Identity and Access Management [IAM])
-        Route::prefix('iam')->name('iam.')->group(function() {
+        Route::prefix('iam')->name('iam.')->group(function () {
             Route::get('/', 'UserController@index')->name('dashboard');
 
-            Route::prefix('user')->name('user.')->group(function() {
+            Route::prefix('user')->name('user.')->group(function () {
                 Route::get('/{user}', 'UserController@displayUser')->name('manage');
                 Route::post('/{user}/update', 'UserController@updateUser')->name('update');
             });
 
-            Route::prefix('role')->name('role.')->group(function() {
+            Route::prefix('role')->name('role.')->group(function () {
                 Route::get('/{role}', 'RoleController@displayRole')->name('manage');
                 Route::post('/add', 'RoleController@createRole')->name('create');
                 Route::post('/{role}/update', 'RoleController@updateRole')->name('update');
@@ -191,16 +192,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
                 Route::post('/{role}/attach-users', 'RoleController@attachUsers')->name('attach-users');
                 Route::delete('/{role}/detach-user/{user}', 'RoleController@detachUser')->name('detach-user');
             });
-            
         });
 
-        Route::prefix('settings')->name('settings.')->group(function(){
+        Route::prefix('settings')->name('settings.')->group(function () {
             Route::get('/', 'SettingsController@index')->name('dashboard');
             Route::post('/terms-and-conditions/update', 'SettingsController@updateTerms')->name('update-terms');
             Route::post('/privacy-statement/update', 'SettingsController@updatePrivacy')->name('update-privacy');
             Route::post('/logo/update', 'SettingsController@updateLogo')->name('update-logo');
+            Route::delete('/logo/delete', 'SettingsController@deleteLogo')->name('delete-logo');
             Route::get('/logo/test-ticket', 'SettingsController@testTicket')->name('test-ticket');
         });
-
     });
 });

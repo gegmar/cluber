@@ -40,6 +40,7 @@ return [
     'dashboard' => 'Statistiken',
     'date' => 'Datum',
     'delete' => 'Löschen',
+    'delete_logo' => 'Logo entfernen',
     'delete_purchase' => 'Einkauf löschen',
     'delete_purchase_warning' => 'Betätigen Sie den Button, um den Einkauf zu löschen. ACHTUNG: Diese Aktion kann nicht rückgängig gemacht werden!',
     'delete_user' => 'Benutzer löschen',

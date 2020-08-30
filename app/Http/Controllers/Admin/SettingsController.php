@@ -74,7 +74,7 @@ class SettingsController extends Controller
         $validatedFile = $request->validate([
             'file' => 'file|max:30000|mimes:jpeg,bmp,png,svg,jpg'
         ]);
-        
+
         // Only extract file extension of the new logo picture
         $extension = $validatedFile['file']->extension();
         // set it to a generic name to overwrite any existing logo with the same extension
@@ -89,6 +89,17 @@ class SettingsController extends Controller
 
         // Redirect to source page with success message
         return redirect()->route('admin.settings.dashboard')->with('state', 'Success - Logo updated.');
+    }
+
+    // Purge the current logo
+    public function deleteLogo(Request $request)
+    {
+        Setting::where([
+            ['name', 'logo'],
+            ['lang', 'en']
+        ])->delete();
+        // Redirect to source page with success message
+        return redirect()->route('admin.settings.dashboard')->with('state', 'Success - Logo deleted.');
     }
 
     /**
@@ -113,7 +124,7 @@ class SettingsController extends Controller
             'email'    => 'alsoverylong.nameforamail@testing.local',
             'password' => ''
         ]);
-        
+
         $priceList = PriceList::create([
             'name' => 'Testlist'
         ]);
@@ -163,8 +174,8 @@ class SettingsController extends Controller
         $event->price_list_id      = $priceList->id;
         $event->state              = 'open';
         $event->save();
-        
-        for($i = 0; $i < 8; $i++) {
+
+        for ($i = 0; $i < 8; $i++) {
             $ticket = new Ticket();
             $ticket->random_id         = Str::random(20);
             $ticket->seat_number       = $i + 1000;

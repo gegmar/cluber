@@ -41,6 +41,7 @@ return [
     'dashboard' => 'Dashboard',
     'date' => 'Date',
     'delete' => 'Delete',
+    'delete_logo' => 'Delete Logo',
     'delete_purchase' => 'Delete purchase',
     'delete_purchase_warning' => 'Click the button to delete the purchase. Attention: This action is irreversible!',
     'delete_user' => 'Delete User',
