@@ -16,6 +16,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Mews\Purifier\Facades\Purifier;
 use Spipu\Html2Pdf\Exception\Html2PdfException;
@@ -94,10 +95,14 @@ class SettingsController extends Controller
     // Purge the current logo
     public function deleteLogo(Request $request)
     {
-        Setting::where([
+        $logo = Setting::where([
             ['name', 'logo'],
             ['lang', 'en']
-        ])->delete();
+        ])->first();
+
+        Storage::delete($logo->value);
+        $logo->delete();
+
         // Redirect to source page with success message
         return redirect()->route('admin.settings.dashboard')->with('state', 'Success - Logo deleted.');
     }
