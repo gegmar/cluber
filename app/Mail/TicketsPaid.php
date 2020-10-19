@@ -41,11 +41,9 @@ class TicketsPaid extends Mailable
             $html2pdf->pdf->SetAuthor(config('app.name'));
             $html2pdf->pdf->SetTitle('Purchase #' . $this->purchase->id);
 
-            // Add each ticket to the pdf
-            foreach ($this->purchase->tickets as $ticket) {
-                $content = view('pdfs.ticket', ['ticket' => $ticket])->render();
-                $html2pdf->writeHTML($content);
-            }
+            // Generate pdf-content by passing the tickets to the view
+            $content = view('pdfs.ticket-v2', ['tickets' => $this->purchase->tickets])->render();
+            $html2pdf->writeHTML($content);
 
             $pdfContent = $html2pdf->output('tickets-' . $this->purchase->id . '.pdf', 'S');
 
@@ -60,7 +58,5 @@ class TicketsPaid extends Mailable
             Log::error($errorText);
             return $this->markdown('mails.tickets.paid');
         }
-
-
     }
 }
