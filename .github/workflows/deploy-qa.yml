@@ -14,12 +14,13 @@ jobs:
   deploy-1:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
+    environment: environment-1_fw
     # The following steps must be performed in order to have a working deployment on the given environment
     steps:
     - name: 'Deploy with SSH on remote environment #1'
       uses: JimCronqvist/action-ssh@master
       with:
-        hosts: ${{ secrets.ENV_1_USER_AT_HOST }}
+        hosts: ${{ secrets.USER_AT_HOST }}
         privateKey: ${{ secrets.SSH_KEY }}
         debug: false
         # Run the following commands on the remote environment and
@@ -39,17 +40,17 @@ jobs:
         # 13. (Re)Create caches
         # 14. Perform migrations and required seedings
         # 15. QA-Environment is ready for manual tests!
-        command: |
-          BCK_FILE=${{ secrets.ENV_1_DIR }}/deployments/prod-db_$(date +%F_%T).sql
-          LOG_FILE=${{ secrets.ENV_1_DIR }}/deployments/qa_${{ github.sha }}_$(date +%F_%T).log
+        command: &deployment_command |
+          BCK_FILE=${{ secrets.DIR }}/deployments/prod-db_$(date +%F_%T).sql
+          LOG_FILE=${{ secrets.DIR }}/deployments/qa_${{ github.sha }}_$(date +%F_%T).log
           echo "=== Changing into deployment-dir ===" >> $LOG_FILE
-          cd ${{ secrets.ENV_1_DIR }}
+          cd ${{ secrets.DIR }}
           echo "=== [DB] Creating sql-backup from PROD-DB ===" >> $LOG_FILE
-          mysqldump ${{ secrets.ENV_1_PROD_DB_AUTH }} 2>> $LOG_FILE > $BCK_FILE
+          mysqldump ${{ secrets.PROD_DB_AUTH }} 2>> $LOG_FILE > $BCK_FILE
           echo "=== [DB] Delete all tables from QA-DB ===" >> $LOG_FILE
-          mysql -B ${{ secrets.ENV_1_QA_DB_AUTH }} -e 'SELECT "SET FOREIGN_KEY_CHECKS = 0;" AS "SHOW TABLES;" UNION SELECT concat("DROP TABLE IF EXISTS `", table_name, "`;") AS "SHOW TABLES;" FROM information_schema.tables WHERE table_schema = "${{ secrets.ENV_1_QA_DB_NAME }}" UNION SELECT "SET FOREIGN_KEY_CHECKS = 1;" AS "SHOW TABLES;";' | mysql ${{ secrets.ENV_1_QA_DB_AUTH }} >> $LOG_FILE 2>&1
+          mysql -B ${{ secrets.QA_DB_AUTH }} -e 'SELECT "SET FOREIGN_KEY_CHECKS = 0;" AS "SHOW TABLES;" UNION SELECT concat("DROP TABLE IF EXISTS `", table_name, "`;") AS "SHOW TABLES;" FROM information_schema.tables WHERE table_schema = "${{ secrets.QA_DB_NAME }}" UNION SELECT "SET FOREIGN_KEY_CHECKS = 1;" AS "SHOW TABLES;";' | mysql ${{ secrets.QA_DB_AUTH }} >> $LOG_FILE 2>&1
           echo "=== [DB] Restore PROD content to QA-DB ===" >> $LOG_FILE
-          mysql ${{ secrets.ENV_1_QA_DB_AUTH }} < $BCK_FILE >> $LOG_FILE 2>&1
+          mysql ${{ secrets.QA_DB_AUTH }} < $BCK_FILE >> $LOG_FILE 2>&1
           echo "=== [FS] Backup QA-.env-file and set current PROD files as new QA files ===" >> $LOG_FILE
           cp qa/.env . >> $LOG_FILE 2>&1
           rm -rf qa >> $LOG_FILE 2>&1
