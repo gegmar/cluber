@@ -40,7 +40,7 @@ jobs:
         # 13. (Re)Create caches
         # 14. Perform migrations and required seedings
         # 15. QA-Environment is ready for manual tests!
-        command: &deployment_command |
+        command: |
           BCK_FILE=${{ secrets.DIR }}/deployments/prod-db_$(date +%F_%T).sql
           LOG_FILE=${{ secrets.DIR }}/deployments/qa_${{ github.sha }}_$(date +%F_%T).log
           echo "=== Changing into deployment-dir ===" >> $LOG_FILE
