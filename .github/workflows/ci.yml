@@ -21,7 +21,14 @@ jobs:
         - 3306:3306
     
     steps:
-    - uses: actions/checkout@v2
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+    - name: Configure PHP-Environment
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '7.4'
+        extensions: mbstring, intl, fileinfo, curl, gd2, mysqli, openssl, pdo_mysql, pdo_pgsql, pgsql
+        ini-values: post_max_size=256M, max_execution_time=180
     - name: Copy .env
       run: php -r "file_exists('.env') || copy('.env.ci', '.env');"
     - name: Install Dependencies
