@@ -126,6 +126,11 @@
             how many tickets are still available. Also print 10% more
             additional lines than available for possible overbookings.
         --}}
+        @php
+            // Increment the index so the first blank line has
+            // not the same number as the last sold ticket
+            $index++;
+        @endphp
         @for (; $index <= ($event->seatMap->seats * 1.1); $index++)
         <tr class="border-bottom">
             <td>{{ $index }}</td>
