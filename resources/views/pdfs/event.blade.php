@@ -1,3 +1,47 @@
+@php
+    /*
+     * sort & filter tickets by state, customer and vendor
+     * Else it is sometimes hard to quickly find entries
+     */
+
+    // Filter for free tickets
+    $freeTickets = $tickets->filter(function($ticket, $key) {
+        return $ticket->purchase->state == "free";
+    })->sortBy(function($ticket, $key) {
+        if($ticket->purchase->customer_name) {
+            return $ticket->purchase->customer_name;
+        }
+        elseif ($ticket->purchase->customer) {
+            return $ticket->purchase->customer->name;
+        }
+        return __('ticketshop.shop-customer');
+    })->values()->all();
+
+    $reservedTickets = $tickets->filter(function($ticket, $key) {
+        return $ticket->purchase->state == "reserved";
+    })->sortBy(function($ticket, $key) {
+        if($ticket->purchase->customer_name) {
+            return $ticket->purchase->customer_name;
+        }
+        elseif ($ticket->purchase->customer) {
+            return $ticket->purchase->customer->name;
+        }
+        return __('ticketshop.shop-customer');
+    })->values()->all();
+
+    $paidTickets = $tickets->filter(function($ticket, $key) {
+        return $ticket->purchase->state == "paid";
+    })->sortBy(function($ticket, $key) {
+        return $ticket->purchase->vendor;
+    })->values()->all();
+
+    // Filter for reserved tickets
+    //$reservedTickets = $tickets->filter(function($ticket, $key) {
+    //    return $ticket->purchase->state == "reserved";
+    //})->all()->sortBy();
+@endphp
+
+
 <style type="text/css">
     table
     {
@@ -95,14 +139,11 @@
     <tbody>
         {{-- Add an index in the first row to give a better overview --}}
         @php
-            $index = 0;
+            $index = 1;
         @endphp
 
-        {{-- List all tickets from pre-event sales (onlineshop and shop customers) --}}
-        @foreach($tickets as $ticket)
-        @php
-            $index++;
-        @endphp
+        {{-- First list all free tickets from pre-event sales (onlineshop and shop customers) --}}
+        @foreach($freeTickets as $ticket)
         <tr class="border-bottom">
             <td>{{ $index }}</td>
             <td>{{ $ticket->id }}</td>
@@ -118,7 +159,56 @@
             <td>{{ __('ticketshop.'.$ticket->purchase->state)}}</td>
             <td></td>
         </tr>
+        @php
+            $index++;
+        @endphp
         @endforeach
+
+        {{-- Second, list all reserved tickets from pre-event sales (onlineshop and shop customers) --}}
+        @foreach($reservedTickets as $ticket)
+        <tr class="border-bottom">
+            <td>{{ $index }}</td>
+            <td>{{ $ticket->id }}</td>
+            <td>{{ $ticket->purchase->vendor->name }}</td>
+            <td>@if($ticket->purchase->customer_name) {{ $ticket->purchase->customer_name }} @elseif($ticket->purchase->customer){{ $ticket->purchase->customer->name}} @else {{__('ticketshop.shop-customer')}} @endif</td>
+            <td>{{$ticket->priceCategory->name}} ({{ $ticket->priceCategory->price}} €)</td>
+            @if($event->seatMap->layout)
+            @php
+                $rowAndSeat = $ticket->getRowAndSeat();
+            @endphp
+            <td>{{ $rowAndSeat['row']  }} | {{ $rowAndSeat['seat'] }}</td>
+            @endif
+            <td>{{ __('ticketshop.'.$ticket->purchase->state)}}</td>
+            <td></td>
+        </tr>
+        @php
+            $index++;
+        @endphp
+        @endforeach
+
+        {{-- Finally list all paid tickets from pre-event sales (onlineshop and shop customers) --}}
+        @foreach($paidTickets as $ticket)
+        <tr class="border-bottom">
+            <td>{{ $index }}</td>
+            <td>{{ $ticket->id }}</td>
+            <td>{{ $ticket->purchase->vendor->name }}</td>
+            <td>@if($ticket->purchase->customer_name) {{ $ticket->purchase->customer_name }} @elseif($ticket->purchase->customer){{ $ticket->purchase->customer->name}} @else {{__('ticketshop.shop-customer')}} @endif</td>
+            <td>{{$ticket->priceCategory->name}} ({{ $ticket->priceCategory->price}} €)</td>
+            @if($event->seatMap->layout)
+            @php
+                $rowAndSeat = $ticket->getRowAndSeat();
+            @endphp
+            <td>{{ $rowAndSeat['row']  }} | {{ $rowAndSeat['seat'] }}</td>
+            @endif
+            <td>{{ __('ticketshop.'.$ticket->purchase->state)}}</td>
+            <td></td>
+        </tr>
+        @php
+            $index++;
+        @endphp
+        @endforeach
+
+        
 
         {{--
             Add empty lines to allow box office entering their sales.
@@ -126,11 +216,6 @@
             how many tickets are still available. Also print 10% more
             additional lines than available for possible overbookings.
         --}}
-        @php
-            // Increment the index so the first blank line has
-            // not the same number as the last sold ticket
-            $index++;
-        @endphp
         @for (; $index <= ($event->seatMap->seats * 1.1); $index++)
         <tr class="border-bottom">
             <td>{{ $index }}</td>
