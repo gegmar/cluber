@@ -107,6 +107,30 @@
                     </div>
                 </div>
             </div>
+            {{-- if only mollie as single provider exists, don't display a select, but only a "Buy"-button --}}
+            @if(
+                config('paymentprovider.mollieApiKey') &&
+                !config('paymentprovider.payPalClientSecret') &&
+                !config('paymentprovider.sofortConfigKey')
+            )
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header d-flex align-items-center">
+                        <h3 class="h4">{{__('ticketshop.complete_payment')}}</h3>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">{{__('ticketshop.redirect_to_paymentprovider')}}</p>
+                    </div>
+                    <form action="{{ route('ts.pay') }}" method="post">
+                        @csrf
+                        <input type="hidden" name="paymethod" value="Mollie" required />
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><button class="btn btn-primary">{{__('ticketshop.buy')}}</button></li>
+                        </ul>
+                    </form>
+                </div>
+            </div>
+            @else
             <div class="col-md-4">
                 <div class="card">
                     <div class="card-header d-flex align-items-center">
@@ -135,6 +159,7 @@
                     </form>
                 </div>
             </div>
+            @endif
         </div>
     </div>
 </section>
