@@ -56,6 +56,7 @@ class Mollie
                     'currency' => 'EUR',
                     'value'    => $amountFormatted
                 ],
+                'locale' => config('paymentprovider.locale'),
                 'description' => $firstEvent->project->name . ' | ' . $firstEvent->second_name,
                 'redirectUrl' => route('ticket.purchase', $purchase),
                 'webhookUrl'  => route('ts.payment.mollie.webhook'),
