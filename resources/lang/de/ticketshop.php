@@ -63,6 +63,7 @@ return [
     'export' => 'Export',
     'final_bill' => 'Abrechnung',
     'free' => 'Frei',
+    'free_ticket' => 'Freikarte',
     'free-tickets' => 'Freikarten',
     'has_map' => 'Sitzplan?',
     'helga_metrics' => '"Helga"-Metriken',

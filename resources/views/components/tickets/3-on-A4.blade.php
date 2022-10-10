@@ -71,8 +71,13 @@ $logoPath = $logo ? Storage::path($logo->value) : false; // if a logo object exi
             </tr>
             @endif
             <tr>
+                @if($ticket->purchase->state == 'free')
+                <td>{{__('ticketshop.price')}}:</td>
+                <td>{{__('ticketshop.free_ticket')}}</td>
+                @else
                 <td>{{__('ticketshop.price')}}:</td>
                 <td>{{ $ticket->priceCategory->price }} € ({{ $ticket->priceCategory->name }})</td>
+                @endif
             </tr>
             <tr>
                 <td>{{__('ticketshop.bought_on')}}:</td>
