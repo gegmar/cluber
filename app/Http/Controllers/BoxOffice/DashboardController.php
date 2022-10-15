@@ -23,7 +23,7 @@ class DashboardController extends Controller
 
     public function downloadOverview(Event $event)
     {
-        $tickets = $event->tickets()->orderBy('id', 'ASC')->get();
+        $tickets = $event->tickets()->orderBy('tickets.id', 'ASC')->get();
         $overview = DB::table('tickets')
             ->join('purchases', 'tickets.purchase_id', '=', 'purchases.id')
             ->join('users', 'purchases.vendor_id', '=', 'users.id')

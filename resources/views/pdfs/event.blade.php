@@ -9,36 +9,37 @@
         return $ticket->purchase->state == "free";
     })->sortBy(function($ticket, $key) {
         if($ticket->purchase->customer_name) {
-            return $ticket->purchase->customer_name;
+            return $ticket->purchase->customer_name . str_pad((string)$ticket->id, 10, "0", STR_PAD_LEFT);
         }
         elseif ($ticket->purchase->customer) {
-            return $ticket->purchase->customer->name;
+            return $ticket->purchase->customer->name . str_pad((string)$ticket->id, 10, "0", STR_PAD_LEFT);
         }
-        return __('ticketshop.shop-customer');
+        return __('ticketshop.shop-customer') . str_pad((string)$ticket->id, 10, "0", STR_PAD_LEFT);
     })->values()->all();
 
     $reservedTickets = $tickets->filter(function($ticket, $key) {
         return $ticket->purchase->state == "reserved";
     })->sortBy(function($ticket, $key) {
         if($ticket->purchase->customer_name) {
-            return $ticket->purchase->customer_name;
+            return $ticket->purchase->customer_name . str_pad((string)$ticket->id, 10, "0", STR_PAD_LEFT);
         }
         elseif ($ticket->purchase->customer) {
-            return $ticket->purchase->customer->name;
+            return $ticket->purchase->customer->name . str_pad((string)$ticket->id, 10, "0", STR_PAD_LEFT);
         }
-        return __('ticketshop.shop-customer');
+        return __('ticketshop.shop-customer') . str_pad((string)$ticket->id, 10, "0", STR_PAD_LEFT);
     })->values()->all();
 
     $paidTickets = $tickets->filter(function($ticket, $key) {
         return $ticket->purchase->state == "paid";
     })->sortBy(function($ticket, $key) {
-        return $ticket->purchase->vendor;
+        if($ticket->purchase->customer_name) {
+            return $ticket->purchase->vendor->name . $ticket->purchase->customer_name . str_pad((string)$ticket->id, 10, "0", STR_PAD_LEFT);
+        }
+        elseif ($ticket->purchase->customer) {
+            return $ticket->purchase->vendor->name . $ticket->purchase->customer->name . str_pad((string)$ticket->id, 10, "0", STR_PAD_LEFT);
+        }
+        return $ticket->purchase->vendor->name . __('ticketshop.shop-customer') . str_pad((string)$ticket->id, 10, "0", STR_PAD_LEFT);
     })->values()->all();
-
-    // Filter for reserved tickets
-    //$reservedTickets = $tickets->filter(function($ticket, $key) {
-    //    return $ticket->purchase->state == "reserved";
-    //})->all()->sortBy();
 @endphp
 
 
