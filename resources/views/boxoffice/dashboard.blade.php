@@ -40,6 +40,7 @@
                     <button data-toggle="dropdown" type="button" class="btn btn-primary dropdown-toggle pull-right">{{__('ticketshop.options')}} <span class="caret"></span></button>
                     <div class="dropdown-menu">
                         <a class="dropdown-item" href="{{ route('boxoffice.download-overview', ['event' => $event->id]) }}" target="_blank">{{__('ticketshop.download-overview')}}</a>
+                        <a class="dropdown-item" href="{{ route('boxoffice.download-overview-id', ['event' => $event->id]) }}" target="_blank">{{__('ticketshop.download-overview-id')}}</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="{{ route('boxoffice.online', ['event' => $event->id]) }}">{{__('ticketshop.enter_boxoffice_data')}}</a>
                         {{-- <a class="dropdown-item" href="{{ route('boxoffice.upload-overview', ['event' => $event->id]) }}" target="_blank">Upload Excel</a> --}}

@@ -101,6 +101,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         Route::get('/', 'DashboardController@dashboard')->name('dashboard');
         Route::get('/{event}/download.pdf', 'DashboardController@downloadOverview')->name('download-overview');
+        Route::get('/{event}/download-id.pdf', 'DashboardController@downloadOverviewById')->name('download-overview-id');
 
         Route::get('/{event}/online', 'OnlineController@index')->name('online');
         Route::post('/{ticket}/change-state', 'OnlineController@switchTicketState')->name('switch-ticket-state');

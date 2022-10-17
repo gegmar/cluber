@@ -49,6 +49,7 @@ return [
     'dependencies' => 'Dependencies',
     'description' => 'Description',
     'download-overview' => 'Download overview',
+    'download-overview-id' => 'Download overview by Ticket-ID',
     'download_tickets' => 'Download Tickets',
     'dropzone_explain' => 'Drop files here or click to upload.',
     'edit' => 'Edit',

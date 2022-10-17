@@ -48,6 +48,7 @@ return [
     'dependencies' => 'Abhängigkeiten',
     'description' => 'Beschreibung',
     'download-overview' => 'Übersicht herunterladen',
+    'download-overview-id' => 'Übersicht nach Ticket-ID herunterladen',
     'download_tickets' => 'Karten als E-Tickets herunterladen',
     'dropzone_explain' => 'Ziehen Sie Dateien hierher oder klicken Sie hier um Dateien hochzuladen.',
     'edit' => 'Bearbeiten',

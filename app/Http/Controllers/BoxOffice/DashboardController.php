@@ -23,6 +23,16 @@ class DashboardController extends Controller
 
     public function downloadOverview(Event $event)
     {
+        return $this->getOverview($event, 'pdfs.event-by-vendor');
+    }
+
+    public function downloadOverviewById(Event $event)
+    {
+        return $this->getOverview($event, 'pdfs.event-by-id');
+    }
+
+    private function getOverview(Event $event, string $view)
+    {
         $tickets = $event->tickets()->orderBy('tickets.id', 'ASC')->get();
         $overview = DB::table('tickets')
             ->join('purchases', 'tickets.purchase_id', '=', 'purchases.id')
@@ -57,7 +67,7 @@ class DashboardController extends Controller
             $html2pdf->pdf->SetAuthor(config('app.name'));
             $html2pdf->pdf->SetTitle('Ticket Overview');
 
-            $content = view('pdfs.event', [
+            $content = view($view, [
                 'event'    => $event,
                 'tickets'  => $tickets,
                 'overview' => $overview,
