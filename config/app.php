@@ -74,9 +74,12 @@ return [
     | will be used by the PHP date and date-time functions. We have gone
     | ahead and set this to a sensible default for you out of the box.
     |
+    | @see https://www.php.net/manual/en/function.date-default-timezone-set.php for 
+    | valid values. Examples are 'Europe/Vienna'
+    |
      */
 
-    'timezone' => 'UTC',
+    'timezone' => env('APP_TIMEZONE', 'UTC'),
 
     /*
     |--------------------------------------------------------------------------
