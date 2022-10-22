@@ -46,7 +46,7 @@ jobs:
           echo "=== Changing into deployment-dir ===" >> $LOG_FILE
           cd ${{ secrets.DIR }}
           echo "=== [DB] Creating sql-backup from PROD-DB ===" >> $LOG_FILE
-          mysqldump ${{ secrets.PROD_DB_AUTH }} 2>> $LOG_FILE > $BCK_FILE
+          mysqldump ${{ secrets.PROD_DB_AUTH }} --no-tablespaces 2>> $LOG_FILE > $BCK_FILE
           echo "=== [DB] Delete all tables from QA-DB ===" >> $LOG_FILE
           mysql -B ${{ secrets.QA_DB_AUTH }} -e 'SELECT "SET FOREIGN_KEY_CHECKS = 0;" AS "SHOW TABLES;" UNION SELECT concat("DROP TABLE IF EXISTS `", table_name, "`;") AS "SHOW TABLES;" FROM information_schema.tables WHERE table_schema = "${{ secrets.QA_DB_NAME }}" UNION SELECT "SET FOREIGN_KEY_CHECKS = 1;" AS "SHOW TABLES;";' | mysql ${{ secrets.QA_DB_AUTH }} >> $LOG_FILE 2>&1
           echo "=== [DB] Restore PROD content to QA-DB ===" >> $LOG_FILE
@@ -62,7 +62,7 @@ jobs:
           git pull >> $LOG_FILE 2>&1
           echo "=== [Composer] Update composer and install dependencies ===" >> $LOG_FILE
           php73 ../composer.phar self-update >> $LOG_FILE 2>&1
-          php73 ../composer.phar install --no-dev --optimize-autoloader --no-suggest --no-progress >> $LOG_FILE 2>&1
+          php73 ../composer.phar install --no-dev --optimize-autoloader --no-progress >> $LOG_FILE 2>&1
           echo "=== [Artisan] Create caches from routes, views and config ===" >> $LOG_FILE
           php73 artisan optimize >> $LOG_FILE 2>&1
           php73 artisan route:cache >> $LOG_FILE 2>&1
@@ -86,7 +86,7 @@ jobs:
           echo "=== Changing into deployment-dir ===" >> $LOG_FILE
           cd ${{ secrets.ENV_2_DIR }}
           echo "=== [DB] Creating sql-backup from PROD-DB ===" >> $LOG_FILE
-          mysqldump ${{ secrets.ENV_2_PROD_DB_AUTH }} 2>> $LOG_FILE > $BCK_FILE
+          mysqldump ${{ secrets.ENV_2_PROD_DB_AUTH }} --no-tablespaces 2>> $LOG_FILE > $BCK_FILE
           echo "=== [DB] Delete all tables from QA-DB ===" >> $LOG_FILE
           mysql -B ${{ secrets.ENV_2_QA_DB_AUTH }} -e 'SELECT "SET FOREIGN_KEY_CHECKS = 0;" AS "SHOW TABLES;" UNION SELECT concat("DROP TABLE IF EXISTS `", table_name, "`;") AS "SHOW TABLES;" FROM information_schema.tables WHERE table_schema = "${{ secrets.ENV_2_QA_DB_NAME }}" UNION SELECT "SET FOREIGN_KEY_CHECKS = 1;" AS "SHOW TABLES;";' | mysql ${{ secrets.ENV_2_QA_DB_AUTH }} >> $LOG_FILE 2>&1
           echo "=== [DB] Restore PROD content to QA-DB ===" >> $LOG_FILE
@@ -102,7 +102,7 @@ jobs:
           git pull >> $LOG_FILE 2>&1
           echo "=== [Composer] Update composer and install dependencies ===" >> $LOG_FILE
           php73 ../composer.phar self-update >> $LOG_FILE 2>&1
-          php73 ../composer.phar install --no-dev --optimize-autoloader --no-suggest --no-progress >> $LOG_FILE 2>&1
+          php73 ../composer.phar install --no-dev --optimize-autoloader --no-progress >> $LOG_FILE 2>&1
           echo "=== [Artisan] Create caches from routes, views and config ===" >> $LOG_FILE
           php73 artisan optimize >> $LOG_FILE 2>&1
           php73 artisan route:cache >> $LOG_FILE 2>&1
@@ -126,7 +126,7 @@ jobs:
           echo "=== Changing into deployment-dir ===" >> $LOG_FILE
           cd ${{ secrets.ENV_3_DIR }}
           echo "=== [DB] Creating sql-backup from PROD-DB ===" >> $LOG_FILE
-          mysqldump ${{ secrets.ENV_3_PROD_DB_AUTH }} 2>> $LOG_FILE > $BCK_FILE
+          mysqldump ${{ secrets.ENV_3_PROD_DB_AUTH }} --no-tablespaces 2>> $LOG_FILE > $BCK_FILE
           echo "=== [DB] Delete all tables from QA-DB ===" >> $LOG_FILE
           mysql -B ${{ secrets.ENV_3_QA_DB_AUTH }} -e 'SELECT "SET FOREIGN_KEY_CHECKS = 0;" AS "SHOW TABLES;" UNION SELECT concat("DROP TABLE IF EXISTS `", table_name, "`;") AS "SHOW TABLES;" FROM information_schema.tables WHERE table_schema = "${{ secrets.ENV_3_QA_DB_NAME }}" UNION SELECT "SET FOREIGN_KEY_CHECKS = 1;" AS "SHOW TABLES;";' | mysql ${{ secrets.ENV_3_QA_DB_AUTH }} >> $LOG_FILE 2>&1
           echo "=== [DB] Restore PROD content to QA-DB ===" >> $LOG_FILE
@@ -142,7 +142,7 @@ jobs:
           git pull >> $LOG_FILE 2>&1
           echo "=== [Composer] Update composer and install dependencies ===" >> $LOG_FILE
           php73 ../composer.phar self-update >> $LOG_FILE 2>&1
-          php73 ../composer.phar install --no-dev --optimize-autoloader --no-suggest --no-progress >> $LOG_FILE 2>&1
+          php73 ../composer.phar install --no-dev --optimize-autoloader --no-progress >> $LOG_FILE 2>&1
           echo "=== [Artisan] Create caches from routes, views and config ===" >> $LOG_FILE
           php73 artisan optimize >> $LOG_FILE 2>&1
           php73 artisan route:cache >> $LOG_FILE 2>&1
