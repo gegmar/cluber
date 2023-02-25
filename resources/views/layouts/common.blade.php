@@ -26,7 +26,7 @@
             @endif
             @if(config('app.corona_notification'))
             @component('components.notification')
-            <strong><i class="fa fa-info-circle"></i></strong> Sehr geehrte Theaterfreunde, aufgrund der aktuellen Geschehnisse und Bestimmung im Kontext des Coronavirus haben wir uns dazu entschlossen unsere Veranstaltungsreihe "Corpus delicti" in den Herbst zu verschieben. Informationen zur Rückerstattung von bereits erworbenen Karten und das weitere Vorgehen finden Sie auf unsere Website unter <a href="https://www.theater-kirchdorf.at">www.theater-kirchdorf.at</a>.
+            <strong><i class="fa fa-info-circle"></i></strong> Sehr geehrte Theaterfreunde, aufgrund von Corona-Erkrankungen müssen wir die ersten beiden Termine am 3. und 4. März 2023 absagen. Informationen zur Rückerstattung von bereits erworbenen Karten finden Sie auf unsere Website unter <a href="https://www.theater-frei-wild.at">www.theater-frei-wild.at</a>.
             @endcomponent
             @endif
             <!-- Dashboard Counts Section-->
