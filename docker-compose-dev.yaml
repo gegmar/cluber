@@ -13,8 +13,8 @@ services:
       - MYSQL_USER=homestead
       - MYSQL_PASSWORD=secret
       - MYSQL_ROOT_PASSWORD=secret
-    #volumes: 
-      #- db_data:/var/lib/mysql
+    volumes: 
+      - db_data:/var/lib/mysql
   myadmin:
     image: phpmyadmin/phpmyadmin:latest
     ports:
@@ -26,5 +26,5 @@ services:
       - 3000:80
       - "2525:25"
 
-#volumes: 
-  # db_data:
+volumes: 
+  db_data:
