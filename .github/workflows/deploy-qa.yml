@@ -7,6 +7,8 @@ name: Deploy to QA-Environments
 on:
   push:
     branches: [ master ]
+    
+  workflow_dispatch:
 
 # This workflow run is made up of some deployments that can run in parallel
 jobs:
